@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>考试账户搭配路径指南 | Propfirmvip</title>
+    <style>
+        :root {
+            --bg-body: #ffffff;
+            --bg-secondary: #f5f5f7;
+            --text-primary: #1d1d1f;
+            --text-secondary: #86868b;
+            --accent-color: #0066cc;
+            --accent-hover: #004499;
+            --border-color: #d2d2d7;
+            --divider-color: #e5e5e5;
+            --card-bg: #ffffff;
+            --nav-bg: rgba(255, 255, 255, 0.8);
+            --shadow-sm: 0 1px 3px rgba(0,0,0,0.06);
+            --shadow-md: 0 4px 20px rgba(0,0,0,0.08);
+            --radius-lg: 20px;
+            --radius-md: 12px;
+            --font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Inter", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            --max-width: 760px;
+            --header-height: 60px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        body {
+            font-family: var(--font-family);
+            background-color: var(--bg-body);
+            color: var(--text-primary);
+            line-height: 1.6;
+            font-size: 17px;
+            padding-top: var(--header-height);
+        }
+
+        /* Navigation */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: var(--header-height);
+            background-color: var(--nav-bg);
+            backdrop-filter: saturate(180%) blur(20px);
+            -webkit-backdrop-filter: saturate(180%) blur(20px);
+            border-bottom: 1px solid rgba(0,0,0,0.1);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .nav-content {
+            width: 100%;
+            max-width: 1000px;
+            padding: 0 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-logo {
+            font-weight: 600;
+            font-size: 19px;
+            color: var(--text-primary);
+            text-decoration: none;
+            letter-spacing: -0.02em;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 24px;
+        }
+
+        .nav-link {
+            font-size: 14px;
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: color 0.2s ease;
+            font-weight: 500;
+        }
+
+        .nav-link:hover, .nav-link.active {
+            color: var(--text-primary);
+        }
+
+        /* Mobile Menu Toggle */
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 0;
+        }
+        
+        .menu-icon {
+            width: 24px;
+            height: 24px;
+            position: relative;
+        }
+
+        .menu-icon span {
+            display: block;
+            width: 100%;
+            height: 2px;
+            background-color: var(--text-primary);
+            position: absolute;
+            border-radius: 2px;
+            transition: all 0.3s ease;
+        }
+
+        .menu-icon span:nth-child(1) { top: 6px; }
+        .menu-icon span:nth-child(2) { top: 11px; }
+        .menu-icon span:nth-child(3) { top: 16px; }
+
+        /* Main Content */
+        .main-container {
+            max-width: var(--max-width);
+            margin: 0 auto;
+            padding: 60px 24px 100px;
+        }
+
+        .hero {
+            margin-bottom: 60px;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 48px;
+            line-height: 1.1;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            margin-bottom: 16px;
+        }
+
+        .hero p {
+            font-size: 21px;
+            line-height: 1.4;
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Sections */
+        section {
+            margin-bottom: 80px;
+            scroll-margin-top: 100px;
+        }
+
+        .section-header {
+            margin-bottom: 32px;
+            border-bottom: 1px solid var(--divider-color);
+            padding-bottom: 16px;
+        }
+
+        .section-title {
+            font-size: 32px;
+            font-weight: 600;
+            letter-spacing: -0.01em;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .section-icon {
+            font-size: 32px;
+        }
+
+        h3 {
+            font-size: 24px;
+            font-weight: 600;
+            margin: 40px 0 16px;
+            letter-spacing: -0.01em;
+        }
+
+        h4 {
+            font-size: 19px;
+            font-weight: 600;
+            margin: 24px 0 12px;
+        }
+
+        p {
+            margin-bottom: 1.2em;
+            color: #333;
+        }
+
+        ul {
+            list-style: none;
+            margin-bottom: 24px;
+        }
+
+        li {
+            margin-bottom: 8px;
+            padding-left: 20px;
+            position: relative;
+        }
+
+        li::before {
+            content: "•";
+            color: var(--text-secondary);
+            position: absolute;
+            left: 0;
+            font-weight: bold;
+        }
+
+        /* Cards */
+        .card {
+            background: var(--bg-secondary);
+            border-radius: var(--radius-lg);
+            padding: 24px;
+            margin-bottom: 24px;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+            background: #fff;
+        }
+
+        .card-title {
+            font-size: 19px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: var(--text-primary);
+        }
+
+        .card-content {
+            font-size: 16px;
+            color: var(--text-secondary);
+        }
+
+        /* Ranking Table Style */
+        .ranking-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .rank-card {
+            background: #fff;
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .rank-badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            width: fit-content;
+        }
+
+        .rank-s { background: #e3f2fd; color: #0066cc; }
+        .rank-a-plus { background: #e8f5e9; color: #2e7d32; }
+        .rank-a { background: #fff3e0; color: #ef6c00; }
+
+        /* Callout / Note */
+        .note {
+            background-color: #f5f5f7;
+            border-left: 4px solid var(--accent-color);
+            padding: 16px 20px;
+            border-radius: 0 12px 12px 0;
+            margin: 24px 0;
+            font-size: 15px;
+            color: var(--text-secondary);
+        }
+
+        .highlight {
+            color: var(--accent-color);
+            font-weight: 500;
+        }
+
+        /* Footer */
+        .footer {
+            border-top: 1px solid var(--divider-color);
+            padding: 40px 0;
+            margin-top: 80px;
+            text-align: center;
+            color: var(--text-secondary);
+            font-size: 13px;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .footer a {
+            color: var(--text-secondary);
+            text-decoration: none;
+        }
+
+        .footer a:hover {
+            text-decoration: underline;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 36px; }
+            .hero p { font-size: 18px; }
+            
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: var(--header-height);
+                left: 0;
+                right: 0;
+                background: var(--bg-body);
+                flex-direction: column;
+                padding: 20px;
+                border-bottom: 1px solid var(--divider-color);
+                box-shadow: var(--shadow-md);
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .menu-toggle {
+                display: block;
+            }
+            
+            .main-container {
+                padding: 40px 20px 80px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="nav-content">
+            <a href="#" class="nav-logo">Propfirmvip Guide</a>
+            <button class="menu-toggle" aria-label="Toggle navigation">
+                <div class="menu-icon">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </button>
+            <div class="nav-links">
+                <a href="#ranking" class="nav-link">排行参考</a>
+                <a href="#newbie" class="nav-link">新手路径</a>
+                <a href="#daily" class="nav-link">日结路径</a>
+                <a href="#farming" class="nav-link">种田策略</a>
+                <a href="#exam" class="nav-link">考试指南</a>
+                <a href="#payment" class="nav-link">付款与出金</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="main-container">
+        
+        <div class="hero">
+            <h1>考试账户搭配路径指南</h1>
+            <p>专业的 Futures Propfirm 考试策略与账户配置方案，助你从新手到稳定盈利。</p>
+        </div>
+
+        <section id="ranking">
+            <div class="section-header">
+                <h2 class="section-title"><span class="section-icon">🏆</span> Prop Firm 排行参考</h2>
+            </div>
+            <p>以下排行仅供参考，基于出金速度与规则友好度。</p>
+            
+            <div class="ranking-grid">
+                <div class="rank-card">
+                    <span class="rank-badge rank-s">S 级 (七个日结)</span>
+                    <p>TPT, Tradeday, Blusky, Purdia, FFN, The Future Desk, Phidias</p>
+                </div>
+                <div class="rank-card">
+                    <span class="rank-badge rank-a-plus">A+ 级</span>
+                    <p>Fundednext, PST (三天出金)</p>
+                </div>
+                <div class="rank-card">
+                    <span class="rank-badge rank-a">A 级</span>
+                    <p>TS, Fundingticks (不支持CN), Lucid, Tradeify, MFFU (不支持CN)</p>
+                </div>
+            </div>
+            <div class="note">
+                注：以下指南仅列举支持 CN (中国区) 的 Prop Firm。
+            </div>
+        </section>
+
+        <section id="newbie">
+            <div class="section-header">
+                <h2 class="section-title"><span class="section-icon">🌱</span> 新手路径</h2>
+            </div>
+            <p>对于新手（或之前没出过金的），应该先从容易出金、出金快的平台开始。推荐 TPT、FN、Purdia，以及 Lucid、Alpha、Topstep。</p>
+            <p>建议多看几遍规则图，先对规则熟悉。</p>
+
+            <div class="card">
+                <div class="card-title">TPT (Take Profit Trader)</div>
+                <div class="card-content">
+                    <p>TPT 考试是 EOD (End of Day) 结算，比较简单。例如 25K 账户只要 90 刀，1500 回撤做 1500 利润，50% 一致性，考试很好通过。</p>
+                    <p><strong>Pro 账户特点：</strong> 实时追踪回撤。追踪超过缓冲区后变静态账户（例如 25k 利润超过 1500 后不追踪）。打过缓冲区变静态可开始日结。</p>
+                    <p><strong>提款技巧：</strong> 缓冲区内的利润可提 50%。如果超过缓冲区，可使用终止账户按钮提取利润。未超过缓冲区也可联系客服申请提取剩余利润。</p>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-title">FN (FundedNext)</div>
+                <div class="card-content">
+                    <p><strong>Rapid Challenge (快速账户)：</strong> 出金规则友好。以 25k (89刀) 为例，1250 利润目标 (11月21日后购买为 1000)，1500 回撤。可以 1 天过。</p>
+                    <p><strong>策略：</strong> 拿到出金号后，做 3 天 (300+300+400) 凑够 1000 利润，提走 800 (100% 分成)，剩下 200 回撤继续做。算下来做 9 个号出 1 个都不亏。</p>
+                    <p class="highlight">注意：11.16 更新了纪律交易者计划（小黑屋），短时间快速爆号可能会被限制。建议按薅羊毛心态积累本金。</p>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-title">Lucid</div>
+                <div class="card-content">
+                    <p>性价比高，活动时免激活、无时间限制，每月交易 1 次保持活跃即可。考核失败账户 30 天内可重置 (5折重置活动时很划算)。</p>
+                    <p><strong>推荐：</strong> 新出的 25k 账户，无日损，1000 回撤打 1250 即可通过，相对简单。</p>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-title">Purdia</div>
+                <div class="card-content">
+                    <p>新用户首单免考 100k 约 300 多刀。规则：无日损、无一致性、3000 回撤做 3000 利润 (需满足 5 天 200)。</p>
+                    <p><strong>策略：</strong> 第一天用 3000 回撤梭 1 笔 2200，再做 4 天 200，划水 5 天。通过后 SFA 账户可直接提走 3000 或做日结。</p>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-title">Alpha</div>
+                <div class="card-content">
+                    <p>Zero 账户 (50k 约 89 刀) 适合种田。拿到出金号后，建议只做 5 天 200，然后出金。出金后到账 500，账户剩余 1500 回撤继续种田。</p>
+                    <p><strong>注意：</strong> 出金号有新闻限制 (前后 2 分钟不能交易)，考试号无限制。</p>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-title">Topstep</div>
+                <div class="card-content">
+                    <p>对新手友好，规则简单。缺点是有 149 激活费。做 5 天 150 即可出金 (出一半，留一半回撤)。</p>
+                    <p><strong>建议：</strong> 第一天多打一些，然后种田 4 天 150 出金。前期特别需要出金建立信心。</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="daily">
+            <div class="section-header">
+                <h2 class="section-title"><span class="section-icon">💰</span> 日结路径</h2>
+            </div>
+            <p>七个日结平台：TPT, Tradeday, Blusky, Purdia, FFN, The Future Desk, Phidias。</p>
+            
+            <h3>优先级推荐</h3>
+            <ul>
+                <li><strong>首选 TPT：</strong> Pro 账户梭过缓冲区后，每天可日结提到钱包，凑满 250 一起出到 Wise。</li>
+                <li><strong>其次 Purdia：</strong> 新用户 4 折买 100k 免考最划算。SFA 账户可全出或日结。</li>
+                <li><strong>再者 Tradeday：</strong> 禁止魔法 (建议单独手机交易)。考试有 30% 一致性，考过后轻松，出金号 EOD。</li>
+            </ul>
+            <p>剩余平台 (Blusky, TFD 等) 性价比不高，可视情况考虑。</p>
+        </section>
+
+        <section id="farming">
+            <div class="section-header">
+                <h2 class="section-title"><span class="section-icon">🌾</span> 种田 + 暴击策略</h2>
+            </div>
+            <div class="note">
+                除了暴击三杰 (TPT、Tradeday、Topstep) 外，其他平台一律建议“种田” (稳健小额盈利)。
+            </div>
+        </section>
+
+        <section id="exam">
+            <div class="section-header">
+                <h2 class="section-title"><span class="section-icon">📘</span> 考试指南</h2>
+            </div>
+            <p>如果条件允许，建议：<strong>考试号梭 (激进)，出金号种田 (稳健)。</strong></p>
+            <p>这样不需要在考试上浪费过多时间，在出金号上再慢慢苟。</p>
+            
+            <h3>有日损考试号技巧</h3>
+            <p>以 Lucid 50k 为例 (总回撤 2000，日损 1200，目标 3000)：</p>
+            <ol style="margin-left: 20px; margin-bottom: 20px; color: var(--text-secondary);">
+                <li>当天先小心翼翼打 1000 利润 (多笔完成)。此时日回撤空间变为 1000 + 1200 = 2200。</li>
+                <li>用这 2200 回撤空间做 1 笔 1:1 的高胜率单子梭 2000。</li>
+                <li>如果失败剩 800 回撤，留着慢慢打或梭新闻。</li>
+            </ol>
+
+            <h3>出金号心态</h3>
+            <p>拿到出金号后别急，慢慢打。把日盈利清算设置为 1260，但目标是每天做几百种田。如果有好机会，仅用当日利润去博取更多，第二天继续种田。</p>
+        </section>
+
+        <section id="payment">
+            <div class="section-header">
+                <h2 class="section-title"><span class="section-icon">💳</span> 付款与出金指南</h2>
+            </div>
+            
+            <div class="card">
+                <div class="card-title">付款方式</div>
+                <div class="card-content">
+                    <ul>
+                        <li><strong>国内卡：</strong> 中信/中行/邮储的 Visa/Master 单标储蓄卡；工行/建行运通储蓄卡。</li>
+                        <li><strong>境外卡 (推荐)：</strong> 港卡等。</li>
+                        <li><strong>Bybit 卡 (推荐)：</strong> 小红书搜教程。</li>
+                        <li><strong>加密支付：</strong> Fundednext, Topone, Tradeify 等支持。</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-title">出金方式</div>
+                <div class="card-content">
+                    <p><strong>优先出 WISE，其次 RISE。</strong></p>
+                    <br>
+                    <ul>
+                        <li><strong>WISE：</strong> 通过 ACH 出到 WISE 美元账户。WISE 可汇款至微信 (秒到)。</li>
+                        <li><strong>RISE：</strong> 可直接出 U (秒到) 或电汇港卡。注册审核较严。</li>
+                        <li><strong>Plane：</strong> 需邀请注册。完善 W8 税表后可出到 WISE (约 4 工作日)。</li>
+                        <li><strong>Workmarket：</strong> Lucid 使用。可填 WISE (约 2 工作日)。不建议填 Paypal。</li>
+                        <li><strong>Gusto：</strong> Blusky/FFF 使用。可出到 WISE 或国内卡。</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="footer">
+        <div class="footer-links">
+            <a href="#">Propfirmvip 冒险岛</a>
+            <a href="#">Discord</a>
+            <a href="#">基础规则指南</a>
+        </div>
+        <p>&copy; 2025 Propfirmvip 自营冒险岛 – Futures Propfirm. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // Mobile Menu Toggle
+        const menuToggle = document.querySelector('.menu-toggle');
+        const navLinks = document.querySelector('.nav-links');
+        const links = document.querySelectorAll('.nav-link');
+
+        menuToggle.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            
+            // Animate hamburger to X
+            const spans = menuToggle.querySelectorAll('span');
+            if (navLinks.classList.contains('active')) {
+                spans[0].style.transform = 'rotate(45deg) translate(5px, 5px)';
+                spans[1].style.opacity = '0';
+                spans[2].style.transform = 'rotate(-45deg) translate(7px, -6px)';
+            } else {
+                spans[0].style.transform = 'none';
+                spans[1].style.opacity = '1';
+                spans[2].style.transform = 'none';
+            }
+        });
+
+        // Close mobile menu when clicking a link
+        links.forEach(link => {
+            link.addEventListener('click', () => {
+                if (window.innerWidth <= 768) {
+                    navLinks.classList.remove('active');
+                    const spans = menuToggle.querySelectorAll('span');
+                    spans[0].style.transform = 'none';
+                    spans[1].style.opacity = '1';
+                    spans[2].style.transform = 'none';
+                }
+            });
+        });
+
+        // Smooth Scroll for Anchor Links (Polyfill-like behavior if needed, but CSS scroll-behavior covers most)
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                if (targetElement) {
+                    const headerOffset = 80;
+                    const elementPosition = targetElement.getBoundingClientRect().top;
+                    const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+    
+                    window.scrollTo({
+                        top: offsetPosition,
+                        behavior: "smooth"
+                    });
+                }
+            });
+        });
+
+        // Active Link Highlighting on Scroll
+        const sections = document.querySelectorAll('section');
+        const navItems = document.querySelectorAll('.nav-link');
+
+        window.addEventListener('scroll', () => {
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (pageYOffset >= (sectionTop - 150)) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navItems.forEach(li => {
+                li.classList.remove('active');
+                if (li.getAttribute('href').includes(current)) {
+                    li.classList.add('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
