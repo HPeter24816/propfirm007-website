@@ -3,26 +3,61 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>交易学习资料资源库</title>
+    <title>价格行为学习资源</title>
     <style>
         /* --- CSS Variables & Reset --- */
         :root {
-            --bg-color: #FBFBFD; /* Apple-like off-white background */
-            --card-bg: #FFFFFF;
-            --text-primary: #1D1D1F; /* Apple's primary text */
-            --text-secondary: #86868B; /* Apple's secondary text */
-            --accent-color: #0066CC; /* Apple blue */
-            --accent-hover: #004499;
-            --border-color: #D2D2D7;
+            /* --- Apple System Colors (Light Mode) --- */
+            
+            /* Backgrounds */
+            --bg-color: #F2F2F7; /* secondarySystemBackground / systemGroupedBackground */
+            --card-bg: #FFFFFF; /* systemBackground / secondarySystemGroupedBackground */
+            
+            /* Text Colors (Label) */
+            --text-primary: #000000; /* label */
+            --text-secondary: rgba(60, 60, 67, 0.6); /* secondaryLabel */
+            --text-tertiary: rgba(60, 60, 67, 0.3); /* tertiaryLabel */
+            
+            /* Separators & Fills */
+            --border-color: rgba(60, 60, 67, 0.29); /* separator */
+            --fill-color: rgba(120, 120, 128, 0.20); /* systemFill */
+            --secondary-fill: rgba(120, 120, 128, 0.16); /* secondarySystemFill */
+            
+            /* Standard Palette (Light) */
+            --color-blue: #007AFF;
+            --color-green: #34C759;
+            --color-indigo: #5856D6;
+            --color-orange: #FF9500;
+            --color-pink: #FF2D55;
+            --color-purple: #AF52DE;
+            --color-red: #FF3B30;
+            --color-teal: #5AC8FA;
+            --color-yellow: #FFCC00;
+            --color-gray: #8E8E93;
+            
+            /* Shadows */
             --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.04);
-            --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.06);
+            --shadow-md: 0 12px 24px rgba(0, 0, 0, 0.06);
             --shadow-lg: 0 20px 40px rgba(0, 0, 0, 0.08);
+            
+            /* Layout */
             --radius-md: 12px;
-            --radius-lg: 20px;
+            --radius-lg: 24px;
             --font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-            --max-width: 800px;
-            --header-height: 60px;
+            --max-width: 1200px;
+            --header-height: 70px;
+            --sidebar-width: 280px;
         }
+
+        /* Section Theming Configuration */
+        #core { --theme-color: var(--color-blue); }
+        #cards { --theme-color: var(--color-indigo); }
+        #ptm { --theme-color: var(--color-green); }
+        #rose { --theme-color: var(--color-orange); }
+        #research { --theme-color: var(--color-purple); }
+        #psychology { --theme-color: var(--color-red); }
+        #history { --theme-color: var(--color-gray); }
+        #ebooks { --theme-color: var(--color-teal); }
 
         * {
             margin: 0;
@@ -37,39 +72,109 @@
             line-height: 1.6;
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
+            display: flex;
         }
 
         a {
             text-decoration: none;
             color: inherit;
-            transition: color 0.2s ease;
+            transition: all 0.2s ease;
         }
 
         ul {
             list-style: none;
         }
 
-        /* --- Header & Navigation --- */
+        /* --- Sidebar Navigation (Desktop) --- */
+        aside {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: var(--sidebar-width);
+            height: 100vh;
+            background: rgba(255, 255, 255, 0.8); /* systemBackground with opacity */
+            backdrop-filter: saturate(180%) blur(30px);
+            -webkit-backdrop-filter: saturate(180%) blur(30px);
+            border-right: 1px solid var(--border-color); /* separator */
+            padding: 40px 32px;
+            display: flex;
+            flex-direction: column;
+            z-index: 1000;
+            overflow-y: auto;
+        }
+
+        .sidebar-logo {
+            font-weight: 700;
+            font-size: 20px;
+            letter-spacing: -0.01em;
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 48px;
+            padding-bottom: 24px;
+            border-bottom: 1px solid var(--border-color);
+            opacity: 0.9;
+            transition: opacity 0.2s;
+        }
+        
+        .sidebar-logo:hover {
+            opacity: 1;
+        }
+
+        .sidebar-nav {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .sidebar-nav a {
+            font-size: 15px;
+            color: var(--text-secondary);
+            font-weight: 500;
+            padding: 12px 16px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            position: relative;
+        }
+
+        .sidebar-nav a:hover {
+            color: var(--color-blue);
+            background-color: rgba(0, 122, 255, 0.1); /* systemBlue with opacity */
+            transform: translateX(4px);
+        }
+        
+        /* Optional: Add icons to sidebar links via CSS pseudo-elements or keep simple */
+        .sidebar-nav a::before {
+            content: '';
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background-color: currentColor;
+            opacity: 0.4;
+        }
+
+        /* --- Header (Mobile Only) --- */
         header {
+            display: none;
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: var(--header-height);
-            background: rgba(251, 251, 253, 0.8);
-            backdrop-filter: saturate(180%) blur(20px);
-            -webkit-backdrop-filter: saturate(180%) blur(20px);
-            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+            background: rgba(255, 255, 255, 0.9); /* systemBackground with opacity */
+            backdrop-filter: saturate(180%) blur(30px);
+            -webkit-backdrop-filter: saturate(180%) blur(30px);
+            border-bottom: 1px solid var(--border-color);
             z-index: 1000;
-            display: flex;
             align-items: center;
             justify-content: center;
-            transition: all 0.3s ease;
         }
 
         nav {
             width: 100%;
-            max-width: var(--max-width);
             padding: 0 24px;
             display: flex;
             justify-content: space-between;
@@ -77,70 +182,62 @@
         }
 
         .logo {
-            font-weight: 600;
+            font-weight: 700;
             font-size: 18px;
-            letter-spacing: -0.02em;
             color: var(--text-primary);
             display: flex;
             align-items: center;
             gap: 8px;
         }
 
-        .nav-links {
-            display: flex;
-            gap: 24px;
-        }
-
-        .nav-links a {
-            font-size: 14px;
-            color: var(--text-secondary);
-            font-weight: 500;
-            position: relative;
-        }
-
-        .nav-links a:hover, .nav-links a.active {
-            color: var(--text-primary);
-        }
-
         /* --- Main Layout --- */
         main {
-            max-width: var(--max-width);
-            margin: 0 auto;
-            padding: calc(var(--header-height) + 60px) 24px 60px;
+            flex: 1;
+            margin-left: var(--sidebar-width);
+            max-width: calc(100% - var(--sidebar-width));
+            padding: 60px 60px 100px;
         }
 
         .hero {
-            text-align: center;
-            margin-bottom: 60px;
+            text-align: left;
+            margin-bottom: 80px;
             opacity: 0;
             transform: translateY(20px);
             animation: fadeUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            padding: 60px 0;
+            position: relative;
+            /* Subtle background mesh for visual interest using system colors */
+            background: 
+                radial-gradient(circle at 90% 10%, rgba(0, 122, 255, 0.05) 0%, transparent 40%),
+                radial-gradient(circle at 10% 90%, rgba(88, 86, 214, 0.05) 0%, transparent 40%);
         }
 
         .hero h1 {
-            font-size: 40px;
-            font-weight: 700;
+            font-size: 56px;
+            font-weight: 800;
             letter-spacing: -0.03em;
-            margin-bottom: 16px;
-            background: linear-gradient(135deg, #1D1D1F 0%, #434344 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            margin-bottom: 24px;
+            /* Use text-primary instead of gradient for cleaner Apple look, or keep gradient if preferred */
+            color: var(--text-primary); 
+            line-height: 1.1;
         }
 
         .hero p {
-            font-size: 19px;
+            font-size: 24px;
             color: var(--text-secondary);
-            max-width: 600px;
-            margin: 0 auto;
+            max-width: 800px;
+            margin: 0;
             font-weight: 400;
+            line-height: 1.5;
         }
 
         /* --- Sections --- */
         section {
-            margin-bottom: 80px;
+            margin-bottom: 120px;
             opacity: 0;
             transform: translateY(30px);
             transition: opacity 0.8s ease, transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+            scroll-margin-top: 40px; 
         }
 
         section.visible {
@@ -149,81 +246,103 @@
         }
 
         .section-header {
-            margin-bottom: 24px;
+            margin-bottom: 40px;
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 16px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid var(--border-color);
         }
 
         .section-title {
-            font-size: 24px;
-            font-weight: 600;
+            font-size: 32px;
+            font-weight: 700;
             letter-spacing: -0.02em;
+            color: var(--text-primary);
         }
 
         .section-badge {
-            background-color: #F5F5F7;
-            color: var(--text-secondary);
-            font-size: 12px;
-            padding: 4px 10px;
+            /* Dynamic coloring based on section theme */
+            background-color: color-mix(in srgb, var(--theme-color), transparent 90%);
+            color: var(--theme-color);
+            font-size: 13px;
+            padding: 6px 14px;
             border-radius: 20px;
             font-weight: 600;
+            letter-spacing: 0.02em;
             text-transform: uppercase;
-            letter-spacing: 0.05em;
+        }
+        
+        .section-desc {
+            display: block;
+            width: 100%;
+            margin-top: 8px;
+            font-size: 16px;
+            color: var(--text-secondary);
         }
 
         /* --- Cards Grid --- */
         .grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 24px;
+            gap: 32px;
         }
 
         /* --- Card Component --- */
         .card {
             background: var(--card-bg);
             border-radius: var(--radius-lg);
-            padding: 24px;
+            padding: 32px;
             box-shadow: var(--shadow-sm);
-            border: 1px solid rgba(0, 0, 0, 0.02);
+            border: 1px solid rgba(0, 0, 0, 0.04);
             transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
             display: flex;
             flex-direction: column;
             height: 100%;
             position: relative;
             overflow: hidden;
-            cursor: default;
+            cursor: pointer;
         }
 
         .card:hover {
-            transform: translateY(-4px) scale(1.01);
+            transform: translateY(-8px);
             box-shadow: var(--shadow-md);
+            /* Colored border on hover */
+            border-color: color-mix(in srgb, var(--theme-color), transparent 60%);
         }
 
         .card-icon {
-            width: 48px;
-            height: 48px;
-            background-color: #F5F5F7;
-            border-radius: 12px;
+            width: 56px;
+            height: 56px;
+            /* Dynamic icon background */
+            background-color: color-mix(in srgb, var(--theme-color), transparent 90%);
+            color: var(--theme-color);
+            border-radius: 16px;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin-bottom: 16px;
-            color: var(--text-primary);
+            margin-bottom: 24px;
+            transition: transform 0.4s ease;
+        }
+        
+        .card:hover .card-icon {
+            transform: scale(1.1) rotate(5deg);
         }
 
         .card-title {
-            font-size: 17px;
-            font-weight: 600;
-            margin-bottom: 8px;
+            font-size: 19px;
+            font-weight: 700;
+            margin-bottom: 10px;
             color: var(--text-primary);
+            line-height: 1.3;
         }
 
         .card-desc {
-            font-size: 14px;
+            font-size: 15px;
             color: var(--text-secondary);
-            margin-bottom: 24px;
+            margin-bottom: 32px;
             flex-grow: 1;
+            line-height: 1.6;
         }
 
         .card-action {
@@ -234,92 +353,29 @@
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            padding: 10px 20px;
-            background-color: #F5F5F7;
-            color: var(--text-primary);
-            font-size: 13px;
+            padding: 12px 24px;
+            background-color: #F2F2F7; /* systemGray6 */
+            color: var(--color-blue); /* link color */
+            font-size: 14px;
             font-weight: 600;
-            border-radius: 20px;
-            transition: all 0.2s ease;
+            border-radius: 30px;
+            transition: all 0.3s ease;
             width: 100%;
-            gap: 6px;
         }
 
-        .btn:hover {
-            background-color: #E8E8ED;
-        }
-
-        .btn-primary {
-            background-color: var(--text-primary);
+        /* High contrast hover effect */
+        .card:hover .btn {
+            background-color: var(--theme-color);
             color: white;
-        }
-
-        .btn-primary:hover {
-            background-color: #333;
-            transform: scale(1.02);
-        }
-
-        /* --- Video List Specifics --- */
-        .video-item {
-            display: flex;
-            align-items: center;
-            padding: 16px;
-            background: var(--card-bg);
-            border-radius: var(--radius-md);
-            box-shadow: var(--shadow-sm);
-            margin-bottom: 12px;
-            transition: all 0.2s ease;
-            border: 1px solid rgba(0,0,0,0.02);
-        }
-
-        .video-item:hover {
-            transform: translateX(4px);
-            box-shadow: var(--shadow-md);
-        }
-
-        .video-icon {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            background-color: #FF0000; /* YouTube Red */
-            color: white;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-right: 16px;
-            flex-shrink: 0;
-        }
-        
-        .video-icon.bilibili {
-            background-color: #00A1D6; /* Bilibili Blue */
-        }
-
-        .video-info {
-            flex-grow: 1;
-        }
-
-        .video-title {
-            font-size: 15px;
-            font-weight: 600;
-            color: var(--text-primary);
-        }
-
-        .video-desc {
-            font-size: 13px;
-            color: var(--text-secondary);
-        }
-
-        .video-link-icon {
-            color: var(--text-secondary);
-            opacity: 0.5;
+            box-shadow: 0 4px 12px color-mix(in srgb, var(--theme-color), transparent 70%);
         }
 
         /* --- Footer --- */
         footer {
             text-align: center;
-            padding: 40px 0;
-            border-top: 1px solid rgba(0, 0, 0, 0.05);
-            margin-top: 60px;
+            padding: 80px 0 40px;
+            border-top: 1px solid var(--border-color);
+            margin-top: 80px;
             color: var(--text-secondary);
             font-size: 13px;
         }
@@ -331,29 +387,50 @@
         }
 
         /* --- Responsive --- */
+        @media (max-width: 1024px) {
+            aside { display: none; }
+            header { display: flex; }
+            main { margin-left: 0; max-width: 100%; padding: calc(var(--header-height) + 40px) 24px 60px; }
+            .hero { text-align: center; padding: 40px 0; }
+            .hero h1 { font-size: 40px; }
+            .hero p { font-size: 18px; margin: 0 auto; }
+            .grid { grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; }
+            .section-header { flex-direction: column; align-items: flex-start; gap: 10px; }
+        }
+
         @media (max-width: 768px) {
-            .hero h1 { font-size: 32px; }
+            .hero h1 { font-size: 34px; }
             .grid { grid-template-columns: 1fr; }
-            nav { padding: 0 16px; }
-            .nav-links { display: none; } /* Simple hide for mobile for this demo, or could be hamburger */
         }
     </style>
 </head>
 <body>
 
-    <!-- Header -->
+    <!-- Sidebar (Desktop) -->
+    <aside>
+        <a href="../website/index.html" class="sidebar-logo">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+            <span>Futures Propfirm<br>中文社区</span>
+        </a>
+        <div class="sidebar-nav">
+            <a href="#core">核心体系</a>
+            <a href="#cards">图例卡片</a>
+            <a href="#ptm">PTM系统</a>
+            <a href="#rose">Rose实战</a>
+            <a href="#research">专项研究</a>
+            <a href="#history">市场研讨</a>
+            <a href="#ebooks">配套书籍</a>
+            <a href="#footer-contact">联系方式</a>
+        </div>
+    </aside>
+
+    <!-- Header (Mobile) -->
     <header>
         <nav>
-            <div class="logo">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path></svg>
-                <span>Trading Library</span>
-            </div>
-            <div class="nav-links">
-                <a href="#pa">PA 价格行为</a>
-                <a href="#ict">ICT 理论</a>
-                <a href="#other">其他资料</a>
-                <a href="#video">视频频道</a>
-            </div>
+            <a href="../website/index.html" class="logo">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+                <span>Futures Propfirm 中文社区</span>
+            </a>
         </nav>
     </header>
 
@@ -361,222 +438,285 @@
     <main>
         <!-- Hero Section -->
         <div class="hero">
-            <h1>交易学习资料资源库</h1>
-            <p>精选 PA、ICT、威科夫等主流交易理论资料，助您系统掌握交易知识。</p>
+            <h1>价格行为学习资源</h1>
+            <p>完整覆盖：理论 → 图例 → 系统课程 → 实战 → 专项研究<br>适合从零基础到进阶的所有价格行为学交易者。</p>
         </div>
 
-        <!-- PA Section -->
-        <section id="pa">
+        <!-- 1. Core Section -->
+        <section id="core">
             <div class="section-header">
-                <h2 class="section-title">PA 价格行为</h2>
-                <span class="section-badge">基础 & 进阶</span>
-            </div>
-            <div class="grid">
-                <!-- Card 1 -->
-                <article class="card">
-                    <div class="card-icon">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
-                    </div>
-                    <h3 class="card-title">阿布价格行为学（基础篇）</h3>
-                    <p class="card-desc">价格行为分析入门资料，涵盖基础K线形态与市场心理。</p>
-                    <div class="card-action">
-                        <a href="#" class="btn">查看资料</a>
-                    </div>
-                </article>
-                <!-- Card 2 -->
-                <article class="card">
-                    <div class="card-icon">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path></svg>
-                    </div>
-                    <h3 class="card-title">阿布价格行为学（进阶篇）</h3>
-                    <p class="card-desc">价格行为分析进阶资料，深入探讨复杂市场结构。</p>
-                    <div class="card-action">
-                        <a href="#" class="btn">查看资料</a>
-                    </div>
-                </article>
-                <!-- Card 3 -->
-                <article class="card">
-                    <div class="card-icon">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
-                    </div>
-                    <h3 class="card-title">PA 学习笔记</h3>
-                    <p class="card-desc">价格行为学习的笔记整理，核心知识点提炼。</p>
-                    <div class="card-action">
-                        <a href="#" class="btn">查看笔记</a>
-                    </div>
-                </article>
-            </div>
-        </section>
-
-        <!-- ICT Section -->
-        <section id="ict">
-            <div class="section-header">
-                <h2 class="section-title">ICT 交易理论</h2>
-                <span class="section-badge">Inner Circle Trader</span>
-            </div>
-            <div class="grid">
-                <!-- Card 1 -->
-                <article class="card">
-                    <div class="card-icon">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
-                    </div>
-                    <h3 class="card-title">ICT 2016 完整课程</h3>
-                    <p class="card-desc">2016年 ICT 交易课程完整资料，经典体系构建。</p>
-                    <div class="card-action">
-                        <a href="#" class="btn btn-primary">获取资源</a>
-                    </div>
-                </article>
-                <!-- Card 2 -->
-                <article class="card">
-                    <div class="card-icon">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>
-                    </div>
-                    <h3 class="card-title">ICT 2022 更新内容</h3>
-                    <p class="card-desc">2022年 ICT 交易体系更新内容，最新市场解读。</p>
-                    <div class="card-action">
-                        <a href="#" class="btn btn-primary">获取资源</a>
-                    </div>
-                </article>
-            </div>
-        </section>
-
-        <!-- Other Section -->
-        <section id="other">
-            <div class="section-header">
-                <h2 class="section-title">其他经典理论</h2>
-                <span class="section-badge">Wyckoff & Ross Hook</span>
+                <div>
+                    <h2 class="section-title">Al Brooks 核心体系</h2>
+                    <div class="section-desc">价格行为学的核心理论框架</div>
+                </div>
+                <span class="section-badge">Core</span>
             </div>
             <div class="grid">
                 <article class="card">
                     <div class="card-icon">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline></svg>
+                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
                     </div>
-                    <h3 class="card-title">威科夫 2.0 + 市场结构</h3>
-                    <p class="card-desc">威科夫交易法的解读与应用，结合成交量分布与订单流。</p>
-                    <div class="card-action">
-                        <a href="#" class="btn">查看详情</a>
-                    </div>
+                    <h3 class="card-title">Al Brooks 官网核心课程（全套）</h3>
+                    <p class="card-desc">完整的价格行为学视频课程体系。</p>
+                    <div class="card-action"><a href="#" class="btn">查看资源</a></div>
                 </article>
                 <article class="card">
                     <div class="card-icon">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path></svg>
+                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="9 22 9 12 15 12 15 22"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg>
                     </div>
-                    <h3 class="card-title">洛氏霍克交易法</h3>
-                    <p class="card-desc">经典交易策略详解，实战应用指南。</p>
-                    <div class="card-action">
-                        <a href="#" class="btn">查看详情</a>
+                    <h3 class="card-title">Al Brooks 奖励总结16讲</h3>
+                    <p class="card-desc">针对主题的深入系列</p>
+                    <div class="card-action"><a href="#" class="btn">查看资源</a></div>
+                </article>
+                <article class="card">
+                    <div class="card-icon">
+                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="3" y1="9" x2="21" y2="9"></line><line x1="9" y1="21" x2="9" y2="9"></line></svg>
                     </div>
+                    <h3 class="card-title">Al Brooks 图表百科全书</h3>
+                    <p class="card-desc">海量实战图表案例库，涵盖各种市场形态。</p>
+                    <div class="card-action"><a href="#" class="btn">查看资源</a></div>
                 </article>
             </div>
         </section>
 
-        <!-- Video Section -->
-        <section id="video">
+        <!-- 2. Flash Cards Section -->
+        <section id="cards">
             <div class="section-header">
-                <h2 class="section-title">推荐视频频道</h2>
-                <span class="section-badge">YouTube & Bilibili</span>
+                <div>
+                    <h2 class="section-title">Price Action 图例卡片</h2>
+                    <div class="section-desc">复习市场周期图示</div>
+                </div>
+                <span class="section-badge">Flash Cards</span>
             </div>
-            
-            <div class="video-list">
-                <!-- YouTube Channels -->
-                <a href="#" class="video-item">
-                    <div class="video-icon">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z"></path><polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"></polygon></svg>
+            <div class="grid">
+                <article class="card">
+                    <div class="card-icon">
+                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path></svg>
                     </div>
-                    <div class="video-info">
-                        <div class="video-title">罗晟 Criss</div>
-                        <div class="video-desc">专业的交易技术分析频道</div>
+                    <h3 class="card-title">Flash Cards（结构速记卡）</h3>
+                    <div class="card-action"><a href="#" class="btn">查看卡片</a></div>
+                </article>
+                <article class="card">
+                    <div class="card-icon">
+                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
                     </div>
-                    <div class="video-link-icon">
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                    <h3 class="card-title">Ali Flash Cards 完整版</h3>
+                    <div class="card-action"><a href="#" class="btn">查看卡片</a></div>
+                </article>
+                <article class="card">
+                    <div class="card-icon">
+                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
                     </div>
-                </a>
-
-                <a href="#" class="video-item">
-                    <div class="video-icon">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z"></path><polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"></polygon></svg>
-                    </div>
-                    <div class="video-info">
-                        <div class="video-title">熊猫交易学社</div>
-                        <div class="video-desc">交易知识分享与市场解读</div>
-                    </div>
-                    <div class="video-link-icon">
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
-                    </div>
-                </a>
-
-                <a href="#" class="video-item">
-                    <div class="video-icon">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z"></path><polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"></polygon></svg>
-                    </div>
-                    <div class="video-info">
-                        <div class="video-title">方方土 PriceAction</div>
-                        <div class="video-desc">专注价格行为分析的教学频道</div>
-                    </div>
-                    <div class="video-link-icon">
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
-                    </div>
-                </a>
-
-                <a href="#" class="video-item">
-                    <div class="video-icon">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z"></path><polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"></polygon></svg>
-                    </div>
-                    <div class="video-info">
-                        <div class="video-title">南桥 PriceAction</div>
-                        <div class="video-desc">边讲边做价格行为交易频道</div>
-                    </div>
-                    <div class="video-link-icon">
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
-                    </div>
-                </a>
-
-                <a href="#" class="video-item">
-                    <div class="video-icon">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z"></path><polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"></polygon></svg>
-                    </div>
-                    <div class="video-info">
-                        <div class="video-title">交易员无畏</div>
-                        <div class="video-desc">ICT 深度交易理念与实战讲解</div>
-                    </div>
-                    <div class="video-link-icon">
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
-                    </div>
-                </a>
-
-                <!-- Bilibili Channels -->
-                <a href="#" class="video-item">
-                    <div class="video-icon bilibili">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
-                    </div>
-                    <div class="video-info">
-                        <div class="video-title">树隐</div>
-                        <div class="video-desc">交易理念与市场复盘深度分享</div>
-                    </div>
-                    <div class="video-link-icon">
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
-                    </div>
-                </a>
-
-                <a href="#" class="video-item">
-                    <div class="video-icon bilibili">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
-                    </div>
-                    <div class="video-info">
-                        <div class="video-title">猫有点大</div>
-                        <div class="video-desc">订单流日内高频交易频道</div>
-                    </div>
-                    <div class="video-link-icon">
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
-                    </div>
-                </a>
+                    <h3 class="card-title">Ali 卡 GTP & Deepseek 资料</h3>
+                    <div class="card-action"><a href="#" class="btn">查看资料</a></div>
+                </article>
             </div>
         </section>
+
+        <!-- 3. PTM Section -->
+        <section id="ptm">
+            <div class="section-header">
+                <div>
+                    <h2 class="section-title">PTM 系列</h2>
+                    <div class="section-desc">建立结构化框架</div>
+                </div>
+                <span class="section-badge">System</span>
+            </div>
+            <div class="grid">
+                <article class="card">
+                    <div class="card-icon">
+                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                    </div>
+                    <h3 class="card-title">PTM 完整版</h3>
+                    <div class="card-action"><a href="#" class="btn">查看课程</a></div>
+                </article>
+                <article class="card">
+                    <div class="card-icon">
+                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+                    </div>
+                    <h3 class="card-title">PTM_CN (中文版)</h3>
+                    <div class="card-action"><a href="#" class="btn">查看课程</a></div>
+                </article>
+                <article class="card">
+                    <div class="card-icon">
+                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="2.18" ry="2.18"></rect><line x1="7" y1="2" x2="7" y2="22"></line><line x1="17" y1="2" x2="17" y2="22"></line><line x1="2" y1="12" x2="22" y2="12"></line><line x1="2" y1="7" x2="7" y2="7"></line><line x1="2" y1="17" x2="7" y2="17"></line><line x1="17" y1="17" x2="22" y2="17"></line><line x1="17" y1="7" x2="22" y2="7"></line></svg>
+                    </div>
+                    <h3 class="card-title">PTM 录播课</h3>
+                    <div class="card-action"><a href="#" class="btn">查看视频</a></div>
+                </article>
+                <article class="card">
+                    <div class="card-icon">
+                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                    </div>
+                    <h3 class="card-title">2022 PTM 全套</h3>
+                    <div class="card-action"><a href="#" class="btn">查看课程</a></div>
+                </article>
+                <article class="card">
+                    <div class="card-icon">
+                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+                    </div>
+                    <h3 class="card-title">2024 交易室课程</h3>
+                    <div class="card-action"><a href="#" class="btn">查看课程</a></div>
+                </article>
+            </div>
+        </section>
+
+        <!-- 4. ROSE Section -->
+        <section id="rose">
+            <div class="section-header">
+                <div>
+                    <h2 class="section-title">ROSE 实战</h2>
+                    <div class="section-desc">适合从“理论 → 实盘”过渡的学习者</div>
+                </div>
+                <span class="section-badge">Live Trading</span>
+            </div>
+            <div class="grid">
+                <article class="card">
+                    <div class="card-icon">
+                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="23 7 16 12 23 17 23 7"></polygon><rect x="1" y="5" width="15" height="14" rx="2" ry="2"></rect></svg>
+                    </div>
+                    <h3 class="card-title">ROSE 直播间视频汇总</h3>
+                    <div class="card-action"><a href="#" class="btn">查看视频</a></div>
+                </article>
+                <article class="card">
+                    <div class="card-icon">
+                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"></path><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path></svg>
+                    </div>
+                    <h3 class="card-title">ROSE 经典内容整理</h3>
+                    <div class="card-action"><a href="#" class="btn">查看笔记</a></div>
+                </article>
+                <article class="card">
+                    <div class="card-icon">
+                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+                    </div>
+                    <h3 class="card-title">Rose 2025（1–6月）</h3>
+                    <div class="card-action"><a href="#" class="btn">查看更新</a></div>
+                </article>
+                <article class="card">
+                    <div class="card-icon">
+                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+                    </div>
+                    <h3 class="card-title">Rose 的策略</h3>
+                    <div class="card-action"><a href="#" class="btn">查看文档</a></div>
+                </article>
+            </div>
+        </section>
+
+        <!-- 5. Research Section -->
+        <section id="research">
+            <div class="section-header">
+                <div>
+                    <h2 class="section-title">专项研究</h2>
+                    <div class="section-desc">深入研究特定市场结构</div>
+                </div>
+                <span class="section-badge">Deep Dive</span>
+            </div>
+            <div class="grid">
+                <article class="card">
+                    <div class="card-icon">
+                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline></svg>
+                    </div>
+                    <h3 class="card-title">Breakout Research（突破专项）</h3>
+                    <div class="card-action"><a href="#" class="btn">查看研究</a></div>
+                </article>
+                <article class="card">
+                    <div class="card-icon">
+                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="12" y1="18" x2="12" y2="12"></line><line x1="9" y1="15" x2="15" y2="15"></line></svg>
+                    </div>
+                    <h3 class="card-title">突破做单后续 (PDF)</h3>
+                    <div class="card-action"><a href="#" class="btn">查看文档</a></div>
+                </article>
+                <article class="card">
+                    <div class="card-icon">
+                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="2" ry="2"></rect><rect x="9" y="9" width="6" height="6"></rect><line x1="9" y1="1" x2="9" y2="4"></line><line x1="15" y1="1" x2="15" y2="4"></line><line x1="9" y1="20" x2="9" y2="23"></line><line x1="15" y1="20" x2="15" y2="23"></line><line x1="20" y1="9" x2="23" y2="9"></line><line x1="20" y1="14" x2="23" y2="14"></line><line x1="1" y1="9" x2="4" y2="9"></line><line x1="1" y1="14" x2="4" y2="14"></line></svg>
+                    </div>
+                    <h3 class="card-title">突破结构整理</h3>
+                    <div class="card-action"><a href="#" class="btn">查看整理</a></div>
+                </article>
+                <article class="card">
+                    <div class="card-icon">
+                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                    </div>
+                    <h3 class="card-title">高概率微通道交易系统</h3>
+                    <div class="card-action"><a href="#" class="btn">查看整理</a></div>
+                </article>
+            </div>
+        </section>
+
+        <!-- 7. History Section -->
+        <section id="history">
+            <div class="section-header">
+                <div>
+                    <h2 class="section-title">历年市场研讨交易室</h2>
+                    <div class="section-desc">Trading Room 历史记录与笔记</div>
+                </div>
+                <span class="section-badge">Archive</span>
+            </div>
+            <div class="grid">
+                <article class="card">
+                    <div class="card-icon">
+                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                    </div>
+                    <h3 class="card-title">2015年全年 / TradingRoom</h3>
+                    <div class="card-action"><a href="#" class="btn">查看归档</a></div>
+                </article>
+                <article class="card">
+                    <div class="card-icon">
+                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                    </div>
+                    <h3 class="card-title">Trading Room 2019</h3>
+                    <div class="card-action"><a href="#" class="btn">查看归档</a></div>
+                </article>
+            </div>
+        </section>
+
+        <!-- 8. Ebooks Section -->
+        <section id="ebooks">
+            <div class="section-header">
+                <div>
+                    <h2 class="section-title">价格行为学书籍</h2>
+                    <div class="section-desc">书籍合集</div>
+                </div>
+                <span class="section-badge">Books</span>
+            </div>
+            <div class="grid">
+                <article class="card">
+                    <div class="card-icon">
+                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
+                    </div>
+                    <h3 class="card-title">价格行为学（趋势篇）</h3>
+                    <div class="card-action"><a href="#" class="btn">下载 PDF</a></div>
+                </article>
+                <article class="card">
+                    <div class="card-icon">
+                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
+                    </div>
+                    <h3 class="card-title">价格行为学（区间篇）</h3>
+                    <div class="card-action"><a href="#" class="btn">下载 PDF</a></div>
+                </article>
+                <article class="card">
+                    <div class="card-icon">
+                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
+                    </div>
+                    <h3 class="card-title">价格行为学（反转篇）</h3>
+                    <div class="card-action"><a href="#" class="btn">下载 PDF</a></div>
+                </article>
+            </div>
+        </section>
+
+        <footer id="footer-contact">
+            <div style="margin-bottom: 24px; display: flex; justify-content: center; gap: 20px; flex-wrap: wrap;">
+                <a href="../website/index.html" class="btn" style="width: auto; min-width: 200px; background-color: var(--color-blue); color: white; font-size: 16px; box-shadow: 0 4px 12px rgba(0,122,255,0.3);">
+                    首页
+                </a>
+                <a href="../website_Contract/Contract.html" class="btn" style="width: auto; min-width: 200px; background-color: transparent; color: var(--color-blue); border: 1px solid var(--color-blue); font-size: 16px; box-shadow: none;">
+                    联系方式
+                </a>
+            </div>
+            <p>© 2025 Futures Propfirm 中文社区</p>
+        </footer>
+
     </main>
-
-    <footer>
-        <p>© 2025 交易学习资料库. All rights reserved.</p>
-    </footer>
 
     <script>
         // --- Smooth Scroll for Anchor Links ---

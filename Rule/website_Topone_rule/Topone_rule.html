@@ -1,0 +1,882 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Top One Futures - S2F Pro 规则详情</title>
+    <style>
+        :root {
+            --bg-color: #f5f5f7;
+            --card-bg: #ffffff;
+            --text-primary: #1d1d1f;
+            --text-secondary: #86868b;
+            --accent-color: #0066cc;
+            --accent-red: #ff3b30;
+            --accent-orange: #ff9500;
+            --border-color: #d2d2d7;
+            --table-border: #e5e5e5;
+            --nav-height: 60px;
+            --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.04);
+            --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.08);
+            --radius-lg: 20px;
+            --radius-md: 12px;
+            --font-main: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+
+            /* Apple System Colors - 导航栏专用 */
+            --color-nav-bg: rgba(22, 22, 23, 0.8); /* 深色半透明背景 */
+            --color-nav-text: #e8e8ed; /* 导航文字颜色 */
+            --color-nav-text-hover: #ffffff; /* 导航文字悬停颜色 */
+            --color-accent: #0071e3; /* 苹果蓝强调色 */
+            --color-accent-hover: #0077ed; /* 强调色悬停 */
+            
+            /* Typography */
+            --font-family-base: "SF Pro Text", "SF Pro Icons", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
+            
+            /* Layout */
+            --container-width: 1200px;
+            --header-height: 64px;
+            --transition-speed: 0.3s;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        body {
+            font-family: var(--font-main);
+            background-color: var(--bg-color);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* ===== Header 导航栏核心样式 ===== */
+        .header {
+            position: sticky;
+            top: 0;
+            z-index: 9999;
+            height: var(--header-height);
+            background-color: var(--color-nav-bg); /* 深色半透明 */
+            backdrop-filter: saturate(180%) blur(20px); /* 毛玻璃效果 */
+            -webkit-backdrop-filter: saturate(180%) blur(20px);
+            width: 100%;
+        }
+
+        .header__container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 100%;
+            max-width: var(--container-width);
+            margin: 0 auto;
+            padding: 0 22px;
+        }
+
+        /* Logo样式 */
+        .header__logo {
+            color: var(--color-nav-text); /* 浅灰色 #e8e8ed */
+            font-size: 24px;
+            font-weight: 600;
+            letter-spacing: -0.01em;
+            transition: opacity 0.2s;
+            text-decoration: none;
+        }
+
+        .header__logo:hover {
+            opacity: 0.8;
+            text-decoration: none;
+        }
+
+        .header__logo-highlight {
+            color: #fff; /* 纯白色高亮 */
+        }
+
+        /* 导航菜单容器 */
+        .header__nav {
+            height: 100%;
+            display: flex;
+        }
+
+        .header__menu {
+            display: flex;
+            height: 100%;
+            align-items: center;
+            gap: 32px; /* 菜单项间距 */
+            list-style: none;
+        }
+
+        .header__menu-item {
+            position: relative;
+            height: 100%;
+            display: flex;
+            align-items: center;
+        }
+
+        /* 导航链接样式 */
+        .header__link {
+            color: var(--color-nav-text); /* 浅灰色 #e8e8ed */
+            font-size: 16px;
+            font-weight: 400;
+            letter-spacing: -0.01em;
+            opacity: 0.8;
+            transition: opacity 0.2s;
+            text-decoration: none;
+        }
+
+        .header__link:hover {
+            color: var(--color-nav-text-hover); /* 纯白色 #ffffff */
+            opacity: 1;
+            text-decoration: none;
+        }
+
+        /* CTA按钮样式(联系方式) */
+        .header__cta {
+            font-size: 14px;
+            background: #fff; /* 纯白背景 */
+            color: #000 !important; /* 黑色文字 */
+            padding: 8px 20px;
+            border-radius: 980px; /* 圆角胶囊形状 */
+            opacity: 1;
+            text-decoration: none;
+            transition: background 0.2s;
+        }
+
+        .header__cta:hover {
+            background: #f5f5f7; /* 悬停时浅灰背景 */
+            text-decoration: none;
+        }
+
+        /* ===== 下拉菜单样式 ===== */
+        .header__dropdown {
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: rgba(22, 22, 23, 0.95); /* 深色半透明,比导航栏稍深 */
+            backdrop-filter: saturate(180%) blur(20px); /* 毛玻璃效果 */
+            -webkit-backdrop-filter: saturate(180%) blur(20px);
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3); /* 阴影 */
+            min-width: 180px;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 1000;
+            margin-top: 10px;
+            border: 1px solid rgba(255,255,255,0.1); /* 细微白色边框 */
+        }
+
+        /* 悬停显示下拉菜单 */
+        .header__menu-item:hover .header__dropdown {
+            opacity: 1;
+            visibility: visible;
+            margin-top: 0;
+        }
+
+        .header__dropdown-inner {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            text-align: center;
+        }
+
+        /* 下拉菜单链接样式 */
+        .dropdown-link {
+            color: var(--color-nav-text); /* 浅灰色 #e8e8ed */
+            font-size: 14px;
+            white-space: nowrap;
+            transition: color 0.2s;
+            display: block;
+            text-decoration: none;
+        }
+
+        .dropdown-link:hover {
+            color: var(--color-accent); /* 苹果蓝 #0071e3 */
+            text-decoration: none;
+        }
+
+        /* 下拉菜单三角箭头 */
+        .header__dropdown::before {
+            content: '';
+            position: absolute;
+            top: -6px;
+            left: 50%;
+            transform: translateX(-50%);
+            border-width: 0 6px 6px 6px;
+            border-style: solid;
+            border-color: transparent transparent rgba(22, 22, 23, 0.95) transparent;
+        }
+
+        /* ===== 移动端汉堡菜单按钮 ===== */
+        .header__toggle {
+            display: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .header__toggle-bar {
+            width: 18px;
+            height: 1px;
+            background-color: var(--color-nav-text); /* 浅灰色 */
+            transition: 0.3s;
+        }
+
+        /* ===== 响应式样式(移动端) ===== */
+        @media (max-width: 767px) {
+            :root {
+                --header-height: 48px;
+            }
+
+            .header__toggle {
+                display: flex;
+            }
+
+            .header__nav {
+                position: fixed;
+                top: var(--header-height);
+                left: 0;
+                width: 100%;
+                height: calc(100vh - var(--header-height));
+                background-color: #000; /* 纯黑背景 */
+                flex-direction: column;
+                padding: 40px 20px;
+                transform: translateY(-100%);
+                transition: transform 0.4s cubic-bezier(0.25, 0.1, 0.25, 1.0);
+                opacity: 0;
+                pointer-events: none;
+            }
+
+            .header__nav.active {
+                transform: translateY(0);
+                opacity: 1;
+                pointer-events: auto;
+            }
+
+            .header__menu {
+                flex-direction: column;
+                align-items: flex-start;
+                width: 100%;
+                gap: 0;
+            }
+
+            .header__menu-item {
+                width: 100%;
+                border-bottom: 1px solid rgba(255,255,255,0.1); /* 分隔线 */
+                height: auto;
+            }
+
+            .header__link {
+                display: block;
+                padding: 14px 0;
+                font-size: 17px;
+                color: #f5f5f7; /* 移动端文字颜色 */
+                opacity: 1;
+            }
+
+            .header__cta {
+                margin-top: 20px;
+                width: 100%;
+                text-align: center;
+                display: block;
+            }
+
+            /* 移动端下拉菜单调整 */
+            .header__dropdown {
+                position: static;
+                transform: none;
+                background-color: rgba(255,255,255,0.05);
+                margin-top: 10px;
+                opacity: 1;
+                visibility: visible;
+            }
+
+            .header__dropdown::before {
+                display: none;
+            }
+        }
+
+        /* Main Content */
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: calc(var(--nav-height) + 60px) 24px 60px;
+        }
+
+        .hero {
+            text-align: center;
+            margin-bottom: 60px;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        .hero h1 {
+            font-size: 48px;
+            font-weight: 700;
+            letter-spacing: -0.03em;
+            margin-bottom: 16px;
+            background: linear-gradient(135deg, #1d1d1f 0%, #434344 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero p {
+            font-size: 20px;
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .promo-badge {
+            display: inline-block;
+            background: rgba(255, 59, 48, 0.1);
+            color: var(--accent-red);
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 24px;
+        }
+
+        /* Card Style */
+        .card {
+            background: var(--card-bg);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-sm);
+            overflow: hidden;
+            margin-bottom: 40px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards 0.2s;
+        }
+
+        .card:hover {
+            box-shadow: var(--shadow-md);
+            transform: translateY(-2px);
+        }
+
+        /* Table Styles */
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            table-layout: fixed;
+        }
+
+        .comparison-table th,
+        .comparison-table td {
+            padding: 24px;
+            text-align: left;
+            border-bottom: 1px solid var(--table-border);
+            vertical-align: top;
+        }
+
+        .comparison-table th {
+            background-color: rgba(245, 245, 247, 0.5);
+            font-weight: 600;
+            color: var(--text-secondary);
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            width: 25%;
+        }
+
+        .comparison-table td {
+            font-size: 15px;
+            color: var(--text-primary);
+        }
+
+        .comparison-table tr:last-child th,
+        .comparison-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .col-header {
+            font-size: 20px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+            display: block;
+        }
+
+        .col-sub {
+            font-size: 14px;
+            color: var(--text-secondary);
+            font-weight: normal;
+        }
+
+        .price-tag {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--accent-red);
+        }
+
+        .price-original {
+            font-size: 14px;
+            text-decoration: line-through;
+            color: var(--text-secondary);
+            margin-left: 8px;
+        }
+
+        .highlight-text {
+            color: var(--accent-color);
+            font-weight: 500;
+        }
+
+        .warning-text {
+            color: var(--accent-red);
+        }
+
+        .info-block {
+            margin-bottom: 8px;
+        }
+
+        .info-label {
+            font-size: 12px;
+            color: var(--text-secondary);
+            margin-bottom: 4px;
+            display: block;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 36px;
+            }
+
+            .comparison-table {
+                display: block;
+            }
+
+            .comparison-table thead {
+                display: none;
+            }
+
+            .comparison-table tbody, 
+            .comparison-table tr, 
+            .comparison-table td {
+                display: block;
+                width: 100%;
+            }
+
+            .comparison-table tr {
+                margin-bottom: 24px;
+                border-bottom: 1px solid var(--table-border);
+            }
+
+            .comparison-table td {
+                padding: 16px 24px;
+                border-bottom: none;
+                position: relative;
+            }
+            
+            .comparison-table th {
+                display: block;
+                width: 100%;
+                padding: 16px 24px 8px;
+                border-bottom: none;
+                background: none;
+                color: var(--accent-color);
+            }
+
+            /* Mobile specific layout for comparison columns */
+            .mobile-compare-row {
+                display: flex;
+                gap: 16px;
+                padding-top: 8px;
+            }
+            
+            .mobile-compare-item {
+                flex: 1;
+                background: #f9f9f9;
+                padding: 12px;
+                border-radius: 8px;
+            }
+            
+            .mobile-label {
+                font-size: 12px;
+                color: var(--text-secondary);
+                margin-bottom: 4px;
+                display: block;
+            }
+        }
+
+        /* Animations */
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #d2d2d7;
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #86868b;
+        }
+        
+        /* Utility classes for merged cells visual */
+        .merged-cell-content {
+            background-color: rgba(242, 242, 247, 0.3);
+            border-radius: 8px;
+            padding: 16px;
+            margin: -8px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="header__container">
+            <a href="../../index.html" class="header__logo">
+                Futures Propfirm <span class="header__logo-highlight">中文社区</span>
+            </a>
+            <nav class="header__nav">
+                <ul class="header__menu">
+                    <li class="header__menu-item"><a href="../../index.html#hero" class="header__link">首页</a></li>
+                    
+                    <!-- 12月优惠 Dropdown -->
+                    <li class="header__menu-item">
+                        <a href="../../index.html#top-discounts" class="header__link">12月优惠</a>
+                        <div class="header__dropdown">
+                            <div class="header__dropdown-inner">
+                                <a href="../../index.html#top-discounts" class="dropdown-link">Take Profit Trader</a>
+                                <a href="../../index.html#top-discounts" class="dropdown-link">Lucid</a>
+                            </div>
+                        </div>
+                    </li>
+                    
+                    <!-- 常见问题 Dropdown -->
+                    <li class="header__menu-item">
+                        <a href="../../index.html#faq" class="header__link">常见问题</a>
+                        <div class="header__dropdown">
+                            <div class="header__dropdown-inner">
+                                <a href="../../index.html#faq-1" class="dropdown-link">什么是 Futures 自营公司？</a>
+                                <a href="../../index.html#faq-2" class="dropdown-link">新手该如何开始？</a>
+                                <a href="../../index.html#faq-3" class="dropdown-link">关于交易技术</a>
+                                <a href="../../index.html#faq-4" class="dropdown-link">如何使用折扣码？</a>
+                            </div>
+                        </div>
+                    </li>
+                    
+                    <!-- 学习资源 Dropdown -->
+                    <li class="header__menu-item">
+                        <a href="../../website_Studing_resource/Studing_resource.html" class="header__link">学习资源</a>
+                        <div class="header__dropdown">
+                            <div class="header__dropdown-inner">
+                                <a href="https://www.brookstradingcourse.com/" target="_blank" class="dropdown-link">AL brooks官网</a>
+                                <a href="../../website_Communicate/Communicate.html" class="dropdown-link">复盘交流频道</a>
+                                <a href="../../website_UP/UP.html" class="dropdown-link">推荐的博主</a>
+                                <a href="../../website_Studing_resource/Studing_resource.html" class="dropdown-link">价格行为学习资源</a>
+                                <a href="../../website_Book/Book.html" class="dropdown-link">交易书籍清单</a>
+                            </div>
+                        </div>
+                    </li>
+                    
+                    <!-- 联系方式 Dropdown -->
+                    <li class="header__menu-item">
+                        <a href="../../website_Contract/Contract.html" class="header__cta">联系方式</a>
+                        <div class="header__dropdown">
+                            <div class="header__dropdown-inner">
+                                <a href="https://qm.qq.com/q/Gbxzdksiis" target="_blank" class="dropdown-link">QQ</a>
+                                <a href="https://discord.gg/DDT24rzW" target="_blank" class="dropdown-link">Discord</a>
+                                <a href="https://t.me/+vC8FqXeAYEQyMGQ9" target="_blank" class="dropdown-link">Telegram</a>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </nav>
+            <button class="header__toggle" aria-label="切换菜单">
+                <span class="header__toggle-bar"></span>
+                <span class="header__toggle-bar"></span>
+                <span class="header__toggle-bar"></span>
+            </button>
+        </div>
+    </header>
+
+    <div class="container">
+        <header class="hero">
+            <div class="promo-badge">黑五限时折扣 4.5折</div>
+            <h1>S2F Pro 账号对比</h1>
+            <p>选择最适合您的交易计划，开启您的职业交易之路。</p>
+        </header>
+
+        <div class="card" id="overview">
+            <table class="comparison-table">
+                <thead>
+                    <tr>
+                        <th style="width: 20%">功能特性</th>
+                        <th style="width: 40%">
+                            <span class="col-header">50K 免考 S2F Pro</span>
+                            <span class="col-sub">进阶交易者的首选</span>
+                        </th>
+                        <th style="width: 40%">
+                            <span class="col-header">25K 免考 S2F Pro</span>
+                            <span class="col-sub">稳健起步的最佳方案</span>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th>价格</th>
+                        <td>
+                            <div class="price-tag">$178 <span style="font-size:14px; font-weight:normal; color:var(--text-secondary)">(4.5折)</span></div>
+                        </td>
+                        <td>
+                            <div class="price-tag">$109 <span style="font-size:14px; font-weight:normal; color:var(--text-secondary)">(4.5折)</span></div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>交易平台</th>
+                        <td colspan="2" style="text-align: center; color: var(--text-secondary);">
+                            <div class="merged-cell-content">ProjectX</div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>回撤 (Trailing模式)</th>
+                        <td>
+                            <div class="info-block">
+                                <span class="info-label">追踪回撤</span>
+                                <strong>$1625</strong>
+                            </div>
+                            <div class="info-block">
+                                <span class="info-label">日损限制</span>
+                                <span class="warning-text">$1000</span>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="info-block">
+                                <span class="info-label">追踪回撤</span>
+                                <strong>$1000</strong>
+                            </div>
+                            <div class="info-block">
+                                <span class="info-label">日损限制</span>
+                                <span class="warning-text">$500</span>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>最低出金门槛</th>
+                        <td><span class="highlight-text">$3000</span></td>
+                        <td><span class="highlight-text">$1500</span></td>
+                    </tr>
+                    <tr>
+                        <th>ESS稳定性评分要求</th>
+                        <td colspan="2">
+                            <div class="merged-cell-content">
+                                <p style="margin-bottom: 8px;"><strong>20% ESS稳定性公式</strong></p>
+                                <p style="font-size: 13px; color: var(--text-secondary); margin-bottom: 8px;">(用推荐种田玩法设置清算能自动满足要求，或按自己习惯搭配)</p>
+                                <code style="background: #fff; padding: 4px 8px; border-radius: 4px; font-size: 12px; border: 1px solid #eee;">(最佳单日盈利 + 最差单日亏损 [以正数表示]) ÷ 总盈利 × 100%</code>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>出金要求</th>
+                        <td colspan="2">
+                            <div class="merged-cell-content">
+                                交易满10天（同时满足7个0.1%交易日），满足利润目标和ESS稳定性可以出金
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>推荐种田玩法</th>
+                        <td>
+                            <p style="margin-bottom: 12px;">ProjectX设置-risk设置每天盈利300自动清算，亏损300自动清算。这样做到3000就刚好满足20%的ESS稳定性</p>
+                            <div style="background: #f0f8ff; padding: 12px; border-radius: 8px; border-left: 3px solid var(--accent-color);">
+                                <span class="info-label" style="color: var(--accent-color);">举例</span>
+                                种田10天300，盈利3000直接申请出金2500，剩余回撤直接保号
+                            </div>
+                        </td>
+                        <td>
+                            <p style="margin-bottom: 12px;">ProjectX设置-risk设置每天盈利150自动清算，亏损150自动清算。这样做到1500就刚好满足20%的ESS稳定性</p>
+                            <div style="background: #f0f8ff; padding: 12px; border-radius: 8px; border-left: 3px solid var(--accent-color);">
+                                <span class="info-label" style="color: var(--accent-color);">举例</span>
+                                种田10天150，盈利1500出金1500，没有剩余回撤直接保号
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>分成比例与出金时间</th>
+                        <td colspan="2">
+                            <div class="merged-cell-content" style="display: flex; justify-content: space-around; align-items: center;">
+                                <div>
+                                    <span class="info-label">分成比例</span>
+                                    <strong style="font-size: 18px; color: var(--accent-color);">90%</strong>
+                                </div>
+                                <div>
+                                    <span class="info-label">到账时间</span>
+                                    <strong>2个工作日</strong>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>购买支付方式</th>
+                        <td colspan="2">
+                            <div class="merged-cell-content">
+                                <p style="margin-bottom: 8px;">支持加密付款、VISA万事达信用卡。</p>
+                                <p style="font-size: 13px; color: var(--text-secondary);">同时拥有Pro账户：5个（活动期内）<br>与原来的SIM账户分开计算，如原来有3个SIM账户，则可以再拥有5个S2F Pro</p>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>出金方式</th>
+                        <td colspan="2" style="text-align: center;">
+                            <div class="merged-cell-content">Rise、Plane</div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>使用魔法 (VPN)</th>
+                        <td colspan="2" style="text-align: center;">
+                            <div class="merged-cell-content" style="color: var(--text-secondary);">
+                                (如果要用，则从始至终都用，且保持同一个地区)
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>10秒交易规则</th>
+                        <td colspan="2">
+                            <div class="merged-cell-content">
+                                <ul style="list-style: none; padding-left: 0;">
+                                    <li style="margin-bottom: 8px; display: flex; align-items: flex-start;">
+                                        <span style="color: var(--accent-red); margin-right: 8px;">•</span>
+                                        <span>每笔交易时间10秒以上 <span style="color: var(--accent-red); font-size: 13px;">(少部分低于10s无影响，占比超过50%会扣除利润)</span></span>
+                                    </li>
+                                    <li style="display: flex; align-items: flex-start;">
+                                        <span style="color: var(--accent-orange); margin-right: 8px;">•</span>
+                                        <span>不活跃规则：每14天至少有1笔10s以上交易保持账户活跃</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>新闻交易与自动清算</th>
+                        <td colspan="2">
+                            <div class="merged-cell-content">
+                                允许新闻交易。美中时间4点收盘前没有平仓被系统自动清算不违规
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>复制交易</th>
+                        <td colspan="2">
+                            <div class="merged-cell-content">
+                                允许5个相同大小PRO账户之间复制，<span class="warning-text">但禁止与标准和考试账户复制（违规）</span>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>KYC (支持大陆与港澳台)</th>
+                        <td colspan="2">
+                            <div class="merged-cell-content">
+                                支持护照/港澳通行证/国际驾照/身份证（身份证找客服人工审核）。做KYC签合同后才能交易
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        
+        <footer style="text-align: center; color: var(--text-secondary); font-size: 12px; margin-top: 40px;">
+            <p>© 2025 Top One Futures. All rights reserved.</p>
+        </footer>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // 1. 移动端菜单切换功能
+            const headerToggle = document.querySelector('.header__toggle');
+            const headerNav = document.querySelector('.header__nav');
+            const body = document.body;
+
+            if (headerToggle && headerNav) {
+                headerToggle.addEventListener('click', () => {
+                    const isActive = headerNav.classList.toggle('active');
+                    headerToggle.classList.toggle('active');
+                    
+                    // 防止菜单打开时页面滚动
+                    if (isActive) {
+                        body.style.overflow = 'hidden';
+                    } else {
+                        body.style.overflow = '';
+                    }
+                });
+
+                // 点击导航链接时关闭菜单
+                const navLinks = document.querySelectorAll('.header__link, .header__cta');
+                navLinks.forEach(link => {
+                    link.addEventListener('click', () => {
+                        headerNav.classList.remove('active');
+                        headerToggle.classList.remove('active');
+                        body.style.overflow = '';
+                    });
+                });
+            }
+
+            // 2. 平滑滚动功能(用于锚点链接)
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href');
+                    if (targetId === '#') return;
+                    
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        const headerOffset = 80; // 固定导航栏高度补偿
+                        const elementPosition = targetElement.getBoundingClientRect().top;
+                        const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+
+                        window.scrollTo({
+                            top: offsetPosition,
+                            behavior: "smooth"
+                        });
+                    }
+                });
+            });
+        });
+
+        // Simple intersection observer for fade-in elements
+        const observerOptions = {
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Add animation classes to elements if needed
+        // Currently handled by CSS animations on load
+    </script>
+</body>
+</html>
