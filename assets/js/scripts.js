@@ -113,4 +113,30 @@
         // For now, let's just let the CSS animation handle the fade in.
         observer.observe(el);
     });
+
+    // Check hash on page load to expand accordion if needed
+    if (window.location.hash) {
+        const targetId = window.location.hash;
+        try {
+            const targetElement = document.querySelector(targetId);
+            if (targetElement && targetElement.classList.contains('accordion__item')) {
+                const header = targetElement.querySelector('.accordion__header');
+                if (header && !header.classList.contains('active')) {
+                    setTimeout(() => {
+                        header.click();
+                        // Adjust scroll position for fixed header
+                        const headerOffset = 80;
+                        const elementPosition = targetElement.getBoundingClientRect().top;
+                        const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+                        window.scrollTo({
+                            top: offsetPosition,
+                            behavior: "smooth"
+                        });
+                    }, 500); // Slight delay to ensure page is ready
+                }
+            }
+        } catch (e) {
+            console.log('Invalid hash');
+        }
+    }
 });

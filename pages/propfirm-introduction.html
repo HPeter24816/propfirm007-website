@@ -1,0 +1,1178 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>
+   Futures Propfirm 基础规则指南
+  </title>
+  <link href="../assets/css/styles.css" rel="stylesheet"/>
+  <script src="../assets/js/layout.js">
+  </script>
+  <script src="../assets/js/scripts.js">
+  </script>
+  <style>
+   /* --- 1. 色彩系统 (基于 Apple 色彩手册) --- */
+        :root {
+            /* Light Mode Palette */
+            --bg-primary: #FFFFFF; /* systemBackground */
+            --bg-secondary: #F2F2F7; /* secondarySystemBackground */
+            --bg-tertiary: #FFFFFF; /* tertiarySystemBackground */
+            
+            --text-primary: rgba(0, 0, 0, 1); /* label */
+            --text-secondary: rgba(60, 60, 67, 0.6); /* secondaryLabel */
+            --text-tertiary: rgba(60, 60, 67, 0.3); /* tertiaryLabel */
+            
+            --accent-blue: #007AFF; /* systemBlue */
+            --accent-green: #34C759; /* systemGreen */
+            --accent-orange: #FF9500; /* systemOrange */
+            --accent-red: #FF3B30; /* systemRed */
+            
+            --separator: rgba(60, 60, 67, 0.29); /* separator */
+            --fill-tertiary: rgba(118, 118, 128, 0.12); /* tertiarySystemFill */
+            --code-bg: rgba(60, 60, 67, 0.05); /* Custom for code */
+
+            /* Layout & Spacing */
+            --nav-width: 280px;
+            --toc-width: 240px;
+            --content-max-width: 880px; /* Apple Docs standard width */
+            --radius-md: 12px;
+            --radius-sm: 8px;
+            
+            /* Typography */
+            --font-sans: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            --font-mono: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+        }
+
+        /* Dark Mode Palette */
+        html[data-theme="dark"] {
+            --bg-primary: #000000; /* systemBackground */
+            --bg-secondary: #1C1C1E; /* secondarySystemBackground */
+            --bg-tertiary: #2C2C2E; /* tertiarySystemBackground */
+            
+            --text-primary: rgba(255, 255, 255, 1); /* label */
+            --text-secondary: rgba(235, 235, 245, 0.6); /* secondaryLabel */
+            --text-tertiary: rgba(235, 235, 245, 0.3); /* tertiaryLabel */
+            
+            --accent-blue: #0A84FF; /* systemBlue */
+            --accent-green: #30D158; /* systemGreen */
+            --accent-orange: #FF9F0A; /* systemOrange */
+            --accent-red: #FF453A; /* systemRed */
+            
+            --separator: rgba(84, 84, 88, 0.6); /* separator */
+            --fill-tertiary: rgba(118, 118, 128, 0.24); /* tertiarySystemFill */
+            --code-bg: rgba(255, 255, 255, 0.1);
+        }
+
+        /* --- 2. 基础重置与排版 --- */
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: var(--font-sans);
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        a {
+            color: var(--accent-blue);
+            text-decoration: none;
+            transition: opacity 0.2s;
+        }
+        a:hover { opacity: 0.8; text-decoration: underline; }
+
+        h1, h2, h3, h4 {
+            color: var(--text-primary);
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            margin-top: 1.5em;
+            margin-bottom: 0.6em;
+        }
+
+        h1 { font-size: 2.5rem; line-height: 1.1; margin-top: 0; margin-bottom: 1rem; }
+        h2 { font-size: 1.8rem; border-bottom: 1px solid var(--separator); padding-bottom: 0.5rem; margin-top: 3rem; }
+        h3 { font-size: 1.4rem; margin-top: 2rem; }
+        h4 { font-size: 1.1rem; font-weight: 600; margin-top: 1.5rem; }
+
+        p { margin-bottom: 1.2rem; color: var(--text-primary); }
+        
+        ul, ol { margin-bottom: 1.5rem; padding-left: 1.5rem; color: var(--text-primary); }
+        li { margin-bottom: 0.4rem; }
+
+        code {
+            font-family: var(--font-mono);
+            background-color: var(--code-bg);
+            padding: 0.2em 0.4em;
+            border-radius: 6px;
+            font-size: 0.9em;
+            color: var(--text-primary);
+        }
+
+        /* --- 3. 布局结构 --- */
+        .app-container {
+            display: grid;
+            grid-template-columns: var(--nav-width) minmax(0, 1fr) var(--toc-width);
+            min-height: 100vh;
+        }
+
+        /* Left Sidebar */
+        .sidebar-left {
+            background-color: var(--bg-secondary); /* Apple Sidebar Color */
+            border-right: 1px solid var(--separator);
+            height: 100vh;
+            position: sticky;
+            top: 0;
+            overflow-y: auto;
+            padding: 2rem 1.5rem;
+            display: flex;
+            flex-direction: column;
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            z-index: 100;
+        }
+
+        .sidebar-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--separator);
+        }
+
+        .brand-title {
+            font-weight: 700;
+            font-size: 1rem;
+            color: var(--text-primary);
+        }
+
+        .theme-toggle {
+            background: var(--fill-tertiary);
+            border: none;
+            color: var(--text-primary);
+            cursor: pointer;
+            padding: 6px 10px;
+            border-radius: 8px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            transition: background 0.2s;
+        }
+        .theme-toggle:hover { background: rgba(120,120,128,0.2); }
+
+        .nav-list { list-style: none; padding: 0; margin: 0; }
+        .nav-item { margin-bottom: 4px; }
+        
+        .nav-link {
+            display: block;
+            padding: 8px 12px;
+            border-radius: 8px;
+            color: var(--text-primary);
+            font-size: 0.9rem;
+            font-weight: 400;
+            text-decoration: none;
+            transition: background-color 0.2s, color 0.2s;
+        }
+        .nav-link:hover { background-color: var(--fill-tertiary); text-decoration: none; }
+        .nav-link.active {
+            background-color: var(--accent-blue);
+            color: #FFFFFF;
+            font-weight: 500;
+        }
+
+        .sub-nav {
+            list-style: none;
+            padding-left: 1.2rem;
+            margin-top: 4px;
+            margin-bottom: 8px;
+            border-left: 2px solid var(--separator);
+            margin-left: 12px;
+        }
+        .sub-nav .nav-link {
+            padding: 4px 8px;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
+        .sub-nav .nav-link:hover { color: var(--text-primary); background: none; }
+        .sub-nav .nav-link.active { color: var(--accent-blue); background: none; font-weight: 600; }
+
+        /* Main Content */
+        .main-content {
+            padding: 3rem 4rem 6rem 4rem;
+            max-width: 100%;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        .breadcrumbs {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+        }
+        .lead {
+            font-size: 1.3rem;
+            color: var(--text-secondary);
+            font-weight: 300;
+            margin-bottom: 3rem;
+            line-height: 1.5;
+        }
+
+        /* Right Sidebar (TOC) */
+        .sidebar-right {
+            height: 100vh;
+            position: sticky;
+            top: 0;
+            padding: 3rem 1.5rem;
+            overflow-y: auto;
+            border-left: 1px solid transparent; /* Visual balance */
+        }
+        
+        .toc-title {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--text-secondary);
+            font-weight: 600;
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        .toc-list { list-style: none; padding: 0; margin: 0; }
+        .toc-link {
+            display: block;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            padding: 4px 0;
+            text-decoration: none;
+            border-left: 2px solid transparent;
+            padding-left: 12px;
+            margin-left: -14px;
+            transition: all 0.2s;
+        }
+        .toc-link:hover { color: var(--text-primary); text-decoration: none; }
+        .toc-link.active {
+            color: var(--accent-blue);
+            border-left-color: var(--accent-blue);
+            font-weight: 500;
+        }
+
+        /* --- 4. 组件样式 --- */
+        
+        /* Callouts (Apple Style) */
+        .callout {
+            background-color: var(--bg-secondary);
+            border-radius: var(--radius-md);
+            padding: 1.2rem 1.5rem;
+            margin: 1.5rem 0;
+            position: relative;
+            overflow: hidden;
+        }
+        .callout::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+        }
+        .callout-title {
+            display: block;
+            font-weight: 600;
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 0.03em;
+        }
+        .callout p:last-child { margin-bottom: 0; }
+
+        /* Tip (Blue) */
+        .callout-tip { background-color: rgba(0, 122, 255, 0.08); } /* systemBlue opacity */
+        .callout-tip::before { background-color: var(--accent-blue); }
+        .callout-tip .callout-title { color: var(--accent-blue); }
+
+        /* Warning (Orange) */
+        .callout-warning { background-color: rgba(255, 149, 0, 0.08); } /* systemOrange opacity */
+        .callout-warning::before { background-color: var(--accent-orange); }
+        .callout-warning .callout-title { color: var(--accent-orange); }
+
+        /* Danger (Red) */
+        .callout-danger { background-color: rgba(255, 59, 48, 0.08); } /* systemRed opacity */
+        .callout-danger::before { background-color: var(--accent-red); }
+        .callout-danger .callout-title { color: var(--accent-red); }
+
+        /* Tables */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 2rem 0;
+            font-size: 0.95rem;
+            border-radius: var(--radius-sm);
+            overflow: hidden;
+            border: 1px solid var(--separator);
+        }
+        th, td {
+            padding: 12px 16px;
+            text-align: left;
+            border-bottom: 1px solid var(--separator);
+        }
+        th {
+            background-color: var(--bg-secondary);
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+        tr:last-child td { border-bottom: none; }
+        tr:hover td { background-color: var(--bg-secondary); }
+
+        /* Footer */
+        footer {
+            margin-top: 5rem;
+            padding-top: 2rem;
+            border-top: 1px solid var(--separator);
+            color: var(--text-tertiary);
+            font-size: 0.85rem;
+            text-align: center;
+        }
+
+        /* Responsive */
+        @media (max-width: 1200px) {
+            .app-container { grid-template-columns: var(--nav-width) 1fr; }
+            .sidebar-right { display: none; }
+            .main-content { padding-right: 3rem; }
+        }
+
+        @media (max-width: 768px) {
+            .app-container { display: block; }
+            .sidebar-left { display: none; } /* Mobile nav logic would go here */
+            .main-content { padding: 2rem 1.5rem; }
+            h1 { font-size: 2rem; }
+        }
+  </style>
+ </head>
+ <body>
+  <div class="app-container">
+   <!-- Left Sidebar -->
+   <nav aria-label="文档导航" class="sidebar-left">
+    <div class="sidebar-header">
+     <span class="brand-title">
+      Prop Firm Guide
+     </span>
+     <button aria-label="切换模式" class="theme-toggle" id="themeToggle">
+      Auto
+     </button>
+    </div>
+    <ul class="nav-list">
+     <li class="nav-item">
+      <a class="nav-link active" href="#intro">
+       基础规则指南
+      </a>
+     </li>
+     <li class="nav-item">
+      <a class="nav-link" href="#part-one">
+       一、三大核心规则
+      </a>
+      <ul class="sub-nav">
+       <li>
+        <a class="nav-link" href="#rule-drawdown">
+         1. 回撤规则
+        </a>
+       </li>
+       <li>
+        <a class="nav-link" href="#rule-consistency">
+         2. 一致性规则
+        </a>
+       </li>
+       <li>
+        <a class="nav-link" href="#rule-flat">
+         3. 日内平仓
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li class="nav-item">
+      <a class="nav-link" href="#part-two">
+       二、常见问题
+      </a>
+      <ul class="sub-nav">
+       <li>
+        <a class="nav-link" href="#q1">
+         1. 交易品种有哪些？
+        </a>
+       </li>
+       <li>
+        <a class="nav-link" href="#q2">
+         2. 怎么解决付款卡？
+        </a>
+       </li>
+       <li>
+        <a class="nav-link" href="#q3">
+         3. 英文网站怎么看？
+        </a>
+       </li>
+       <li>
+        <a class="nav-link" href="#q4">
+         4. 可以使用魔法吗？
+        </a>
+       </li>
+       <li>
+        <a class="nav-link" href="#q5">
+         5. 账户回撤类型
+        </a>
+       </li>
+       <li>
+        <a class="nav-link" href="#q6">
+         6. 最大持仓规模
+        </a>
+       </li>
+       <li>
+        <a class="nav-link" href="#q7">
+         7. 什么是日损？
+        </a>
+       </li>
+       <li>
+        <a class="nav-link" href="#q8">
+         8. 什么是新闻规则？
+        </a>
+       </li>
+       <li>
+        <a class="nav-link" href="#q9">
+         9. 考试费月费模式
+        </a>
+       </li>
+       <li>
+        <a class="nav-link" href="#q10">
+         10. 关于激活费
+        </a>
+       </li>
+       <li>
+        <a class="nav-link" href="#q11">
+         11. 什么是复制交易？
+        </a>
+       </li>
+       <li>
+        <a class="nav-link" href="#q12">
+         12. 什么是种田策略？
+        </a>
+       </li>
+       <li>
+        <a class="nav-link" href="#q13">
+         13. 最大出金号数量
+        </a>
+       </li>
+       <li>
+        <a class="nav-link" href="#q14">
+         14. 缓冲区与回撤
+        </a>
+       </li>
+       <li>
+        <a class="nav-link" href="#q15">
+         15. KYC 与护照
+        </a>
+       </li>
+       <li>
+        <a class="nav-link" href="#q16">
+         16. 单次出金上限
+        </a>
+       </li>
+       <li>
+        <a class="nav-link" href="#q17">
+         17. 出金后回撤锁定
+        </a>
+       </li>
+       <li>
+        <a class="nav-link" href="#q18">
+         18. 仪表盘延迟问题
+        </a>
+       </li>
+       <li>
+        <a class="nav-link" href="#q19">
+         19. 什么是 Live 路径
+        </a>
+       </li>
+      </ul>
+     </li>
+    </ul>
+   </nav>
+   <!-- Main Content -->
+   <main class="main-content">
+    <div class="breadcrumbs">
+    </div>
+    <article>
+     <section id="part-one">
+      <h2>
+       一、三大核心规则总览
+      </h2>
+      <p>
+       Futures Propfirm三个核心规则：
+       <strong>
+        最大回撤规则（Drawdown）
+       </strong>
+       、
+       <strong>
+        一致性规则（Consistency）
+       </strong>
+       和
+       <strong>
+        日内平仓（Flat at Close）
+       </strong>
+       。
+      </p>
+      <div class="callout callout-warning">
+       <span class="callout-title">
+        重要提示
+       </span>
+       <p>
+        超过 50% 的挑战失败，并不是因为交易水平不行，而是因为对规则不熟悉而导致制定的交易策略不符合要求。
+       </p>
+      </div>
+      <h3 id="rule-drawdown">
+       1. 回撤规则（Drawdown Rule）
+      </h3>
+      <p>
+       回撤就是平台允许你“净值往下跌多少”的空间。不同账户有不同的回撤规则，主要分为四种：
+      </p>
+      <h4>
+       (1) EOD（日终余额回撤，End of Day）
+      </h4>
+      <p>
+       只在每天收盘结算后，根据你的收盘净值更新高点和回撤线。日内只有不触发当日允许的最大回撤就不算违反规则。
+      </p>
+      <ul>
+       <li>
+        <strong>
+         ✅ 适合：
+        </strong>
+        日内波动大、但能控制日终结果的交易策略。
+       </li>
+      </ul>
+      <div class="callout callout-tip">
+       <span class="callout-title">
+        💡 举例
+       </span>
+       <p>
+        50K 账户，最大回撤 $2,000。
+       </p>
+       <ul>
+        <li>
+         第一天收盘：$51,200 → 新高点 $51,200 → 回撤线为 $49,200。
+        </li>
+        <li>
+         第二天盘中任何时刻净值低于对应回撤线（$49,200）→ 挑战失败。
+        </li>
+       </ul>
+      </div>
+      <h4>
+       (2) TDD（实时 Trailing Drawdown，实时追踪回撤）
+      </h4>
+      <p>
+       实时根据账户权益（含浮盈）计算，只要创出更高权益，回撤线立刻上移。一旦之后回撤触线，无论是否平仓，直接判失败，是最严格的一种。
+      </p>
+      <div class="callout callout-tip">
+       <span class="callout-title">
+        💡 举例
+       </span>
+       <p>
+        50K 账户，最大回撤 $2,000：
+       </p>
+       <ul>
+        <li>
+         初始回撤线：$48,000。
+        </li>
+        <li>
+         你当天做多盈利，权益最大到 $51,500 → 回撤线上移到 $49,500。
+        </li>
+        <li>
+         当天回撤到 $49,499（哪怕是盘中瞬间，含浮亏）→ 立刻爆账户。
+        </li>
+       </ul>
+      </div>
+      <div class="callout callout-warning">
+       <span class="callout-title">
+        ⚠️ 实战影响
+       </span>
+       <p>
+        Scalp交易策略适合这类回撤规则,降低账号回撤风险暴露概率
+       </p>
+      </div>
+      <h4>
+       (3) EOT（End of Trade）
+      </h4>
+      <p>
+       只在每笔交易平仓时更新净值高点与回撤线，浮盈浮亏过程本身不触发追踪。
+      </p>
+      <div class="callout callout-tip">
+       <span class="callout-title">
+        💡 举例
+       </span>
+       <ul>
+        <li>
+         当天账号浮盈 +$500 还没平仓 → 不会上移回撤线。
+        </li>
+        <li>
+         平仓后 → 账户立即更新回撤线，如 50k 初始回撤是 $48,000，浮盈的 500 平仓后立即变成 $48,500。
+        </li>
+       </ul>
+      </div>
+      <p>
+       这种回撤方式几乎见不到可以忽略，采用这种回撤模式的平台占比不到 1%，比如 Funded Futures Network 是这种回撤。
+      </p>
+      <h4>
+       (4) 静态回撤（Static Drawdown）
+      </h4>
+      <p>
+       最大回撤是固定数字，永不追踪。只要余额不低于那条线，账户就安全。几乎所有平台的账户，在超过缓冲区后都会变成静态账户，如 50k 的账户的回撤始终锁定为 $50,100。
+      </p>
+      <div class="callout callout-tip">
+       <span class="callout-title">
+        💡 举例
+       </span>
+       <p>
+        50K 账户，静态最大回撤 $2,000：
+       </p>
+       <ul>
+        <li>
+         比如 50K 账户利润超到 2100 后，第二天开始回撤锁定在 $50,100。
+        </li>
+        <li>
+         后面即使你做几万的利润，回撤始终锁定在 $50,100 不变。
+        </li>
+       </ul>
+      </div>
+      <h3 id="rule-consistency">
+       2. 一致性规则（Consistency Rule）
+      </h3>
+      <p>
+       一致性规则是防止“赌博”。大多数 Prop Firm 要求你的盈利必须相对均匀地分布在多天或多笔交易中，避免出现 “赌博” 的模式。
+      </p>
+      <p>
+       <strong>
+        常见形式示例：
+       </strong>
+      </p>
+      <ul>
+       <li>
+        要求至少 3～5 个交易日盈利，不能只在 1 天完成全部利润。
+       </li>
+       <li>
+        单日盈利不超过总利润的 30%–50%。例如目标 $3,000，平台规定单日最多占 50%，那最好控制单日不超过 $1,500 ，否则会导致通过考试的盈利目标变高。
+       </li>
+      </ul>
+      <div class="callout callout-tip">
+       <span class="callout-title">
+        💡 举例
+       </span>
+       <p>
+        如果平台有 50% 一致性要求，50k 账户本来 3000 即可过关，而账户第一天赚 $3,000 → 利润要求变高，3000 过关变成要 6000 才能过关。
+       </p>
+       <p>
+        以 Lucid 的 50k 出金号举例，出金门槛是 3000，一致性为 20%，账户计算当天最大盈利的：3000*20%=600，账户当日盈利不要超过 600 就满足一致性要求。
+       </p>
+      </div>
+      <h3 id="rule-flat">
+       3. 日内平仓（Flat at Close）
+      </h3>
+      <p>
+       Futures Prop Firm 强制日内平仓：在规定时间前必须全部平掉持仓，不能隔夜。
+      </p>
+      <ul>
+       <li>
+        <strong>
+         常见参考：
+        </strong>
+        通常按北京时间次日 4:00 左右为结算时间（不同平台不一样，最早的是 4 点，有的是 4 点多，所以统一记为 4 点即可）。
+       </li>
+       <li>
+        <strong>
+         90% 平台：
+        </strong>
+        大部分平台到点未平仓系统会自动帮你平（触发自动平仓不算违规，无影响）。
+       </li>
+       <li>
+        <strong>
+         10% 平台：
+        </strong>
+        极少部分平台不会自动平，如 TPT 等，忘记平掉会直接违规失败（挂单也要撤掉）。
+       </li>
+      </ul>
+      <p>
+       <strong>
+        建议：
+       </strong>
+       指定好一个规定时间的闹钟执行平仓任务。
+      </p>
+     </section>
+     <section id="part-two">
+      <h2>
+       二、常见问题
+      </h2>
+      <div id="qa-basics">
+       <h3 id="q1">
+        1. Futures Prop Firm 交易品种有哪些？
+       </h3>
+       <p>
+        Futures Prop Firm 基本都是交易美国主流期货合约
+       </p>
+       <ul>
+        <li>
+         <strong>
+          股指：
+         </strong>
+         NQ（纳指）、ES（标普500）、YM（道指）、RTY（小盘股）。
+        </li>
+        <li>
+         <strong>
+          金属：
+         </strong>
+         GC（黄金）、SI（白银）。
+        </li>
+        <li>
+         <strong>
+          能源：
+         </strong>
+         CL（原油）、NG（天然气）。
+        </li>
+        <li>
+         <strong>
+          外汇期货：
+         </strong>
+         6E（欧元）、6J（日元）、6B（英镑）等。
+        </li>
+        <li>
+         <strong>
+          微型合约：
+         </strong>
+         MNQ、MES、MGC 等，名义价值是标准合约的 1/10。
+        </li>
+       </ul>
+       <p>
+        <strong>
+         和 CFD 的主要区别：
+        </strong>
+       </p>
+       <ul>
+        <li>
+         期货在交易所挂牌，撮合透明，报价统一。
+        </li>
+        <li>
+         杠杆固定（交易所+经纪商规则），不会被随意操控，更加公平，且交易手续费低，成本低。
+        </li>
+        <li>
+         无“后台随意改价/扩大点差”的问题，监管更严格，如果平台有 live 账户一般受到 CFTC 监管，出金更顺畅。
+        </li>
+       </ul>
+       <h3 id="q2">
+        2. 怎么解决付款卡问题？
+       </h3>
+       <p>
+        绝大部分 Prop Firm 只能刷国际信用卡（VISA 万事达）。常见解决方案：
+       </p>
+       <ul>
+        <li>
+         <strong>
+          中国大陆用户：
+         </strong>
+         办 VISA 万事达卡（大部分 bank 现在储蓄卡都有 VISA 万事达），如果支持 paypal 的可以绑定 paypal 支持。办 By 卡或者 fiat24 卡（safepay）。用支持加密付款的，比如 fundednext、topone、tradeify 等。
+        </li>
+        <li>
+         <strong>
+          海外 / 港澳 / 有外币账户用户：
+         </strong>
+         畅通无阻，港卡、境外银行卡直接 VISA/Master 支付。
+        </li>
+       </ul>
+       <div class="callout callout-danger">
+        <span class="callout-title">
+         ⚠️ 警告
+        </span>
+        <p>
+         所有平台都禁止非本人的卡付款。不要随便把账户邮箱、密码发给陌生人代注册，避免后续纠纷。
+        </p>
+       </div>
+       <h3 id="q3">
+        3. 怎么看英文网站和规则？
+       </h3>
+       <p>
+        建议使用沉浸式翻译插件。Chrome 右键“翻译成中文”或 Edge 自带翻译。建议对于关键条款，除了机翻以外，再看一下原文，避免产出歧义。
+       </p>
+       <p>
+        🔗
+        <a href="https://immersive-translate.com/" target="_blank">
+         沉浸式翻译插件官网
+        </a>
+       </p>
+       <h3 id="q4">
+        4. 可以使用 魔法 吗？
+       </h3>
+       <p>
+        绝大部分都支持，少部分不支持，交易前先看下总结的规则图。允许使用魔法的但也需要注意：频繁变更 IP、国家跳来跳去，会触发风控。不要使用禁止国家的 IP，如朝鲜等。
+       </p>
+       <p>
+        💡建议：采用付费魔法 并设置一个地区。
+       </p>
+      </div>
+      <div id="qa-platform">
+       <!-- Placeholder for platform specific QAs if any, grouping 4-9 as per nav -->
+      </div>
+      <div id="qa-rules">
+       <h3 id="q5">
+        5. 每种账户类型的最大回撤（示例理解）
+       </h3>
+       <table>
+        <thead>
+         <tr>
+          <th>
+           平台
+          </th>
+          <th>
+           账户规模
+          </th>
+          <th>
+           回撤类型
+          </th>
+          <th>
+           最大回撤
+          </th>
+          <th>
+           日损限额
+          </th>
+         </tr>
+        </thead>
+        <tbody>
+         <tr>
+          <td>
+           TPT平台
+          </td>
+          <td>
+           50K
+          </td>
+          <td>
+           考试EOD+出金TDD
+          </td>
+          <td>
+           $2,000
+          </td>
+          <td>
+           $2,000
+          </td>
+         </tr>
+         <tr>
+          <td>
+           Lucid平台
+          </td>
+          <td>
+           50K
+          </td>
+          <td>
+           EOD
+          </td>
+          <td>
+           $2,000
+          </td>
+          <td>
+           $1,200
+          </td>
+         </tr>
+         <tr>
+          <td>
+           Fundednext
+          </td>
+          <td>
+           50K
+          </td>
+          <td>
+           EOD
+          </td>
+          <td>
+           $2,000
+          </td>
+          <td>
+           $2,000
+          </td>
+         </tr>
+        </tbody>
+       </table>
+       <h3 id="q6">
+        6. 账户的最大持仓规模
+       </h3>
+       <p>
+        Futures Prop Firm 会限制单一账户的最大手数，避免过度使用保证金。
+       </p>
+       <p>
+        💡 举例（示意）：50K 账户，比如 alpha zero 考试最多 5 手 NQ，而到了出金号最多 1 NQ。不能同时开过多超总限制。
+       </p>
+       <p>
+        ⚠️ 超过限制，如果是 projectx 是开不了仓的不会违规，使用 tdv 或者 rithmic 可能能超过最大规模限制会违规。
+       </p>
+       <h3 id="q7">
+        7. 是日损（Daily Loss Limit）
+       </h3>
+       <p>
+        少部分平台有日损，日损 = 单个自然日最多允许你亏多少，超过会被强平（软违规，触发日损后第二天能继续交易）。
+       </p>
+       <div class="callout callout-tip">
+        <span class="callout-title">
+         💡 举例
+        </span>
+        <p>
+         50K 账户，日损 $1,200。比如当然初始权益 $50,000，则当日权益不能低于 $48,800，低于这个数值会被系统自动平仓（因为触发日损），触发日损后第二天能继续交易。
+        </p>
+       </div>
+       <h3 id="q8">
+        8. 什么是新闻规则（News Rule）？
+       </h3>
+       <p>
+        部分 Prop Firm 会限制在重大经济数据公布前后交易，尤其是出金账户。常见受限新闻：非农（NFP）、CPI、FOMC 利率决议等。
+       </p>
+       <p>
+        限制形式：新闻前后 X 分钟不得开仓或平仓。新闻前后 X 分钟不得持仓（极少数平台才有这个规则，占比不到 2%，一般都是限制开平仓）。
+       </p>
+       <p>
+        基本上所有平台的评估账户不限制新闻交易，但部分平台出金号有新闻规则。务必看一下官网对新闻规则的要求。
+       </p>
+      </div>
+      <div id="qa-fees">
+       <h3 id="q9">
+        9. 考试费的月费模式（月度订阅）
+       </h3>
+       <p>
+        多数 Futures Prop Firm 的评估账户采用月费订阅制：购买后有效期通常为 30 天，如未通过或失败，想继续评估就重置或重新购买，如果不取消订阅，第 31 天会收取下一次的月费。一旦通过，平台会停止后续月费扣款（也就是出金号阶段都没有月费！）。
+       </p>
+       <ul>
+        <li>
+         <strong>
+          月费订阅型平台：
+         </strong>
+         如 TPT、Topstep、Tradeday 等 超过 30 天未过关 → 需续费或重置。
+        </li>
+        <li>
+         <strong>
+          免收月费、一次性收费平台：
+         </strong>
+         如 Lucid、FundedNext → 只收一次考试费，不收月费。
+        </li>
+        <li>
+         <strong>
+          免考账户（Direct Funding）：
+         </strong>
+         购买免考号都是一次性费用，不存在考试月费问题，但初始成本更高，对于新手来说建议从考试开始。
+        </li>
+       </ul>
+       <p>
+        💡tip：你买了 $49 的 50K 评估，30 天内未完成目标也未失败，如果没有取消订阅，第 31 天会自动续订 $49。所以建议：确认好交易计划和时间安排。
+       </p>
+       <h3 id="q10">
+        10. 关于激活费（Activation Fee）
+       </h3>
+       <p>
+        激活费是部分 Futures prop firm 在你通过评估后，要求额外支付的一笔费用，用于激活 funded sim 账户（即出金号）。这笔钱与考试评估费分开计算。不过大部分平台都是免激活的，选择免激活的性价比更高。
+       </p>
+       <ul>
+        <li>
+         <strong>
+          需要激活费的举例：
+         </strong>
+         Topstep 50K 考试费 $49，通过后还要 $129 激活费 → 实际成本即 49+129。
+        </li>
+        <li>
+         <strong>
+          免激活举例：
+         </strong>
+         TPT、Lucid、FundedNext 等，通过后免收激活费直接给出金号。
+        </li>
+       </ul>
+       <p>
+        建议：算“总成本”（考试费+可能的重考+激活费），再决定怎么选择。
+       </p>
+       <h3 id="q11">
+        11. 什么是复制交易（Copy Trading）
+       </h3>
+       <p>
+        复制交易指通过软件或内置功能，将一个“主账户”的下单同步到多个“子账户”。在 Futures Prop Firm 场景中，常见用途是：一个账号设置主账户，其余账号设置为从账户自动跟随，以实现多号同步复制。
+       </p>
+       <ul>
+        <li>
+         <strong>
+          优势：
+         </strong>
+         节省精力，保持多账户交易风格一致；便于“种田”和多号管理。
+        </li>
+        <li>
+         <strong>
+          风险：
+         </strong>
+         所有号同时触发回撤/日损，可能一套动作“团灭”，因此复制建议种田。
+        </li>
+       </ul>
+       <div class="callout callout-warning">
+        <span class="callout-title">
+         ⚠️ 条款注意
+        </span>
+        <p>
+         所有平台都仅允许自己复制自己，所有平台都禁止复制其他人的外部信号源。
+        </p>
+       </div>
+       <p>
+        示例：使用 projectx 自带的复制功能最为方便。
+       </p>
+       <h3 id="q12">
+        12. 什么是“种田”策略
+       </h3>
+       <p>
+        “种田”是一个流派，指用小手数、低风险、稳定累积利润的长期运营方式，而不是追求一两单暴利。核心逻辑：多号 + 小目标 + 高存活率。例如：每个号每天目标 $200–$300，达到就停止交易。
+       </p>
+       <p>
+        使用微型合约（MNQ/MGC）起步，控制浮动亏损远低于日损和总回撤。通过复制交易，把同一稳定逻辑复制到多个出金号，实现“田多粮多”。
+       </p>
+       <p>
+        重点：不赌、不梭、不情绪化，坚持长期存活。
+       </p>
+      </div>
+      <div id="qa-withdraw">
+       <h3 id="q13">
+        13. 最大同时拥有的出金号（Funded Accounts）
+       </h3>
+       <p>
+        所有 prop firm 都会限制单个交易员可持有的出金账户数量或总名义资金规模，一般是限制同时拥有 3-5 个出金号。用亲友信息多开，必须 IP、设备、订单，做完全的隔离，一旦被发现两个账户都将会被 ban。
+       </p>
+       <h3 id="q14">
+        14. 出金号缓冲区（Buffer）与超过缓冲区的回撤
+       </h3>
+       <p>
+        缓冲区是指：出金号必须留在账户中的利润（简称为"垫子"）。一般需要超出缓冲区的部分才能提现。基本上所有平台，达到某个利润后，第二天开始回撤线会锁定在初始余额（静态）。
+       </p>
+       <p>
+        示例：50K 出金号当权益升到 $55,100 ，平台将回撤线锁定为 $50,100（静态）。此时你有 $5,000 缓冲，可在 $50,100–$55,100 区间波动而不失败。
+       </p>
+       <ul>
+        <li>
+         <strong>
+          部分平台：
+         </strong>
+         超过缓冲区的部分才允许出金（如 TPT 允许提缓冲区，不到 60 个交易日提 50%，超过 60 个交易日提 80%）。
+        </li>
+        <li>
+         <strong>
+          极少数平台：
+         </strong>
+         没有缓冲区所有利润都可以直接提现（如 fundednext 的快速模式）。
+        </li>
+       </ul>
+       <h3 id="q15">
+        15. 什么是 KYC，为什么优先用护照
+       </h3>
+       <p>
+        KYC（Know Your Customer）是合规要求，用于验证你的真实身份。大多数 prop firm 在出金前或发放出金号前，会要求完成 KYC。
+       </p>
+       <p>
+        所有平台都禁止非本人的卡付款。所有平台禁止利用多 KYC 进行共同复制、对冲操作，一旦发现全部一起封（多 KYC 要做好交易、IP、设备的完全隔离）。
+       </p>
+       <p>
+        推荐护照（大部分平台都只支持护照）。信息必须与注册姓名（注册时填英文拼音），避免因姓名不符导致出金卡住。地址信息也填英文，可用百度翻译成英文地址。
+       </p>
+       <p>
+        KYC 时旁边不要有人，系统全程开启摄像头扫描（被拍到其他人很多平台会拒绝 KYC）。
+       </p>
+       <h3 id="q16">
+        16. 单次出金 Cap（单次出金上限）
+       </h3>
+       <p>
+        很多 prop firm 对单次出金金额设有上限（Cap），尤其是前几次出金。这是为了控制风险，避免一开始就大额提现，也有利于 propfirm 的健康发展。
+       </p>
+       <p>
+        示例：Lucid 平台 50K 账户第一次出金 cap 为 $1,500，之后根据次数提高上限。有的平台采用累计梯度：第 1 次 $1,500，第 2 次 $2,500，第 3 次开始可提更大金额。
+       </p>
+       <h3 id="q17">
+        17. 出金后“回撤锁定为初始余额”是什么意思
+       </h3>
+       <p>
+        基本上所有 prop firm 规定：当你完成第一次出金后，账户回撤不再跟随权益上移，而是锁定在初始余额。
+       </p>
+       <p>
+        示例：50K 账户首次出金后，平台将最大回撤线锁在 $50,100，此后无论再赚再回撤，只要不跌破 $50,100 即安全。
+       </p>
+       <p>
+        理解：这是对“验证过稳定性”的交易员的一种奖励，变成静态账户是最好的回撤方式。
+       </p>
+      </div>
+      <div id="qa-misc">
+       <h3 id="q18">
+        18. 为什么仪表盘净值不是实时的？
+       </h3>
+       <p>
+        Prop Firm 仪表盘通常不会实时同步交易软件的数据。Project X 通常延迟较短，Tradovate 和 Rithmic 常见情况是第二天更新。结论：更新有延迟，以交易软件显示的为准。
+       </p>
+       <h3 id="q19">
+        19. 什么是 Live / Live 路径
+       </h3>
+       <p>
+        Prop firm 账户大致分为三层：Evaluation（评估）、Sim Funded（出金阶段）、Live（真实 CME 账户）。“Live 路径” 指从评估 → 出金号 Sim Funded → 真正 Live 的晋级路线（进 live 只有坏处没有好处，能不进 live 最好）。
+       </p>
+      </div>
+     </section>
+    </article>
+   </main>
+   <script>
+    // Theme Toggle Logic
+    const themeToggleBtn = document.getElementById('themeToggle');
+    const htmlElement = document.documentElement;
+    
+    // Check local storage or system preference
+    const savedTheme = localStorage.getItem('theme');
+    const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+    if (savedTheme === 'dark' || (!savedTheme && systemDark)) {
+        htmlElement.setAttribute('data-theme', 'dark');
+    }
+
+    themeToggleBtn.addEventListener('click', () => {
+        const currentTheme = htmlElement.getAttribute('data-theme');
+        const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+        htmlElement.setAttribute('data-theme', newTheme);
+        localStorage.setItem('theme', newTheme);
+    });
+
+    // Scroll Spy Logic
+    const sections = document.querySelectorAll('header[id], section[id], h3[id], div[id]');
+    const tocLinks = document.querySelectorAll('.toc-link');
+    const navLinks = document.querySelectorAll('.nav-link');
+
+    const observerOptions = {
+        root: null,
+        rootMargin: '-100px 0px -70% 0px',
+        threshold: 0
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const id = entry.target.getAttribute('id');
+                
+                // Update Right Sidebar (TOC)
+                tocLinks.forEach(link => link.classList.remove('active'));
+                const activeTocLink = document.querySelector(`.toc-link[href="#${id}"]`);
+                if (activeTocLink) activeTocLink.classList.add('active');
+
+                // Update Left Sidebar (Nav)
+                // Only highlight main sections or direct matches
+                navLinks.forEach(link => link.classList.remove('active'));
+                const activeNavLink = document.querySelector(`.nav-link[href="#${id}"]`);
+                if (activeNavLink) {
+                    activeNavLink.classList.add('active');
+                    // Keep parent expanded/active if needed
+                    const parentItem = activeNavLink.closest('.sub-nav');
+                    if (parentItem) {
+                        const parentLink = parentItem.previousElementSibling; // This might need adjustment based on DOM
+                        // Simplified: just highlight the specific link
+                    }
+                }
+            }
+        });
+    }, observerOptions);
+
+    sections.forEach(section => {
+        observer.observe(section);
+    });
+   </script>
+  </div>
+ </body>
+</html>

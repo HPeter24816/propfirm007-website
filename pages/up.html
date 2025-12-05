@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>
+   推荐博主 - Price Action Resources
+  </title>
+  <link href="../assets/css/styles.css" rel="stylesheet"/>
+  <script src="../assets/js/layout.js">
+  </script>
+  <script src="../assets/js/scripts.js">
+  </script>
+  <style>
+   /* Reset & Base */
+        :root {
+            /* Apple System Colors (Manual) */
+            --bg-color: #F2F2F7; /* secondarySystemBackground */
+            --card-bg: #FFFFFF; /* systemBackground */
+            --text-primary: #000000; /* label */
+            --text-secondary: rgba(60, 60, 67, 0.6); /* secondaryLabel */
+            --accent-color: #007AFF; /* systemBlue */
+            
+            /* Shadows */
+            --shadow-sm: 0 2px 8px rgba(0,0,0,0.04);
+            --shadow-md: 0 8px 24px rgba(0,0,0,0.08);
+            
+            --radius-lg: 20px;
+            --radius-md: 12px;
+            --font-stack: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", Helvetica, Arial, sans-serif;
+
+            /* New Navigation Variables */
+            --color-nav-bg: rgba(22, 22, 23, 0.8); /* 深色半透明背景 */
+            --color-nav-text: #e8e8ed; /* 导航文字颜色 */
+            --color-nav-text-hover: #ffffff; /* 导航文字悬停颜色 */
+            --color-accent: #0071e3; /* 苹果蓝强调色 */
+            --color-accent-hover: #0077ed; /* 强调色悬停 */
+            
+            /* Typography */
+            --font-family-base: "SF Pro Text", "SF Pro Icons", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
+            
+            /* Layout */
+            --container-width: 1200px;
+            --header-height: 64px;
+            --transition-speed: 0.3s;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: var(--font-stack);
+            background-color: var(--bg-color);
+            color: var(--text-primary);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        /* Main Layout */
+        .main-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 100px 20px 60px;
+        }
+
+        .cards-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 40px;
+        }
+
+        @media (min-width: 1024px) {
+            .cards-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        .hero-section {
+            text-align: center;
+            margin-bottom: 80px;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeUp 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+        }
+
+        .hero-title {
+            font-size: 48px;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            margin-bottom: 16px;
+        }
+
+        .hero-subtitle {
+            font-size: 24px;
+            color: var(--text-secondary);
+            font-weight: 400;
+        }
+
+        /* Cards */
+        .card {
+            background: var(--card-bg);
+            border-radius: var(--radius-lg);
+            padding: 40px;
+            /* margin-bottom: 40px; Removed for grid layout */
+            box-shadow: var(--shadow-sm);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            opacity: 0;
+            transform: translateY(30px);
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+            height: 100%; /* Ensure cards stretch to fill grid cell */
+        }
+
+        .card.visible {
+            opacity: 1;
+            transform: translateY(0);
+            transition: opacity 0.6s ease, transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
+
+        .card:hover {
+            transform: scale(1.01);
+            box-shadow: var(--shadow-md);
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 10px;
+        }
+
+        .card-title {
+            font-size: 28px;
+            font-weight: 600;
+            letter-spacing: -0.01em;
+        }
+
+        .card-content {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 30px;
+        }
+
+        @media (min-width: 768px) {
+            .card-content {
+                grid-template-columns: 1.2fr 0.8fr;
+            }
+        }
+
+        .card-text {
+            font-size: 17px;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        .card-text strong {
+            color: var(--text-primary);
+            font-weight: 600;
+        }
+
+        .card-image-placeholder {
+            background: transparent;
+            border-radius: var(--radius-md);
+            aspect-ratio: 1 / 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #a1a1a6;
+            font-size: 14px;
+            overflow: hidden;
+            position: relative;
+            border: none;
+        }
+        
+        .card-image-placeholder img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            display: none;
+            border-radius: var(--radius-md);
+        }
+
+        .card-image-placeholder.has-image img {
+            display: block;
+        }
+        
+        .card-image-placeholder.has-image span {
+            display: none;
+        }
+
+        .card-link {
+            display: inline-block;
+            margin-top: 20px;
+            color: var(--accent-color);
+            font-size: 17px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: opacity 0.2s;
+        }
+
+        .card-link:hover {
+            text-decoration: underline;
+            opacity: 0.8;
+        }
+
+        /* Animations */
+        @keyframes fadeUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 36px;
+            }
+            .card {
+                padding: 24px;
+            }
+            .card-content {
+                grid-template-columns: 1fr;
+            }
+            .card-image-placeholder {
+                order: -1; /* Image on top for mobile */
+            }
+            .nav-links {
+                display: none; /* Hide nav links on small screens for simplicity */
+            }
+        }
+  </style>
+ </head>
+ <body>
+  <!-- Header -->
+  <div class="main-container">
+   <section class="hero-section">
+    <h1 class="hero-title">
+     推荐博主
+    </h1>
+    <p class="hero-subtitle">
+     Price Action 频道资源
+    </p>
+   </section>
+   <div class="cards-grid">
+    <!-- 1. Brooks Trading Course -->
+    <article class="card" id="brooks">
+     <div class="card-header">
+      <div class="card-title">
+       Brooks Trading Course
+      </div>
+     </div>
+     <div class="card-content">
+      <div class="card-text">
+       <p>
+        Brooks Trading Course 频道是价格行为学权威
+        <strong>
+         Al Brooks
+        </strong>
+        的官方 YouTube 频道，专注于分享纯粹的价格行为交易视频。
+       </p>
+       <br/>
+       <p>
+        内容基于 Brooks 的经典著作和完整的在线课程体系，重点讲解逐 K 线图分析，教授交易者如何通过观察 K 线形态、市场结构和趋势变化制定交易决策。该频道是学习阅读裸 K 线图并理解市场逻辑的必备资源。
+       </p>
+       <a class="card-link" href="https://www.youtube.com/@BrooksTradingCourse" target="_blank">
+        访问频道 ↗
+       </a>
+      </div>
+      <div class="card-image-placeholder has-image">
+       <img alt="Brooks Trading Course" src="../assets/images/Brooks Trading Course.png"/>
+      </div>
+     </div>
+    </article>
+    <!-- 2. Rose -->
+    <article class="card" id="rose">
+     <div class="card-header">
+      <div class="card-title">
+       Rose
+      </div>
+     </div>
+     <div class="card-content">
+      <div class="card-text">
+       <p>
+        <strong>
+         PriceActionRose 频道
+        </strong>
+        是价格行为大师
+        <strong>
+         Al Brooks
+        </strong>
+        体系的重要中文学习资源。
+       </p>
+       <br/>
+       <p>
+        <strong>
+         Rose
+        </strong>
+        的交易风格严格遵循 Al Brooks 的逐 K 线分析方法，强调识别信号 K 线、反转结构与趋势通道，并结合对趋势、腿、测试等
+        <strong>
+         市场周期
+        </strong>
+        的深入理解进行精准操作。她致力于帮助交易者掌握纯粹的图表阅读能力，实现高效稳健的日内交易。
+       </p>
+       <a class="card-link" href="https://www.youtube.com/@PriceActionRose" target="_blank">
+        访问频道 ↗
+       </a>
+      </div>
+      <div class="card-image-placeholder has-image">
+       <img alt="PriceActionRose" src="../assets/images/PriceActionRose.png"/>
+      </div>
+     </div>
+    </article>
+    <!-- 3. Trader Tom -->
+    <article class="card" id="tom">
+     <div class="card-header">
+      <div class="card-title">
+       Trader Tom
+      </div>
+     </div>
+     <div class="card-content">
+      <div class="card-text">
+       <p>
+        <strong>
+         Trader Tom
+        </strong>
+        专注于纯粹的
+        <strong>
+         价格行为学
+        </strong>
+        分析和交易。
+       </p>
+       <br/>
+       <p>
+        他擅长使用没有指标的裸 K 线图进行短线
+        <strong>
+         剥头皮
+        </strong>
+        （Scalping）交易，并经常分享包括比特币、道指和纳斯达克在内的多个金融市场的
+        <strong>
+         实盘交易
+        </strong>
+        视频。
+       </p>
+       <a class="card-link" href="https://www.youtube.com/@TraderTom" target="_blank">
+        访问频道 ↗
+       </a>
+      </div>
+      <div class="card-image-placeholder has-image">
+       <img alt="Trader Tom" src="../assets/images/Trader Tom.png"/>
+      </div>
+     </div>
+    </article>
+    <!-- 4. 方方土PriceAction -->
+    <article class="card" id="louie">
+     <div class="card-header">
+      <div class="card-title">
+       方方土 PriceAction
+      </div>
+     </div>
+     <div class="card-content">
+      <div class="card-text">
+       <p>
+        方方土PriceAction（LouiePriceAction）频道由 Louie 创建和运营，他是 Al Brooks 视频课程的中文翻译者。
+       </p>
+       <br/>
+       <p>
+        频道是 Al Brooks 价格行为学在中文社区的重要推广与实践平台，Louie 通过实盘交易深入浅出地分享核心理论与实战应用。内容主要分为两类：《专题课》系统讲解价格行为理论和概念，《实盘边做边讲》实时录制交易过程，详细解析进出场逻辑。
+       </p>
+       <a class="card-link" href="https://www.youtube.com/@LouiePriceAction" target="_blank">
+        访问频道 ↗
+       </a>
+      </div>
+      <div class="card-image-placeholder has-image">
+       <img alt="方方土 PriceAction" src="../assets/images/方方土PriceAction.png"/>
+      </div>
+     </div>
+    </article>
+    <!-- 5. 价格研习生 -->
+    <article class="card" id="yanxisheng">
+     <div class="card-header">
+      <div class="card-title">
+       价格研习生
+      </div>
+     </div>
+     <div class="card-content">
+      <div class="card-text">
+       <p>
+        <strong>
+         价格研习生
+        </strong>
+        是价格行为学在中文社区的重要传播者，为中文学习者提供进入高级交易体系的清晰路径。
+       </p>
+       <br/>
+       <p>
+        他的内容紧密围绕
+        <strong>
+         Al Brooks 价格行为体系
+        </strong>
+        展开。有深入的逐 K 线分析，如何识别 K 线信号、判断市场结构、理解趋势生命周期以及发现高概率交易设置的内容。将原本晦涩的价格行为理论变得通俗易懂。
+       </p>
+       <a class="card-link" href="https://space.bilibili.com/354144419" target="_blank">
+        访问 Bilibili ↗
+       </a>
+      </div>
+      <div class="card-image-placeholder has-image">
+       <img alt="价格研习生" src="../assets/images/价格研习生.png"/>
+      </div>
+     </div>
+    </article>
+    <!-- 6. 罗晟Criss -->
+    <article class="card" id="criss">
+     <div class="card-header">
+      <div class="card-title">
+       罗晟 Criss
+      </div>
+     </div>
+     <div class="card-content">
+      <div class="card-text">
+       <p>
+        <strong>
+         罗晟 Criss
+        </strong>
+        是一位专注分享价格行为学与交易哲学的交易员。
+       </p>
+       <br/>
+       <p>
+        他的频道以提供投资与交易的实战指南为核心，强调以市场本身为依据，通过解读 K 线、趋势、支撑与阻力等基础元素把握市场脉络。他将纯粹的价格行为理念融入内容之中，同时深入探讨交易的心法与境界。
+       </p>
+       <a class="card-link" href="https://www.youtube.com/@luoshengcriss" target="_blank">
+        访问频道 ↗
+       </a>
+      </div>
+      <div class="card-image-placeholder has-image">
+       <img alt="罗晟 Criss" src="../assets/images/罗晟 Criss.png"/>
+      </div>
+     </div>
+    </article>
+   </div>
+  </div>
+  <script>
+   document.addEventListener('DOMContentLoaded', () => {
+            // 1. 移动端菜单切换功能
+            const headerToggle = document.querySelector('.header__toggle');
+            const headerNav = document.querySelector('.header__nav');
+            const body = document.body;
+
+            if (headerToggle && headerNav) {
+                headerToggle.addEventListener('click', () => {
+                    const isActive = headerNav.classList.toggle('active');
+                    headerToggle.classList.toggle('active');
+                    
+                    // 防止菜单打开时页面滚动
+                    if (isActive) {
+                        body.style.overflow = 'hidden';
+                    } else {
+                        body.style.overflow = '';
+                    }
+                });
+
+                // 点击导航链接时关闭菜单
+                const navLinks = document.querySelectorAll('.header__link, .header__cta');
+                navLinks.forEach(link => {
+                    link.addEventListener('click', () => {
+                        headerNav.classList.remove('active');
+                        headerToggle.classList.remove('active');
+                        body.style.overflow = '';
+                    });
+                });
+            }
+
+            // 2. 平滑滚动功能(用于锚点链接)
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href');
+                    if (targetId === '#') return;
+                    
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        const headerOffset = 80; // 固定导航栏高度补偿
+                        const elementPosition = targetElement.getBoundingClientRect().top;
+                        const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+
+                        window.scrollTo({
+                            top: offsetPosition,
+                            behavior: "smooth"
+                        });
+                    }
+                });
+            });
+        });
+
+        // Intersection Observer for fade-in animation
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.card').forEach(card => {
+            observer.observe(card);
+        });
+  </script>
+ </body>
+</html>

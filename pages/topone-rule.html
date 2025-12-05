@@ -1,0 +1,687 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>
+   Top One Futures - S2F Pro 规则详情
+  </title>
+  <link href="../assets/css/styles.css" rel="stylesheet"/>
+  <script src="../assets/js/layout.js">
+  </script>
+  <script src="../assets/js/scripts.js">
+  </script>
+  <style>
+   :root {
+            --bg-color: #f5f5f7;
+            --card-bg: #ffffff;
+            --text-primary: #1d1d1f;
+            --text-secondary: #86868b;
+            --accent-color: #0071e3;
+            --accent-red: #ff3b30;
+            --accent-orange: #ff9500;
+            --border-color: #d2d2d7;
+            --table-border: #e5e5e5;
+            --table-header-bg: #FBFBFD;
+            --nav-height: 60px;
+            --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.04);
+            --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.08);
+            --radius-lg: 20px;
+            --radius-md: 12px;
+            --font-main: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+
+            /* Apple System Colors - 导航栏专用 */
+            --color-nav-bg: rgba(22, 22, 23, 0.8); /* 深色半透明背景 */
+            --color-nav-text: #e8e8ed; /* 导航文字颜色 */
+            --color-nav-text-hover: #ffffff; /* 导航文字悬停颜色 */
+            --color-accent: #0071e3; /* 苹果蓝强调色 */
+            --color-accent-hover: #0077ed; /* 强调色悬停 */
+            
+            /* Typography */
+            --font-family-base: "SF Pro Text", "SF Pro Icons", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
+            
+            /* Layout */
+            --container-width: 1200px;
+            --header-height: 64px;
+            --transition-speed: 0.3s;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        body {
+            font-family: var(--font-main);
+            background-color: var(--bg-color);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+
+
+
+
+
+
+
+
+
+
+        /* Main Content */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: calc(var(--nav-height) + 60px) 24px 60px;
+        }
+
+        .hero {
+            text-align: center;
+            margin-bottom: 60px;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        .hero h1 {
+            font-size: 48px;
+            font-weight: 700;
+            letter-spacing: -0.03em;
+            margin-bottom: 16px;
+            background: linear-gradient(135deg, #1d1d1f 0%, #434344 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero p {
+            font-size: 20px;
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .promo-banner {
+            background: linear-gradient(90deg, #FF2D55, #FF375F);
+            color: white;
+            text-align: center;
+            padding: 12px;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        /* Card Style */
+        .card {
+            background: var(--card-bg);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-sm);
+            overflow: hidden;
+            margin-bottom: 40px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards 0.2s;
+        }
+
+        .card:hover {
+            box-shadow: var(--shadow-md);
+            transform: translateY(-2px);
+        }
+
+        /* Table Styles */
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 800px;
+        }
+
+        .comparison-table th,
+        .comparison-table td {
+            padding: 20px 24px;
+            text-align: left;
+            border-bottom: 1px solid var(--border-color);
+            vertical-align: top;
+        }
+
+        /* Header Row */
+        .comparison-table thead th {
+            background-color: var(--table-header-bg);
+            font-weight: 600;
+            color: var(--text-secondary);
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+
+        /* First Column (Labels) - Handling both th in tbody and first-child logic */
+        .comparison-table tbody th,
+        .comparison-table thead th:first-child {
+            width: 25%;
+            font-weight: 600;
+            color: var(--text-primary);
+            background-color: #FAFAFA;
+        }
+
+        /* Data Columns */
+        .comparison-table td {
+            width: 37.5%;
+            color: var(--text-primary);
+        }
+        
+        /* Merged Cells */
+        .comparison-table td[colspan] {
+            width: auto;
+        }
+
+        .comparison-table tr:last-child th,
+        .comparison-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .comparison-table tr:hover td,
+        .comparison-table tr:hover th {
+            background-color: #F5F5F7;
+            transition: background-color 0.2s ease;
+        }
+
+        .col-header {
+            font-size: 20px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+            display: block;
+        }
+
+        .col-sub {
+            font-size: 14px;
+            color: var(--text-secondary);
+            font-weight: normal;
+        }
+
+        .price-tag {
+            font-size: 1.2em;
+            font-weight: 700;
+            color: var(--accent-red);
+        }
+
+        .price-original {
+            font-size: 14px;
+            text-decoration: line-through;
+            color: var(--text-secondary);
+            margin-left: 8px;
+        }
+
+        .highlight-text {
+            color: var(--accent-color);
+            font-weight: 600;
+        }
+
+        .warning-text {
+            color: var(--accent-red);
+            font-weight: 600;
+        }
+
+        .info-block {
+            margin-bottom: 8px;
+        }
+
+        .info-label {
+            font-size: 12px;
+            color: var(--text-secondary);
+            margin-bottom: 4px;
+            display: block;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 36px;
+            }
+
+            .comparison-table {
+                display: block;
+            }
+
+            .comparison-table thead {
+                display: none;
+            }
+
+            .comparison-table tbody, 
+            .comparison-table tr, 
+            .comparison-table td {
+                display: block;
+                width: 100%;
+            }
+
+            .comparison-table tr {
+                margin-bottom: 24px;
+                border-bottom: 1px solid var(--table-border);
+            }
+
+            .comparison-table td {
+                padding: 16px 24px;
+                border-bottom: none;
+                position: relative;
+            }
+            
+            .comparison-table th {
+                display: block;
+                width: 100%;
+                padding: 16px 24px 8px;
+                border-bottom: none;
+                background: none;
+                color: var(--accent-color);
+            }
+
+            /* Mobile specific layout for comparison columns */
+            .mobile-compare-row {
+                display: flex;
+                gap: 16px;
+                padding-top: 8px;
+            }
+            
+            .mobile-compare-item {
+                flex: 1;
+                background: #f9f9f9;
+                padding: 12px;
+                border-radius: 8px;
+            }
+            
+            .mobile-label {
+                font-size: 12px;
+                color: var(--text-secondary);
+                margin-bottom: 4px;
+                display: block;
+            }
+        }
+
+        /* Animations */
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #d2d2d7;
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #86868b;
+        }
+        
+        /* Utility classes for merged cells visual */
+        .merged-cell-content {
+            background-color: rgba(242, 242, 247, 0.3);
+            border-radius: 8px;
+            padding: 16px;
+            margin: -8px;
+        }
+  </style>
+ </head>
+ <body>
+  <!-- Header -->
+  <div class="container">
+   <header class="hero">
+    <h1>
+     S2F Pro 账号对比
+    </h1>
+    <p>
+     购买前务必熟悉规则
+    </p>
+   </header>
+   <div class="card" id="overview">
+    <div class="promo-banner">
+     黑五限时折扣 4.5折
+    </div>
+    <table class="comparison-table">
+     <thead>
+      <tr>
+       <th style="width: 20%">
+        账号规模
+       </th>
+       <th style="width: 40%">
+        <span class="col-header">
+         50K 免考 S2F Pro
+        </span>
+        <span class="col-sub">
+         进阶交易者的首选
+        </span>
+       </th>
+       <th style="width: 40%">
+        <span class="col-header">
+         25K 免考 S2F Pro
+        </span>
+        <span class="col-sub">
+         稳健起步的最佳方案
+        </span>
+       </th>
+      </tr>
+     </thead>
+     <tbody>
+      <tr>
+       <th>
+        价格
+       </th>
+       <td>
+        <div class="price-tag">
+         $178
+         <span style="font-size:14px; font-weight:normal; color:var(--text-secondary)">
+          (4.5折)
+         </span>
+        </div>
+       </td>
+       <td>
+        <div class="price-tag">
+         $109
+         <span style="font-size:14px; font-weight:normal; color:var(--text-secondary)">
+          (4.5折)
+         </span>
+        </div>
+       </td>
+      </tr>
+      <tr>
+       <th>
+        交易平台
+       </th>
+       <td colspan="2" style="text-align: center; color: var(--text-secondary);">
+        <div class="merged-cell-content">
+         ProjectX
+        </div>
+       </td>
+      </tr>
+      <tr>
+       <th>
+        回撤 (Trailing模式)
+       </th>
+       <td>
+        <div class="info-block">
+         <span class="info-label">
+          追踪回撤
+         </span>
+         <strong>
+          $1625
+         </strong>
+        </div>
+        <div class="info-block">
+         <span class="info-label">
+          日损限制
+         </span>
+         <span class="warning-text">
+          $1000
+         </span>
+        </div>
+       </td>
+       <td>
+        <div class="info-block">
+         <span class="info-label">
+          追踪回撤
+         </span>
+         <strong>
+          $1000
+         </strong>
+        </div>
+        <div class="info-block">
+         <span class="info-label">
+          日损限制
+         </span>
+         <span class="warning-text">
+          $500
+         </span>
+        </div>
+       </td>
+      </tr>
+      <tr>
+       <th>
+        最低出金门槛
+       </th>
+       <td>
+        <span class="highlight-text">
+         $3000
+        </span>
+       </td>
+       <td>
+        <span class="highlight-text">
+         $1500
+        </span>
+       </td>
+      </tr>
+      <tr>
+       <th>
+        ESS稳定性评分要求
+       </th>
+       <td colspan="2">
+        <div class="merged-cell-content">
+         <p style="margin-bottom: 8px;">
+          <strong>
+           20% ESS稳定性公式
+          </strong>
+         </p>
+         <p style="font-size: 13px; color: var(--text-secondary); margin-bottom: 8px;">
+          (用推荐种田玩法设置清算能自动满足要求，或按自己习惯搭配)
+         </p>
+         <code style="background: #fff; padding: 4px 8px; border-radius: 4px; font-size: 12px; border: 1px solid #eee;">
+          (最佳单日盈利 + 最差单日亏损 [以正数表示]) ÷ 总盈利 × 100%
+         </code>
+        </div>
+       </td>
+      </tr>
+      <tr>
+       <th>
+        出金要求
+       </th>
+       <td colspan="2">
+        <div class="merged-cell-content">
+         交易满 <strong>10天</strong>（同时满足7个0.1%交易日），满足利润目标和ESS稳定性可以出金
+        </div>
+       </td>
+      </tr>
+      <tr>
+       <th>
+        推荐种田玩法
+       </th>
+       <td>
+        <p style="margin-bottom: 12px;">
+         ProjectX设置-risk设置每天盈利 <strong>300</strong> 自动清算，亏损 <strong>300</strong> 自动清算。这样做到 <strong>3000</strong> 就刚好满足20%的ESS稳定性
+        </p>
+        <div style="background: #f0f8ff; padding: 12px; border-radius: 8px; border-left: 3px solid var(--accent-color);">
+         <span class="info-label" style="color: var(--accent-color);">
+          举例
+         </span>
+         种田10天300，盈利 <strong>3000</strong> 直接申请出金 <strong>2500</strong>，剩余回撤直接保号
+        </div>
+       </td>
+       <td>
+        <p style="margin-bottom: 12px;">
+         ProjectX设置-risk设置每天盈利 <strong>150</strong> 自动清算，亏损 <strong>150</strong> 自动清算。这样做到 <strong>1500</strong> 就刚好满足20%的ESS稳定性
+        </p>
+        <div style="background: #f0f8ff; padding: 12px; border-radius: 8px; border-left: 3px solid var(--accent-color);">
+         <span class="info-label" style="color: var(--accent-color);">
+          举例
+         </span>
+         种田10天150，盈利 <strong>1500</strong> 出金 <strong>1500</strong>，没有剩余回撤直接保号
+        </div>
+       </td>
+      </tr>
+      <tr>
+       <th>
+        分成比例与出金时间
+       </th>
+       <td colspan="2">
+        <div class="merged-cell-content" style="display: flex; justify-content: space-around; align-items: center;">
+         <div>
+          <span class="info-label">
+           分成比例
+          </span>
+          <strong style="font-size: 18px; color: var(--accent-color);">
+           90%
+          </strong>
+         </div>
+         <div>
+          <span class="info-label">
+           到账时间
+          </span>
+          <strong>
+           2个工作日
+          </strong>
+         </div>
+        </div>
+       </td>
+      </tr>
+      <tr>
+       <th>
+        使用魔法 (VPN)
+       </th>
+       <td colspan="2" style="text-align: center;">
+        <div class="merged-cell-content" style="color: var(--text-secondary);">
+         (如果要用，则从始至终都用，且保持同一个地区)
+        </div>
+       </td>
+      </tr>
+      <tr>
+       <th>
+        10秒交易规则
+       </th>
+       <td colspan="2">
+        <div class="merged-cell-content">
+         <ul style="list-style: none; padding-left: 0;">
+          <li style="margin-bottom: 8px; display: flex; align-items: flex-start;">
+           <span style="color: var(--accent-red); margin-right: 8px;">
+            •
+           </span>
+           <span>
+            每笔交易时间 <strong>10秒以上</strong>
+            <span style="color: var(--accent-red); font-size: 13px;">
+             (少部分低于10s无影响，占比超过50%会扣除利润)
+            </span>
+           </span>
+          </li>
+          <li style="display: flex; align-items: flex-start;">
+           <span style="color: var(--accent-orange); margin-right: 8px;">
+            •
+           </span>
+           <span>
+            不活跃规则：每14天至少有1笔10s以上交易保持账户活跃
+           </span>
+          </li>
+         </ul>
+        </div>
+       </td>
+      </tr>
+      <tr>
+       <th>
+        新闻交易与自动清算
+       </th>
+       <td colspan="2">
+        <div class="merged-cell-content">
+         允许新闻交易。美中时间4点收盘前没有平仓被系统自动清算不违规
+        </div>
+       </td>
+      </tr>
+      <tr>
+       <th>
+        KYC (支持大陆与港澳台)
+       </th>
+       <td colspan="2">
+        <div class="merged-cell-content">
+         支持护照/港澳通行证/国际驾照/身份证（身份证找客服人工审核）。做KYC签合同后才能交易
+        </div>
+       </td>
+      </tr>
+     </tbody>
+    </table>
+   </div>
+  </div>
+  <script>
+   document.addEventListener('DOMContentLoaded', () => {
+            // 1. 移动端菜单切换功能
+            const headerToggle = document.querySelector('.header__toggle');
+            const headerNav = document.querySelector('.header__nav');
+            const body = document.body;
+
+            if (headerToggle && headerNav) {
+                headerToggle.addEventListener('click', () => {
+                    const isActive = headerNav.classList.toggle('active');
+                    headerToggle.classList.toggle('active');
+                    
+                    // 防止菜单打开时页面滚动
+                    if (isActive) {
+                        body.style.overflow = 'hidden';
+                    } else {
+                        body.style.overflow = '';
+                    }
+                });
+
+                // 点击导航链接时关闭菜单
+                const navLinks = document.querySelectorAll('.header__link, .header__cta');
+                navLinks.forEach(link => {
+                    link.addEventListener('click', () => {
+                        headerNav.classList.remove('active');
+                        headerToggle.classList.remove('active');
+                        body.style.overflow = '';
+                    });
+                });
+            }
+
+            // 2. 平滑滚动功能(用于锚点链接)
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href');
+                    if (targetId === '#') return;
+                    
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        const headerOffset = 80; // 固定导航栏高度补偿
+                        const elementPosition = targetElement.getBoundingClientRect().top;
+                        const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+
+                        window.scrollTo({
+                            top: offsetPosition,
+                            behavior: "smooth"
+                        });
+                    }
+                });
+            });
+        });
+
+        // Simple intersection observer for fade-in elements
+        const observerOptions = {
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Add animation classes to elements if needed
+        // Currently handled by CSS animations on load
+  </script>
+ </body>
+</html>

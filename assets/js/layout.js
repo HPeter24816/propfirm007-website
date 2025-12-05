@@ -1,0 +1,155 @@
+// layout.js
+// This script injects the header and footer into the page.
+// It relies on a global variable ROOT_PATH to determine relative links.
+// If ROOT_PATH is not defined, it defaults to './'.
+
+document.addEventListener('DOMContentLoaded', () => {
+    // 1. Determine Path Prefix (Root vs Pages)
+    const isPagesDir = window.location.pathname.includes('/pages/');
+    const basePath = isPagesDir ? '..' : '.';
+    
+    // Determine if we are on the homepage to optimize anchor links
+    // If on homepage, use pure hash links (e.g. #faq) to trigger smooth scroll
+    // If on other pages, use full path (e.g. ../index.html#faq)
+    const path = window.location.pathname;
+    const isHome = !isPagesDir && (path.endsWith('index.html') || path.endsWith('/') || path.length < 2);
+    const homeAnchorPrefix = isHome ? '' : `${basePath}/index.html`;
+    
+    // 2. Define Header HTML (Using {BASE} placeholder)
+    const headerHTML = `
+    <header class="header">
+        <div class="header__container">
+            <a href="${basePath}/index.html" class="header__logo">
+                Futures Propfirm <span class="header__logo-highlight">中文社区</span>
+            </a>
+            <nav class="header__nav">
+                <ul class="header__menu">
+                    <li class="header__menu-item"><a href="${basePath}/index.html" class="header__link">首页</a></li>
+                    
+                    <!-- 规则介绍 -->
+                    <li class="header__menu-item">
+                        <a href="#" class="header__link">平台规则</a>
+                        <div class="header__dropdown">
+                            <div class="header__dropdown-inner">
+                                <a href="${basePath}/pages/propfirm-introduction.html" class="dropdown-link">基础规则指南</a>
+                                <a href="${basePath}/pages/tpt-rule.html" class="dropdown-link">TakeProfit Trader</a>
+                                <a href="${basePath}/pages/lucid-rule.html" class="dropdown-link">Lucid</a>
+                                <a href="${basePath}/pages/topone-rule.html" class="dropdown-link">TopOne</a>
+                            </div>
+                        </div>
+                    </li>
+
+                    <!-- 12月优惠 -->
+                    <li class="header__menu-item">
+                        <a href="${homeAnchorPrefix}#top-discounts" class="header__link">12月优惠</a>
+                        <div class="header__dropdown">
+                            <div class="header__dropdown-inner">
+                                <a href="${homeAnchorPrefix}#top-discounts" class="dropdown-link">Take Profit Trader</a>
+                                <a href="${homeAnchorPrefix}#top-discounts" class="dropdown-link">Lucid</a>
+                            </div>
+                        </div>
+                    </li>
+                    
+                    <!-- 学习资源 -->
+                    <li class="header__menu-item">
+                        <a href="${basePath}/pages/studying-resource.html" class="header__link">学习资源</a>
+                        <div class="header__dropdown">
+                            <div class="header__dropdown-inner">
+                                <a href="${basePath}/pages/up.html" class="dropdown-link">推荐博主</a>
+                                <a href="${basePath}/pages/book.html" class="dropdown-link">书籍清单</a>
+                                <a href="${basePath}/pages/studying-resource.html" class="dropdown-link">价格行为资源</a>
+                            </div>
+                        </div>
+                    </li>
+
+                    <!-- 常见问题 -->
+                    <li class="header__menu-item">
+                        <a href="${homeAnchorPrefix}#faq" class="header__link">常见问题</a>
+                        <div class="header__dropdown">
+                            <div class="header__dropdown-inner">
+                                <a href="${homeAnchorPrefix}#faq-1" class="dropdown-link">什么是 Futures 自营公司？</a>
+                                <a href="${homeAnchorPrefix}#faq-2" class="dropdown-link">新手该如何开始？</a>
+                                <a href="${homeAnchorPrefix}#faq-3" class="dropdown-link">关于交易技术</a>
+                                <a href="${homeAnchorPrefix}#faq-4" class="dropdown-link">如何使用折扣码？</a>
+                            </div>
+                        </div>
+                    </li>
+
+                    <!-- 社区 -->
+                    <li class="header__menu-item">
+                        <a href="${basePath}/pages/communicate.html" class="header__link">社区</a>
+                    </li>
+                    
+                    <!-- 联系 -->
+                    <li class="header__menu-item">
+                        <a href="${basePath}/pages/contact.html" class="header__cta">联系方式</a>
+                    </li>
+                </ul>
+            </nav>
+            <button class="header__toggle" aria-label="切换菜单">
+                <span class="header__toggle-bar"></span>
+                <span class="header__toggle-bar"></span>
+                <span class="header__toggle-bar"></span>
+            </button>
+        </div>
+    </header>
+    `;
+
+    // 3. Define Footer HTML
+    const footerHTML = `
+    <footer class="footer">
+        <div class="container">
+            <div class="footer__cta" id="footer-contact">
+                <h3>折扣提醒、交流交易经验</h3>
+                <a href="${basePath}/pages/contact.html" class="button button--primary">联系方式</a>
+            </div>
+            <div class="footer__links">
+                <!-- Add footer links here if needed -->
+            </div>
+            <div class="footer__copyright">
+                &copy; 2025 Futures Propfirm 中文社区. 
+            </div>
+        </div>
+    </footer>
+    `;
+
+    // 4. Inject Header (Prepend to body)
+    document.body.insertAdjacentHTML('afterbegin', headerHTML);
+
+    // 5. Inject Footer (Append to body, or replace existing footer placeholder)
+    // If page already has a footer, we might want to replace it or append after main
+    const existingFooter = document.querySelector('footer');
+    if (existingFooter) {
+        existingFooter.remove();
+    }
+    document.body.insertAdjacentHTML('beforeend', footerHTML);
+
+    // 6. Initialize Mobile Menu Logic
+    const headerToggle = document.querySelector('.header__toggle');
+    const headerNav = document.querySelector('.header__nav');
+    const body = document.body;
+    
+    if (headerToggle && headerNav) {
+        headerToggle.addEventListener('click', () => {
+            const isActive = headerNav.classList.toggle('active');
+            headerToggle.classList.toggle('active');
+            
+            // Prevent scrolling when menu is open
+            if (isActive) {
+                body.style.overflow = 'hidden';
+            } else {
+                body.style.overflow = '';
+            }
+        });
+
+        // Close menu when clicking a link
+        const navLinks = document.querySelectorAll('.header__link, .header__cta, .dropdown-link');
+        navLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                headerNav.classList.remove('active');
+                headerToggle.classList.remove('active');
+                body.style.overflow = '';
+            });
+        });
+    }
+});
