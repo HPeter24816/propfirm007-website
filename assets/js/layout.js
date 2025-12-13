@@ -46,7 +46,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         <a href="${homeAnchorPrefix}#top-discounts" class="header__link">12月优惠</a>
                         <div class="header__dropdown">
                             <div class="header__dropdown-inner">
-                                <a href="${homeAnchorPrefix}#top-discounts" class="dropdown-link">Take Profit Trader</a>
+                                <a href="${homeAnchorPrefix}#top-discounts" class="dropdown-link">FundedNext</a>
                                 <a href="${homeAnchorPrefix}#top-discounts" class="dropdown-link">Lucid</a>
                             </div>
                         </div>
