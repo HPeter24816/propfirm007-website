@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <link rel="icon" href="../assets/images/favicon.ico" type="image/x-icon">
+    <title>FundedNext 规则详情</title>
+    <link href="../assets/css/styles.css" rel="stylesheet"/>
+    <script src="../assets/js/layout.js"></script>
+    <script src="../assets/js/scripts.js"></script>
+    <style>
+        :root {
+            --bg-color: #f5f5f7;
+            --card-bg: #ffffff;
+            --text-primary: #1d1d1f;
+            --text-secondary: #86868b;
+            --accent-color: #0071e3;
+            --border-color: #d2d2d7;
+            --table-header-bg: #fbfbfd;
+            --hover-bg: #f5f5f7;
+            --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.04);
+            --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.08);
+            --radius-lg: 20px;
+            --radius-md: 12px;
+            --font-family-base: "SF Pro Text", "SF Pro Icons", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
+            --header-height: 64px;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-font-smoothing: antialiased; }
+        body { font-family: var(--font-family-base); background-color: var(--bg-color); color: var(--text-primary); line-height: 1.5; }
+
+        /* Main Layout */
+        main { padding-top: 40px; padding-bottom: 80px; max-width: 1200px; margin: 0 auto; padding-left: 20px; padding-right: 20px; }
+
+        /* Typography */
+        h1 { font-size: 48px; font-weight: 700; text-align: center; margin-bottom: 10px; letter-spacing: -1px; background: linear-gradient(135deg, #1d1d1f 0%, #434344 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .subtitle { text-align: center; color: var(--text-secondary); font-size: 20px; margin-bottom: 60px; font-weight: 400; }
+        h2 { font-size: 32px; font-weight: 600; margin-bottom: 24px; letter-spacing: -0.5px; }
+        .section-intro { color: var(--text-secondary); margin-bottom: 30px; font-size: 17px; max-width: 800px; }
+
+        /* Sections */
+        section { margin-bottom: 100px; opacity: 0; transform: translateY(30px); transition: opacity 0.8s ease, transform 0.8s ease; }
+        section.visible { opacity: 1; transform: translateY(0); }
+
+        /* Cards & Tables */
+        .card { background: var(--card-bg); border-radius: var(--radius-lg); box-shadow: var(--shadow-sm); overflow: hidden; border: 1px solid rgba(0,0,0,0.05); transition: box-shadow 0.3s ease, transform 0.3s ease; }
+        .card:hover { box-shadow: var(--shadow-md); transform: translateY(-2px); }
+
+        .table-wrapper { width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+        table { width: 100%; border-collapse: collapse; min-width: 800px; }
+        th, td { padding: 20px 24px; text-align: left; border-bottom: 1px solid var(--border-color); vertical-align: middle; }
+        th { background-color: var(--table-header-bg); font-weight: 600; color: var(--text-secondary); font-size: 14px; text-transform: uppercase; letter-spacing: 0.5px; position: sticky; top: 0; z-index: 10; }
+
+        /* Column Widths */
+        th:first-child, td:first-child { width: 25%; font-weight: 600; color: var(--text-primary); background-color: #FAFAFA; }
+        th:nth-child(2), td:nth-child(2), th:nth-child(3), td:nth-child(3) { width: 37.5%; }
+
+        /* Merged cells styling */
+        td[colspan="2"] { text-align: left; color: var(--text-primary); background-color: rgba(245, 245, 247, 0.5); }
+        tr:last-child td { border-bottom: none; }
+        tr:hover td { background-color: #F5F5F7; transition: background-color 0.2s ease; }
+
+        /* Highlights */
+        .highlight-red { color: #ff3b30; font-weight: 500; }
+        .highlight-blue { color: #0071e3; font-weight: 500; }
+        .highlight-orange { color: #ff9500; }
+        
+        .promo-banner { background: linear-gradient(90deg, #ff3b30, #ff9500); color: white; text-align: center; padding: 12px; font-weight: 600; font-size: 14px; }
+        .promo-banner a { color: white; text-decoration: underline; margin-left: 5px; }
+        
+        .price-tag { font-size: 1.2em; font-weight: 700; color: #1d1d1f; }
+        .price-sub { font-size: 0.8em; color: var(--text-secondary); font-weight: normal; margin-left: 5px; }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            h1 { font-size: 36px; }
+            .comparison-table, tbody, tr, td, th { display: block; width: 100%; }
+            thead { display: none; }
+            tr { margin-bottom: 20px; border: 1px solid #eee; border-radius: 12px; overflow: hidden; }
+            td { padding: 15px; text-align: left; border-bottom: 1px solid rgba(0,0,0,0.05); }
+            td:first-child { background: #f0f0f0; font-weight: bold; width: 100%; }
+            td[colspan="2"] { background: none; }
+        }
+    </style>
+</head>
+<body>
+    <main>
+        <!-- Hero -->
+        <div class="hero">
+            <h1>FundedNext账号对比</h1>
+            <p class="subtitle">购买前务必熟悉规则</p>
+        </div>
+
+        <!-- Section 1: Rapid Rules -->
+        <section id="rapid">
+            <h2>Rapid Challenge (快速通关)</h2>
+            <p class="section-intro">
+                适合追求速度的交易员，部分账号无日损限制，通关速度快。
+            </p>
+            <div class="card">
+                <div class="promo-banner" style="background: linear-gradient(90deg, #0070C0, #00C0F0);">
+                    FundedNext注册链接：<a href="https://fundednext.com/?fpr=hu54" target="_blank">点击注册</a>
+                </div>
+                <div class="table-wrapper">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>账号规模</th>
+                                <th>25K Rapid Challenge</th>
+                                <th>50K Rapid Challenge</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>价格</td>
+                                <td><span class="price-tag">$89</span><span class="price-sub">免激活费</span></td>
+                                <td><span class="price-tag">$134</span><span class="price-sub">免激活费</span></td>
+                            </tr>
+                            <tr>
+                                <td>交易平台</td>
+                                <td colspan="2">Tradovate、Ninjatrader</td>
+                            </tr>
+                            <tr>
+                                <td>考试号回撤 (EOD)</td>
+                                <td>
+                                    <span class="highlight-blue">无日损，可1天过</span><br>
+                                </td>
+                                <td>
+                                    <span class="highlight-red">EOD回撤1000</span>，利润目标1500<br>
+                                    考核无一致性可1天过 (最大10小手)
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>出金号回撤 (EOD)</td>
+                                <td>
+                                    <span class="highlight-blue">无日损</span>，最快每3天可出金一次<br>
+                                    EOD回撤1000，满足40%一致性可出金
+                                </td>
+                                <td>
+                                    <span class="highlight-blue">无日损</span>，最快每3天可出金一次<br>
+                                    EOD回撤2000，满足40%一致性可出金
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>出金提款额</td>
+                                <td>
+                                    单次出金800内<br>
+                                    出5次后无限额 (最小$250)
+                                </td>
+                                <td>
+                                    单次出金1500内<br>
+                                    出5次后无限额 (最小$250)
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>关于出金号回撤</td>
+                                <td colspan="2">
+                                    25k账户日终超过缓冲区1000后变静态账户；50k则日终超过2000变静态账户<br>
+                                    <span class="highlight-orange">第一次出金后，回撤重置为账户初始余额</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>魔法 (VPN) & 不活跃</td>
+                                <td colspan="2">允许中国客户使用魔法 (需保持同一国家IP)，不会触发面试。每周至少交易一次。</td>
+                            </tr>
+                            <tr>
+                                <td>日内交易与禁止规则</td>
+                                <td colspan="2">
+                                    只允许日内交易 (美东4:10PM平仓)。<br>
+                                    允许新闻交易。禁止过渡剥头皮 (<10s和<5tick订单不超过30%)
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 2: Legacy Rules -->
+        <section id="legacy">
+            <h2>Legacy Challenge (经典模式)</h2>
+            <p class="section-intro">
+                经典的考核模式，适合稳健型交易员，拥有更高的回撤空间。
+            </p>
+            <div class="card">
+                <div class="promo-banner" style="background: linear-gradient(90deg, #C00000, #F04040);">
+                    FundedNext注册链接：<a href="https://fundednext.com/?fpr=hu54" target="_blank">点击注册</a>
+                </div>
+                <div class="table-wrapper">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>账号规模</th>
+                                <th>25K Legacy Challenge</th>
+                                <th>50K Legacy Challenge</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>价格</td>
+                                <td><span class="price-tag">$72</span><span class="price-sub">免激活费</span></td>
+                                <td><span class="price-tag">$144</span><span class="price-sub">免激活费</span></td>
+                            </tr>
+                            <tr>
+                                <td>交易平台</td>
+                                <td colspan="2">Tradovate、Ninjatrader</td>
+                            </tr>
+                            <tr>
+                                <td>考试号回撤 (EOD)</td>
+                                <td>
+                                    EOD回撤1000，利润目标1250<br>
+                                    考核40%一致性可3天过 (最大20小手)
+                                </td>
+                                <td>
+                                    EOD回撤2500，利润目标2500<br>
+                                    考核40%一致性可3天过 (最大30小手)
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>出金号回撤 (EOD)</td>
+                                <td>
+                                    EOD回撤1000<br>
+                                    满足5天100可出金 (出金号无一致性)
+                                </td>
+                                <td>
+                                    EOD回撤2500<br>
+                                    满足5天200可出金 (出金号无一致性)
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>出金提款额</td>
+                                <td colspan="2">
+                                    账户出金上限 (25k=3000, 50k=6000)<br>
+                                    每次出金提取50%，满足30个基准日后可以提100%+无出金上限
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>关于出金号回撤</td>
+                                <td colspan="2">
+                                    25k账户日终超过缓冲区1000后变静态账户；50k则日终超过2500变静态账户<br>
+                                    <span class="highlight-orange">第一次出金后，回撤重置为账户初始余额</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>魔法 (VPN) & 不活跃</td>
+                                <td colspan="2">允许中国客户使用魔法 (需保持同一国家IP)。每周至少交易一次。</td>
+                            </tr>
+                            <tr>
+                                <td>日内交易与禁止规则</td>
+                                <td colspan="2">只允许日内交易。允许新闻交易。禁止剥头皮。</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        // Intersection Observer for Fade-in Animation
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('section').forEach(section => {
+            observer.observe(section);
+        });
+    </script>
+</body>
+</html>

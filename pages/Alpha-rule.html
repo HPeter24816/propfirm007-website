@@ -5,7 +5,7 @@
   <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
   <link rel="icon" href="../assets/images/favicon.ico" type="image/x-icon">
   <title>
-   Lucid Trading Rules
+   Alpha Trading Rules
   </title>
   <link href="../assets/css/styles.css" rel="stylesheet"/>
   <script src="../assets/js/layout.js">
@@ -53,16 +53,6 @@
             color: var(--text-primary);
             line-height: 1.5;
         }
-
-
-
-
-
-
-
-
-
-
 
         /* Main Layout */
         main {
@@ -148,6 +138,11 @@
             padding: 20px 24px;
             text-align: left;
             border-bottom: 1px solid var(--border-color);
+            border-right: 1px solid var(--border-color);
+        }
+
+        th:last-child, td:last-child {
+            border-right: none;
         }
 
         th {
@@ -161,21 +156,18 @@
             top: 0;
         }
 
-        /* Column Widths */
-        th:first-child, td:first-child {
-            width: 25%;
-            font-weight: 600;
-            color: var(--text-primary);
-            background-color: #FAFAFA;
-        }
-        
-        th:nth-child(2), td:nth-child(2),
-        th:nth-child(3), td:nth-child(3) {
-            width: 37.5%;
-        }
+        /* Column Widths - Adaptive based on column count */
+        /* For 3 columns (Zero/Advanced) */
+        .col-3 th:first-child, .col-3 td:first-child { width: 25%; background-color: #FAFAFA; font-weight: 600; color: var(--text-primary); }
+        .col-3 th:nth-child(2), .col-3 td:nth-child(2),
+        .col-3 th:nth-child(3), .col-3 td:nth-child(3) { width: 37.5%; }
+
+        /* For 4 columns (Standard) */
+        .col-4 th:first-child, .col-4 td:first-child { width: 22%; background-color: #FAFAFA; font-weight: 600; color: var(--text-primary); }
+        .col-4 th:nth-child(n+2), .col-4 td:nth-child(n+2) { width: 26%; }
 
         /* Merged cells styling */
-        td[colspan="2"] {
+        td[colspan] {
             text-align: left;
             color: var(--text-primary);
         }
@@ -209,6 +201,14 @@
             padding: 12px;
             font-weight: 600;
             font-size: 14px;
+        }
+        
+        .promo-banner.blue {
+            background: linear-gradient(90deg, #0071e3, #409cff);
+        }
+        
+        .promo-banner.purple {
+            background: linear-gradient(90deg, #5856d6, #af52de);
         }
 
         .promo-banner a {
@@ -253,7 +253,7 @@
                 padding: 14px 16px;
                 font-size: 14px;
             }
-
+            
             /* Header Responsive */
             :root {
                 --header-height: 48px;
@@ -283,47 +283,6 @@
                 opacity: 1;
                 pointer-events: auto;
             }
-
-            .header__menu {
-                flex-direction: column;
-                align-items: flex-start;
-                width: 100%;
-                gap: 0;
-            }
-
-            .header__menu-item {
-                width: 100%;
-                border-bottom: 1px solid rgba(255,255,255,0.1);
-                height: auto;
-            }
-
-            .header__link {
-                display: block;
-                padding: 14px 0;
-                font-size: 17px;
-                color: #f5f5f7;
-                opacity: 1;
-            }
-
-            .header__cta {
-                margin-top: 20px;
-                width: 100%;
-                text-align: center;
-                display: block;
-            }
-
-            .header__dropdown {
-                position: static;
-                transform: none;
-                background-color: rgba(255,255,255,0.05);
-                margin-top: 10px;
-                opacity: 1;
-                visibility: visible;
-            }
-
-            .header__dropdown::before {
-                display: none;
-            }
         }
   </style>
  </head>
@@ -333,58 +292,64 @@
    <!-- Hero -->
    <div class="hero">
     <h1>
-     Lucid规则
+     Alpha账号
     </h1>
     <p class="subtitle">
+     购买前务必熟悉规则
     </p>
    </div>
-   <!-- Section 1: LucidDirect -->
-   <section id="direct">
+
+   <!-- Section 1: Zero Plan -->
+   <section id="zero">
     <h2>
-     LucidDirect 免考 SIM 账号
+     Alpha Zero Plan 账号
     </h2>
     <p class="section-intro">
-     直接进入模拟实盘阶段，无需考试，适合有交易经验的交易员
+     种田神器，性价比版TS，适合长期稳定盈利
     </p>
     <div class="card">
-     <div class="promo-banner">
-      Lucid注册连接：<a href="https://lucidtrading.com/ref/peterpriceaction/" target="_blank">点击注册</a>
+     <div class="promo-banner blue">
+      Alpha注册连接：<a href="https://app.alpha-futures.com/signup/Hu012572/" target="_blank" style="color: white; text-decoration: underline;">点击注册</a>
      </div>
      <div class="table-wrapper">
-      <table>
+      <table class="col-3">
        <thead>
         <tr>
          <th>
           账号规格
          </th>
          <th>
-          50K LucidDirect 
+          50K Zero Plan
          </th>
          <th>
-          150K LucidDirect 
+          100K Zero Plan
          </th>
         </tr>
        </thead>
        <tbody>
         <tr>
          <td>
-          价格 (一次性)
+          价格 (按月订阅)
          </td>
          <td>
           <span class="price-tag">
-           294
+           89
           </span>
           <span class="highlight-red">
-           (6折)
+           (9折免激活费)
           </span>
+          <br>
+          <span style="font-size:12px; color:#86868b">重置费折扣后71</span>
          </td>
          <td>
           <span class="price-tag">
-           432
+           179
           </span>
           <span class="highlight-red">
-           (6折)
+           (9折免激活费)
           </span>
+          <br>
+          <span style="font-size:12px; color:#86868b">重置费折扣后143</span>
          </td>
         </tr>
         <tr>
@@ -392,47 +357,373 @@
           交易平台
          </td>
          <td colspan="2">
-          ProjectX (LucidX) 或 Rithmic/Quantower/ATAS 或 Tradovate/Ninja
+          AlphaTicks (ProjectX)    Tradovate/Ninja
          </td>
         </tr>
         <tr>
          <td>
-          回撤 (EOD模式)
+          考核目标与回撤
          </td>
          <td>
-          <span class="highlight-red">
-           EOD回撤 2000
-          </span>
-          (日损1200) 最多4手
+          <span class="highlight-blue">目标 3000</span>
+          <br>
+          EOD回撤 2000
+          <br>
+          <span class="highlight-red">日损 1000</span>
          </td>
          <td>
-          <span class="highlight-red">
-           EOD回撤 6000
-          </span>
-          (日损3600) 最多10手
-         </td>
-        </tr>
-        <tr>
-         <td>
-          利润目标 (第一次出金)
-         </td>
-         <td>
-          <span class="highlight-blue">
-           3000
-          </span>
-         </td>
-         <td>
-          <span class="highlight-blue">
-           9000
-          </span>
+          <span class="highlight-blue">目标 6000</span>
+          <br>
+          EOD回撤 4000
+          <br>
+          <span class="highlight-red">日损 2000</span>
          </td>
         </tr>
         <tr>
          <td>
-          一致性
+          考核一致性
          </td>
          <td colspan="2">
-          20%一致性要求；举例50K账户，3000*20%=600，每日盈利不超600
+          考核无一致性，可当天过
+         </td>
+        </tr>
+        <tr>
+         <td>
+          出金号门槛
+         </td>
+         <td colspan="2">
+          满足5个$200盈利日 + 出金号40%一致性
+          <br>
+          <span style="font-size:12px; color:#86868b">(满足条件随时提款，出50%且有单笔上限)</span>
+         </td>
+        </tr>
+        <tr>
+         <td>
+          出金规则
+         </td>
+         <td colspan="2">
+          每满足5个$200盈利日出利润50%，合计满30个$200盈利日出全部利润
+          <br>
+          <span class="highlight-orange">单笔上限：50k号$1500，100k号$3000 (是单笔而不是总出金)</span>
+         </td>
+        </tr>
+        <tr>
+         <td>
+          出金号日损
+         </td>
+         <td>
+          日损 1000
+         </td>
+         <td>
+          日损 2000
+         </td>
+        </tr>
+        <tr>
+         <td>
+          魔法
+         </td>
+         <td colspan="2">
+            付费魔法 固定一个地区
+         </td>
+        </tr>
+        <tr>
+         <td>
+          新闻交易
+         </td>
+         <td colspan="2">
+          考核不限制；
+          <br>
+          <span class="highlight-red">出金号限制高影响力新闻前后2分钟不得执行任何订单</span>
+          <br>
+         </td>
+        </tr>
+        <tr>
+         <td>
+          禁止行为
+         </td>
+         <td colspan="2">
+          日交易超100笔；
+          <br>
+          <span class="highlight-red">交易间隔少于10个tick且少于2分钟产生的利润无效</span> (10tick对应NQ为2.5点)
+         </td>
+        </tr>
+        <tr>
+         <td>
+          日内平仓
+         </td>
+         <td colspan="2">
+          每日美东时间下午 4:20 前平仓 (系统会自动平仓)
+         </td>
+        </tr>
+        <tr>
+         <td>
+          LIVE
+         </td>
+         <td colspan="2">
+          单号盈利4万或5次进live；live有月薪 (领月薪需剩余利润超5000) 和60%分成
+         </td>
+        </tr>
+       </tbody>
+      </table>
+     </div>
+    </div>
+   </section>
+
+   <!-- Section 2: Standard Plan -->
+   <section id="standard">
+    <h2>
+     Alpha 标准 Standard 账号
+    </h2>
+    <p class="section-intro">
+     标准考核账号，适合习惯传统考核模式的交易员
+    </p>
+    <div class="card">
+     <div class="promo-banner">
+     Alpha注册连接：<a href="https://app.alpha-futures.com/signup/Hu012572/" target="_blank" style="color: white; text-decoration: underline;">点击注册</a>
+     </div>
+     </div>
+     <div class="table-wrapper">
+      <table class="col-4">
+       <thead>
+        <tr>
+         <th>
+          账号规格
+         </th>
+         <th>
+          50K Standard
+         </th>
+         <th>
+          100K Standard
+         </th>
+         <th>
+          150K Standard
+         </th>
+        </tr>
+       </thead>
+       <tbody>
+        <tr>
+         <td>
+          价格 (按月订阅)
+         </td>
+         <td>
+          <span class="price-tag">71</span>
+          <span class="highlight-red">(9折)</span>
+          <br>
+          <span style="font-size:12px;">激活费149</span>
+         </td>
+         <td>
+          <span class="price-tag">143</span>
+          <span class="highlight-red">(9折)</span>
+          <br>
+          <span style="font-size:12px;">激活费149</span>
+         </td>
+         <td>
+          <span class="price-tag">215</span>
+          <span class="highlight-red">(9折)</span>
+          <br>
+          <span style="font-size:12px;">激活费149</span>
+         </td>
+        </tr>
+        <tr>
+         <td>
+          交易平台
+         </td>
+         <td colspan="3">
+          AlphaTicks (ProjectX)
+         </td>
+        </tr>
+        <tr>
+         <td>
+          考核目标与回撤
+         </td>
+         <td>
+          <span class="highlight-blue">目标 3000</span>
+          <br>
+          EOD回撤 2000
+         </td>
+         <td>
+          <span class="highlight-blue">目标 6000</span>
+          <br>
+          EOD回撤 4000
+         </td>
+         <td>
+          <span class="highlight-blue">目标 9000</span>
+          <br>
+          EOD回撤 6000
+         </td>
+        </tr>
+        <tr>
+         <td>
+          考核日损
+         </td>
+         <td colspan="3">
+          <span class="highlight-blue">考核无日损</span>
+         </td>
+        </tr>
+        <tr>
+         <td>
+          一致性要求
+         </td>
+         <td colspan="3">
+          50%一致性，可2天过关
+         </td>
+        </tr>
+        <tr>
+         <td>
+          出金号门槛
+         </td>
+         <td colspan="3">
+          最低3天70 (满200)
+         </td>
+        </tr>
+        <tr>
+         <td>
+          出金要求
+         </td>
+         <td colspan="3">
+          每14天；最少3个交易日；40%一致性
+          <br>
+          <span class="highlight-red"></span>
+         </td>
+        </tr>
+        <tr>
+         <td>
+          魔法
+         </td>
+         <td colspan="3">
+        付费魔法 固定一个地区
+         </td>
+        </tr>
+        <tr>
+         <td>
+          新闻交易
+         </td>
+         <td colspan="3">
+          考核不限制；出金号限制高影响力新闻前后2分钟
+         </td>
+        </tr>
+        <tr>
+         <td>
+          禁止的行为
+         </td>
+         <td colspan="3">
+          日交易超100笔；
+          <br>
+          交易间隔少于10个tick且少于 2 分钟产生的利润无效；(10tick对应NQ为2.5点)
+         </td>
+        </tr>
+        <tr>
+         <td>
+          日内平仓
+         </td>
+         <td colspan="3">
+          交易时间：所有交易必须于每日美国东部时间下午 4:20 前平仓，评估账户和出金号均是如此。
+         </td>
+        </tr>
+        <tr>
+         <td>
+          LIVE
+         </td>
+         <td colspan="3">
+          单号盈利4万或5次进live；live有月薪 (领月薪需剩余利润超5000) 和60%分成
+         </td>
+        </tr>
+       </tbody>
+      </table>
+     </div>
+    </div>
+   </section>
+
+   <!-- Section 3: Advanced Plan -->
+   <section id="advanced">
+    <h2>
+     Alpha 高级 Advanced 账号
+    </h2>
+    <p class="section-intro">
+     高级考核账号，出金规则更灵活
+    </p>
+    <div class="card">
+     <div class="promo-banner purple">
+      Alpha注册连接：<a href="https://app.alpha-futures.com/signup/Hu012572/" target="_blank" style="color: white; text-decoration: underline;">点击注册</a>
+     </div>
+     <div class="table-wrapper">
+      <table class="col-3">
+       <thead>
+        <tr>
+         <th>
+          账号规格
+         </th>
+         <th>
+          50K Advanced
+         </th>
+         <th>
+          150K Advanced
+         </th>
+        </tr>
+       </thead>
+       <tbody>
+        <tr>
+         <td>
+          价格 (按月订阅)
+         </td>
+         <td>
+          <span class="price-tag">125</span>
+          <span class="highlight-red">(9折)</span>
+          <br>
+          <span style="font-size:12px;">激活费149</span>
+         </td>
+         <td>
+          <span class="price-tag">377</span>
+          <span class="highlight-red">(9折)</span>
+          <br>
+          <span style="font-size:12px;">激活费149</span>
+         </td>
+        </tr>
+        <tr>
+         <td>
+          交易平台
+         </td>
+         <td colspan="2">
+          AlphaTicks (ProjectX)
+         </td>
+        </tr>
+        <tr>
+         <td>
+          考核目标与回撤
+         </td>
+         <td>
+          <span class="highlight-blue">目标 4000</span>
+          <br>
+          EOD回撤 1750
+         </td>
+         <td>
+          <span class="highlight-blue">目标 12000</span>
+          <br>
+          EOD回撤 5250
+         </td>
+        </tr>
+        <tr>
+         <td>
+          考核日损
+         </td>
+         <td colspan="2">
+          <span class="highlight-blue">无日损</span>
+         </td>
+        </tr>
+        <tr>
+         <td>
+          一致性要求
+         </td>
+         <td colspan="2">
+          50%一致性，可2天过关
+         </td>
+        </tr>
+        <tr>
+         <td>
+          出金号门槛
+         </td>
+         <td colspan="2">
+          最低5天200 (满1000)
          </td>
         </tr>
         <tr>
@@ -440,78 +731,51 @@
           出金要求
          </td>
          <td colspan="2">
-          满足利润目标 + 满足20%一致性 + 交易满8天
+          满足5个200盈利日随时出金，出50%; 满30个200盈利日可出全部
+          <br>
+          <span class="highlight-blue">无一致性规则; 出金号无日损</span>
          </td>
         </tr>
         <tr>
          <td>
-          出金利润目标
-         </td>
-         <td>
-          第1次做3000利润可出2000
-          <br/>
-          第2-3次做2500利润可出2000
-          <br/>
-          第4-6次做2500利润可出2500
-          <br/>
-          <span class="highlight-orange">
-          </span>
-         </td>
-         <td>
-          第1次做9000利润可出3000
-          <br/>
-          第2-3次做4500利润可出3000
-          <br/>
-          第4-6次做4500利润可出3500
-          <br/>
-          <span class="highlight-orange">
-          </span>
-         </td>
-        </tr>
-        <tr>
-         <td>
-          超过缓冲区变静态账户
+          魔法
          </td>
          <td colspan="2">
-          超过缓冲区就变静态账户 (50k=2000, 150k=6000)
-          <br/>
-          达到第一次出金门槛后，可以视情况多做些利润作为缓冲
+          付费魔法 固定一个地区
          </td>
         </tr>
         <tr>
          <td>
-          转移Live流程
+          新闻交易
          </td>
          <td colspan="2">
-          一般是支付6次后转移到LIVE（或更早），转移利润不超过账户规模10%（如150k不超过15000）
-          <br/>
-          Live每天可出金，没有利润要求，分成降低为80%
+          <span class="highlight-blue">考核和出金号均无任何新闻交易限制</span>
          </td>
         </tr>
         <tr>
          <td>
-          其他说明
+          禁止的行为
          </td>
          <td colspan="2">
-          禁止50%的利润来自5秒内交易；每20天交易1次保持活跃
+          日交易超100笔；
+          <br>
+          交易间隔少于10个tick且少于 2 分钟产生的利润无效 (10tick对应NQ为2.5点)
          </td>
         </tr>
         <tr>
          <td>
-          使用魔法 (VPN)
+          日内平仓
          </td>
          <td colspan="2">
-          允许使用 固定一个地区
+          交易时间：所有交易必须于每日美国东部时间下午 4:20 前平仓，评估账户和出金号均是如此。
          </td>
         </tr>
         <tr>
          <td>
-          新闻交易与日内平仓
+          LIVE
          </td>
          <td colspan="2">
-          <span class="highlight-red">
-           没有任何新闻限制。美东时间4:45点前系统自动平仓而不会触发违规
-          </span>
+          单号盈利4万或5次进live；live有月薪 (领月薪需剩余利润超5000) 和60%分成
          </td>
         </tr>
        </tbody>
@@ -519,183 +783,7 @@
      </div>
     </div>
    </section>
-   <!-- Section 2: Lucid Flex -->
-   <section id="flex">
-    <h2>
-     Lucid Flex 考试账号
-    </h2>
-    <p class="section-intro">
-     低成本考试账号
-    </p>
-    <div class="card">
-     <div class="promo-banner" style="background: linear-gradient(90deg, #0071e3, #409cff);">
-        Lucid注册连接：<a href="https://lucidtrading.com/ref/peterpriceaction/" target="_blank">点击注册</a> 
-     </div>
-     <div class="table-wrapper">
-      <table>
-       <thead>
-        <tr>
-         <th>
-          账号规格
-         </th>
-         <th>
-          50K Lucid Flex 考试账号
-         </th>
-         <th>
-          150K Lucid Flex 考试账号
-         </th>
-        </tr>
-       </thead>
-       <tbody>
-        <tr>
-         <td>
-          价格 (无月费)
-         </td>
-         <td>
-          <span class="price-tag">
-           78
-          </span>
-          <span class="highlight-red">
-           (6折免激活)
-          </span>
-          (一次性费用)
-         </td>
-         <td>
-          <span class="price-tag">
-           189
-          </span>
-          <span class="highlight-red">
-           (6折免激活)
-          </span>
-          (一次性费用)
-         </td>
-        <tr>
-         <td>
-          交易平台
-         </td>
-         <td colspan="2">
-          Tradovate/Ninjatrader 或 Rithmic/quantower/atas
-         </td>
-        </tr>
-        <tr>
-         <td>
-          回撤 (EOD模式)
-         </td>
-         <td>
-          <span class="highlight-blue">
-           EOD回撤 2000 (无日损)
-          </span>
-          考试最多4手
-         </td>
-         <td>
-          <span class="highlight-blue">
-           EOD回撤 4500 (无日损)
-          </span>
-          考试最多10手
-         </td>
-        </tr>
-        <tr>
-         <td>
-          考试通过目标
-         </td>
-         <td>
-          <span class="highlight-blue">
-           3000
-          </span>
-          (最快2天过)
-         </td>
-         <td>
-          <span class="highlight-blue">
-           9000
-          </span>
-         </td>
-        </tr>
-        <tr>
-         <td>
-          一致性
-         </td>
-         <td colspan="2">
-          考试号无日损、50%一致性最快2天过（即50k考试日盈利不超1500，150k考试日盈利不超4500）
-          <br/>
-          出金号无日损、无一致性要求，不需要打缓冲区（出金号初始最大手数：50k 2手，150k 4手）
-         </td>
-        </tr>
-        <tr>
-         <td>
-          出金要求 (EOD模式)
-         </td>
-         <td colspan="2">
-          出金只需要满足2个要求：①5个盈利日 ②每个支付周期内的利润为正值
-          <br/>
-          出金出利润的50%，有单次最高限额（50k=2000，150k=3000）
-          <br/>
-          关于盈利日的说明：50k日利润大于150算盈利日，150k为250
-         </td>
-        </tr>
-        <tr>
-         <td>
-          出金举例
-         </td>
-         <td>
-          50k前6次出金最高$2000（最低500）
-          <br/>
-          举例：50k做2600利润（满足5个150盈利日），第一笔可以出1300美金，剩下的1300美金回撤继续种田5天150，第二次出（1300+150*5）*50%
-         </td>
-         <td>
-          150k前6次出金最高$3000（最低500）
-          <br/>
-          举例：150k做6000利润（满足5个250盈利日）第一笔可以出3000美金，剩下的3000美金回撤在满足要求下继续做3000可以第二次出3000。
-         </td>
-        </tr>
-        <tr>
-         <td>
-          超过初始最大回撤变静态
-         </td>
-         <td colspan="2">
-          日终余额超过初始最大回撤就变静态账户（50k=2000，150k=4500）
-         </td>
-        </tr>
-        <tr>
-         <td>
-          转移Live流程
-         </td>
-         <td colspan="2">
-          一般是支付6次后转移到LIVE（或更早），转移利润不超过5000（如果5个出金号一起复制就是25000）
-          <br/>
-          Live每天可出金，没有利润要求，分成降低为80%
-         </td>
-        </tr>
-        <tr>
-         <td>
-          其他说明
-         </td>
-         <td colspan="2">
-          禁止50%的利润来自5秒内交易；每30天交易1次保持活跃
-         </td>
-        </tr>
-        <tr>
-         <td>
-          使用魔法 (VPN)
-         </td>
-         <td colspan="2">
-          允许使用 固定一个地区
-         </td>
-        </tr>
-        <tr>
-         <td>
-          新闻交易与日内平仓
-         </td>
-         <td colspan="2">
-          <span class="highlight-red">
-           没有任何新闻限制。美东时间4:45点前系统自动平仓而不会触发违规
-          </span>
-         </td>
-        </tr>
-       </tbody>
-      </table>
-     </div>
-    </div>
-   </section>
+
   </main>
   <script>
    document.addEventListener('DOMContentLoaded', () => {

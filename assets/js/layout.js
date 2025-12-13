@@ -31,10 +31,12 @@ document.addEventListener('DOMContentLoaded', () => {
                         <a href="#" class="header__link">平台规则</a>
                         <div class="header__dropdown">
                             <div class="header__dropdown-inner">
-                                <a href="${basePath}/pages/propfirm-introduction.html" class="dropdown-link">基础规则指南</a>
-                                <a href="${basePath}/pages/tpt-rule.html" class="dropdown-link">TakeProfit Trader</a>
+                                <a href="${basePath}/pages/propfirm-introduction.html" class="dropdown-link">Propfirm操作指南</a>
                                 <a href="${basePath}/pages/lucid-rule.html" class="dropdown-link">Lucid</a>
-                                <a href="${basePath}/pages/topone-rule.html" class="dropdown-link">TopOne</a>
+                                <a href="${basePath}/pages/topone-rule.html" class="dropdown-link">Topone futures</a>
+                                <a href="${basePath}/pages/Alpha-rule.html" class="dropdown-link">Alpha Futures</a>
+                                <a href="${basePath}/pages/FN-rule.html" class="dropdown-link">FundedNext</a>
+                                <a href="${basePath}/pages/Purdia-rule.html" class="dropdown-link">Purdia</a>
                             </div>
                         </div>
                     </li>
@@ -50,14 +52,15 @@ document.addEventListener('DOMContentLoaded', () => {
                         </div>
                     </li>
                     
-                    <!-- 学习资源 -->
+                    <!-- 资源 -->
                     <li class="header__menu-item">
-                        <a href="${basePath}/pages/studying-resource.html" class="header__link">学习资源</a>
+                        <a href="${basePath}/pages/studying-resource.html" class="header__link">资源</a>
                         <div class="header__dropdown">
                             <div class="header__dropdown-inner">
                                 <a href="${basePath}/pages/up.html" class="dropdown-link">推荐博主</a>
                                 <a href="${basePath}/pages/book.html" class="dropdown-link">书籍清单</a>
                                 <a href="${basePath}/pages/studying-resource.html" class="dropdown-link">价格行为资源</a>
+                                <a href="https://wcnrxdhlalep.feishu.cn/base/AIuQbo6skabINvsuDT3c9wWRnvg?from=from_copylink" class="dropdown-link" target="_blank">复盘模板</a>
                             </div>
                         </div>
                     </li>
@@ -71,6 +74,7 @@ document.addEventListener('DOMContentLoaded', () => {
                                 <a href="${homeAnchorPrefix}#faq-2" class="dropdown-link">新手该如何开始？</a>
                                 <a href="${homeAnchorPrefix}#faq-3" class="dropdown-link">关于交易技术</a>
                                 <a href="${homeAnchorPrefix}#faq-4" class="dropdown-link">如何使用折扣码？</a>
+                                <a href="${homeAnchorPrefix}#faq-5" class="dropdown-link">交易平台选择</a>
                             </div>
                         </div>
                     </li>
