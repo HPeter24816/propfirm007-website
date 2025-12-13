@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <link rel="icon" href="../assets/images/favicon.ico" type="image/x-icon">
+  <title>
+   TakeProfit Trader Rules
+  </title>
+  <link href="../assets/css/styles.css" rel="stylesheet"/>
+  <script src="../assets/js/layout.js">
+  </script>
+  <script src="../assets/js/scripts.js">
+  </script>
+  <style>
+   /* CSS Variables & Reset */
+        :root {
+            --bg-color: #F5F5F7;
+            --card-bg: #FFFFFF;
+            --text-primary: #1D1D1F;
+            --text-secondary: #86868B;
+            --accent-color: #0071E3;
+            --border-color: #D2D2D7;
+            --table-header-bg: #FBFBFD;
+            --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.04);
+            --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.08);
+            --font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+
+            /* Apple System Colors - 导航栏专用 */
+            --color-nav-bg: rgba(22, 22, 23, 0.8); /* 深色半透明背景 */
+            --color-nav-text: #e8e8ed; /* 导航文字颜色 */
+            --color-nav-text-hover: #ffffff; /* 导航文字悬停颜色 */
+            --color-accent: #0071e3; /* 苹果蓝强调色 */
+            --color-accent-hover: #0077ed; /* 强调色悬停 */
+            
+            /* Typography */
+            --font-family-base: "SF Pro Text", "SF Pro Icons", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
+            
+            /* Layout */
+            --container-width: 1200px;
+            --header-height: 64px;
+            --transition-speed: 0.3s;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        body {
+            font-family: var(--font-family-base);
+            background-color: var(--bg-color);
+            color: var(--text-primary);
+            line-height: 1.5;
+        }
+
+
+
+
+
+
+
+
+
+
+
+        /* Main Content */
+        main {
+            padding-top: 100px;
+            padding-bottom: 60px;
+            max-width: 1024px;
+            margin: 0 auto;
+            padding-left: 20px;
+            padding-right: 20px;
+        }
+
+        .hero {
+            text-align: center;
+            margin-bottom: 60px;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeUp 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+        }
+
+        .hero h1 {
+            font-size: 48px;
+            font-weight: 700;
+            letter-spacing: -1px;
+            margin-bottom: 16px;
+        }
+
+        .hero p {
+            font-size: 20px;
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Table Section */
+        .table-section {
+            background: var(--card-bg);
+            border-radius: 20px;
+            box-shadow: var(--shadow-md);
+            overflow: hidden;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeUp 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) 0.2s forwards;
+        }
+
+        .table-wrapper {
+            width: 100%;
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 800px; /* Ensure table doesn't squash too much */
+        }
+
+        th, td {
+            padding: 20px 24px;
+            text-align: left;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        th {
+            background-color: var(--table-header-bg);
+            font-weight: 600;
+            color: var(--text-secondary);
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            position: sticky;
+            top: 0;
+        }
+
+        /* Column Widths */
+        th:first-child, td:first-child {
+            width: 25%;
+            font-weight: 600;
+            color: var(--text-primary);
+            background-color: #FAFAFA; /* Slight contrast for labels */
+        }
+        
+        th:nth-child(2), td:nth-child(2),
+        th:nth-child(3), td:nth-child(3) {
+            width: 37.5%;
+        }
+
+        /* Merged cells styling */
+        td[colspan="2"] {
+            text-align: left;
+            color: var(--text-primary);
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        tr:hover td {
+            background-color: #F5F5F7;
+            transition: background-color 0.2s ease;
+        }
+
+        /* Highlights */
+        .highlight-text {
+            color: #D32F2F; /* Red for important notes */
+            font-weight: 500;
+        }
+        
+        .price-tag {
+            font-size: 1.2em;
+            font-weight: 700;
+            color: var(--accent-color);
+        }
+
+        .promo-banner {
+            background: linear-gradient(90deg, #FF2D55, #FF375F);
+            color: white;
+            text-align: center;
+            padding: 12px;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 40px;
+            color: var(--text-secondary);
+            font-size: 12px;
+        }
+
+        /* Animations */
+        @keyframes fadeUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 32px;
+            }
+            .hero p {
+                font-size: 16px;
+            }
+            th, td {
+                padding: 16px;
+                font-size: 14px;
+            }
+        }
+  </style>
+ </head>
+ <body>
+  <!-- Header -->
+  <main>
+   <section class="hero">
+    <h1>
+     TPT规则详情
+    </h1>
+    <p>
+     购买前务必熟悉规则
+    </p>
+   </section>
+   <section class="table-section">
+    <div class="promo-banner">
+     退报名费仅适用于黑五促销活动，时间：2025年11月24日-结束待定
+    </div>
+    <div class="table-wrapper">
+     <table>
+      <thead>
+       <tr>
+        <th>
+         项目
+        </th>
+        <th>
+         25K 考试号
+        </th>
+        <th>
+         150K 考试号
+        </th>
+       </tr>
+      </thead>
+      <tbody>
+       <tr>
+        <td>
+         价格
+         <br/>
+         <span style="font-size:12px; color:var(--text-secondary); font-weight:normal;">
+          (按月订阅，通过后不再收)
+         </span>
+        </td>
+        <td>
+         <span class="price-tag">
+          $105
+         </span>
+         <br/>
+         <span style="font-size:13px;">
+          (7折免激活+第一次出金退报名费)
+         </span>
+        </td>
+        <td>
+         <span class="price-tag">
+          $252
+         </span>
+         <br/>
+         <span style="font-size:13px;">
+          (7折免激活+第一次出金退报名费)
+         </span>
+        </td>
+       </tr>
+       <tr>
+        <td>
+         交易平台
+        </td>
+        <td colspan="2">
+         CQG (Tradovate, Ninjatrader) 或 Rithmic (Quantower, atas)
+        </td>
+       </tr>
+       <tr>
+        <td>
+         考试号回撤 (EOD模式)
+         <br/>
+         <span style="font-size:12px; color:var(--text-secondary); font-weight:normal;">
+          无日损，交易5天 (可2天过，剩下时间划水)
+         </span>
+        </td>
+        <td>
+         <strong>
+          EOD回撤 1500
+         </strong>
+         <br/>
+         利润目标 1500
+         <br/>
+         考核一致性 50% (最大手数3手)
+        </td>
+        <td>
+         <strong>
+          EOD回撤 4500
+         </strong>
+         <br/>
+         利润目标 9000
+         <br/>
+         考核一致性 50% (最大手数15手)
+        </td>
+       </tr>
+       <tr>
+        <td>
+         出金号回撤 (盘中追踪)
+         <br/>
+         <span style="font-size:12px; color:var(--text-secondary); font-weight:normal;">
+          无日损，最快1天出金 (出金号超过缓冲区变静态回撤)
+         </span>
+        </td>
+        <td>
+         <strong>
+          追踪回撤 1500
+         </strong>
+         <br/>
+         无一致性要求
+         <br/>
+         利润超1500缓冲区的部分可每天出金
+        </td>
+        <td>
+         <strong>
+          追踪回撤 4500
+         </strong>
+         <br/>
+         无一致性要求
+         <br/>
+         利润超4500缓冲区的部分可每天出金
+        </td>
+       </tr>
+       <tr>
+        <td>
+         关于激活费
+        </td>
+        <td colspan="2">
+         TPT活动时免激活费，过关后会送credit到账户抵扣激活，一般下个工作日傍晚前送 (超3工作日没有的话就得找客服)
+        </td>
+       </tr>
+       <tr>
+        <td>
+         出金要求
+         <br/>
+         <span style="font-size:12px; color:var(--text-secondary); font-weight:normal;">
+          (没有超过缓冲区的buffer也可以申请出金)
+         </span>
+        </td>
+        <td colspan="2">
+         出金号打过缓冲区后就变成静态账户不会再追踪了。
+         <br/>
+         只要打过缓冲区，就可以每天出金 (单笔大于250无手续费)。
+         <br/>
+         发邮件关闭账户可以提取缓冲区内50%金额 (交易满60天可提缓冲区80%，关闭账户无任何影响)。
+        </td>
+       </tr>
+       <tr>
+        <td>
+         分成比例
+        </td>
+        <td colspan="2">
+         80% (升级为Pro+账号为90%)    单笔出金$250以上无手续费
+        </td>
+       </tr>
+       <tr>
+        <td>
+         魔法 (VPN) 和不活跃时间
+        </td>
+        <td colspan="2">
+         允许，尽量保持固定地区 (不固定的话尽量IP在同一个国家或者洲)
+         <br/>
+         <span class="highlight-text">
+          不活跃时间：每周至少1笔1分钟以上交易保持活跃
+         </span>
+        </td>
+       </tr>
+       <tr>
+        <td>
+         新闻交易和日内交易
+        </td>
+        <td colspan="2">
+         考试号无视新闻，出金号只有CPI/非农/FOMC利率决议与会议期间这3个重大新闻 (原油有单独新闻例外) 前后1分钟禁止开仓和持有未平仓订单 (
+         <span class="highlight-text">
+          特别注意
+         </span>
+         )
+         <br/>
+         只允许日内交易，收盘前必须平仓否则违规号就没了 (挂单也必须撤掉)
+        </td>
+       </tr>
+       <tr>
+        <td>
+         PRO+账号 (live)
+        </td>
+        <td colspan="2">
+         PRO账号利润达到$10000 (或更多) 强制升级PRO+
+        </td>
+       </tr>
+      </tbody>
+     </table>
+    </div>
+   </section>
+  </main>
+  <!-- Footer -->
+  <script>
+   document.addEventListener('DOMContentLoaded', () => {
+            // 1. 移动端菜单切换功能
+            const headerToggle = document.querySelector('.header__toggle');
+            const headerNav = document.querySelector('.header__nav');
+            const body = document.body;
+
+            if (headerToggle && headerNav) {
+                headerToggle.addEventListener('click', () => {
+                    const isActive = headerNav.classList.toggle('active');
+                    headerToggle.classList.toggle('active');
+                    
+                    // 防止菜单打开时页面滚动
+                    if (isActive) {
+                        body.style.overflow = 'hidden';
+                    } else {
+                        body.style.overflow = '';
+                    }
+                });
+
+                // 点击导航链接时关闭菜单
+                const navLinks = document.querySelectorAll('.header__link, .header__cta');
+                navLinks.forEach(link => {
+                    link.addEventListener('click', () => {
+                        headerNav.classList.remove('active');
+                        headerToggle.classList.remove('active');
+                        body.style.overflow = '';
+                    });
+                });
+            }
+
+            // 2. 平滑滚动功能(用于锚点链接)
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href');
+                    if (targetId === '#') return;
+                    
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        const headerOffset = 80; // 固定导航栏高度补偿
+                        const elementPosition = targetElement.getBoundingClientRect().top;
+                        const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+
+                        window.scrollTo({
+                            top: offsetPosition,
+                            behavior: "smooth"
+                        });
+                    }
+                });
+            });
+        });
+  </script>
+ </body>
+</html>
