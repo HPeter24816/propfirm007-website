@@ -1,32 +1,5 @@
 ﻿document.addEventListener('DOMContentLoaded', () => {
-    // Mobile Menu Toggle
-    const headerToggle = document.querySelector('.header__toggle');
-    const headerNav = document.querySelector('.header__nav');
-    const body = document.body;
-
-    if (headerToggle && headerNav) {
-        headerToggle.addEventListener('click', () => {
-            const isActive = headerNav.classList.toggle('active');
-            headerToggle.classList.toggle('active');
-            
-            // Prevent scrolling when menu is open
-            if (isActive) {
-                body.style.overflow = 'hidden';
-            } else {
-                body.style.overflow = '';
-            }
-        });
-
-        // Close menu when clicking a link
-        const navLinks = document.querySelectorAll('.header__link, .header__cta');
-        navLinks.forEach(link => {
-            link.addEventListener('click', () => {
-                headerNav.classList.remove('active');
-                headerToggle.classList.remove('active');
-                body.style.overflow = '';
-            });
-        });
-    }
+    // Mobile Menu Logic is handled in layout.js since it injects the header
 
     // Smooth Scrolling for Anchor Links
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
