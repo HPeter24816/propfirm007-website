@@ -1,0 +1,861 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <link rel="icon" href="../assets/images/favicon.ico" type="image/x-icon">
+  <title>
+   Alpha Trading Rules
+  </title>
+  <link href="../assets/css/styles.css" rel="stylesheet"/>
+  <script src="../assets/js/layout.js">
+  </script>
+  <script src="../assets/js/scripts.js">
+  </script>
+  <style>
+   :root {
+            --bg-color: #f5f5f7;
+            --card-bg: #ffffff;
+            --text-primary: #1d1d1f;
+            --text-secondary: #86868b;
+            --accent-color: #0066cc;
+            --border-color: #d2d2d7;
+            --table-header-bg: #fbfbfd;
+            --hover-bg: #f5f5f7;
+            --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.04);
+            --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.08);
+            --radius-lg: 20px;
+            --radius-md: 12px;
+            --font-stack: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            
+            /* New Header Variables */
+            --color-nav-bg: rgba(22, 22, 23, 0.8);
+            --color-nav-text: #e8e8ed;
+            --color-nav-text-hover: #ffffff;
+            --color-accent: #0071e3;
+            --color-accent-hover: #0077ed;
+            --font-family-base: "SF Pro Text", "SF Pro Icons", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
+            --container-width: 1200px;
+            --header-height: 64px;
+            --transition-speed: 0.3s;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        body {
+            font-family: var(--font-family-base);
+            background-color: var(--bg-color);
+            color: var(--text-primary);
+            line-height: 1.5;
+        }
+
+        /* Main Layout */
+        main {
+            padding-top: 40px;
+            padding-bottom: 80px;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding-left: 20px;
+            padding-right: 20px;
+        }
+
+        /* Typography */
+        h1 {
+            font-size: 48px;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 10px;
+            letter-spacing: -1px;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: var(--text-secondary);
+            font-size: 20px;
+            margin-bottom: 60px;
+            font-weight: 400;
+        }
+
+        h2 {
+            font-size: 32px;
+            font-weight: 600;
+            margin-bottom: 24px;
+            letter-spacing: -0.5px;
+        }
+
+        .section-intro {
+            color: var(--text-secondary);
+            margin-bottom: 30px;
+            font-size: 17px;
+            max-width: 800px;
+        }
+
+        /* Sections */
+        section {
+            margin-bottom: 100px;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Cards & Tables */
+        .card {
+            background: var(--card-bg);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-sm);
+            overflow: hidden;
+            border: 1px solid rgba(0,0,0,0.05);
+            transition: box-shadow 0.3s ease;
+        }
+
+        .card:hover {
+            box-shadow: var(--shadow-md);
+        }
+
+        .table-wrapper {
+            width: 100%;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 800px;
+        }
+
+        th, td {
+            padding: 20px 24px;
+            text-align: left;
+            border-bottom: 1px solid var(--border-color);
+            border-right: 1px solid var(--border-color);
+        }
+
+        th:last-child, td:last-child {
+            border-right: none;
+        }
+
+        th {
+            background-color: var(--table-header-bg);
+            font-weight: 600;
+            color: var(--text-secondary);
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            position: sticky;
+            top: 0;
+        }
+
+        /* Column Widths - Adaptive based on column count */
+        /* For 3 columns (Zero/Advanced) */
+        .col-3 th:first-child, .col-3 td:first-child { width: 25%; background-color: #FAFAFA; font-weight: 600; color: var(--text-primary); }
+        .col-3 th:nth-child(2), .col-3 td:nth-child(2),
+        .col-3 th:nth-child(3), .col-3 td:nth-child(3) { width: 37.5%; }
+
+        /* For 4 columns (Standard) */
+        .col-4 th:first-child, .col-4 td:first-child { width: 22%; background-color: #FAFAFA; font-weight: 600; color: var(--text-primary); }
+        .col-4 th:nth-child(n+2), .col-4 td:nth-child(n+2) { width: 26%; }
+
+        /* Merged cells styling */
+        td[colspan] {
+            text-align: left;
+            color: var(--text-primary);
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        tr:hover td {
+            background-color: #F5F5F7;
+            transition: background-color 0.2s ease;
+        }
+
+        /* Highlights */
+        .highlight-red {
+            color: #ff3b30;
+            font-weight: 500;
+        }
+        .highlight-blue {
+            color: #0071e3;
+            font-weight: 500;
+        }
+        .highlight-orange {
+            color: #ff9500;
+        }
+
+        .promo-banner {
+            background: linear-gradient(90deg, #FF2D55, #FF375F);
+            color: white;
+            text-align: center;
+            padding: 12px;
+            font-weight: 600;
+            font-size: 14px;
+        }
+        
+        .promo-banner.blue {
+            background: linear-gradient(90deg, #0071e3, #409cff);
+        }
+        
+        .promo-banner.purple {
+            background: linear-gradient(90deg, #5856d6, #af52de);
+        }
+
+        .promo-banner a {
+            color: white;
+            text-decoration: underline;
+        }
+
+        .price-tag {
+            font-size: 1.2em;
+            font-weight: 700;
+            color: #ff3b30;
+        }
+        
+        .tag {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+        .tag-blue { background: #eef6ff; color: #0071e3; }
+        .tag-red { background: #fff0f0; color: #ff3b30; }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 40px 20px;
+            color: var(--text-secondary);
+            font-size: 12px;
+            border-top: 1px solid var(--border-color);
+            margin-top: 60px;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            h1 { font-size: 36px; }
+            h2 { font-size: 24px; }
+            .subtitle { font-size: 17px; margin-bottom: 40px; }
+            
+            th, td {
+                padding: 14px 16px;
+                font-size: 14px;
+            }
+            
+            /* Header Responsive */
+            :root {
+                --header-height: 48px;
+            }
+
+            .header__toggle {
+                display: flex;
+            }
+
+            .header__nav {
+                position: fixed;
+                top: var(--header-height);
+                left: 0;
+                width: 100%;
+                height: calc(100vh - var(--header-height));
+                background-color: #000;
+                flex-direction: column;
+                padding: 40px 20px;
+                transform: translateY(-100%);
+                transition: transform 0.4s cubic-bezier(0.25, 0.1, 0.25, 1.0);
+                opacity: 0;
+                pointer-events: none;
+            }
+
+            .header__nav.active {
+                transform: translateY(0);
+                opacity: 1;
+                pointer-events: auto;
+            }
+        }
+  </style>
+ </head>
+ <body>
+  <!-- Header -->
+  <main>
+   <!-- Hero -->
+   <div class="hero">
+    <h1>
+     Alpha账号
+    </h1>
+    <p class="subtitle">
+     购买前务必熟悉规则
+    </p>
+   </div>
+
+   <!-- Section 1: Zero Plan -->
+   <section id="zero">
+    <h2>
+     Alpha Zero Plan 账号
+    </h2>
+    <p class="section-intro">
+     种田神器，性价比版TS，适合长期稳定盈利
+    </p>
+    <div class="card">
+     <div class="promo-banner blue">
+      Alpha注册连接：<a href="https://app.alpha-futures.com/signup/Hu012572/" target="_blank" style="color: white; text-decoration: underline;">点击注册</a>
+     </div>
+     <div class="table-wrapper">
+      <table class="col-3">
+       <thead>
+        <tr>
+         <th>
+          账号规格
+         </th>
+         <th>
+          50K Zero Plan
+         </th>
+         <th>
+          100K Zero Plan
+         </th>
+        </tr>
+       </thead>
+       <tbody>
+        <tr>
+         <td>
+          价格 (按月订阅)
+         </td>
+         <td>
+          <span class="price-tag">
+           89
+          </span>
+          <span class="highlight-red">
+           (9折免激活费)
+          </span>
+          <br>
+          <span style="font-size:12px; color:#86868b">重置费折扣后71</span>
+         </td>
+         <td>
+          <span class="price-tag">
+           179
+          </span>
+          <span class="highlight-red">
+           (9折免激活费)
+          </span>
+          <br>
+          <span style="font-size:12px; color:#86868b">重置费折扣后143</span>
+         </td>
+        </tr>
+        <tr>
+         <td>
+          交易平台
+         </td>
+         <td colspan="2">
+          AlphaTicks (ProjectX)    Tradovate/Ninja
+         </td>
+        </tr>
+        <tr>
+         <td>
+          考核目标与回撤
+         </td>
+         <td>
+          <span class="highlight-blue">目标 3000</span>
+          <br>
+          EOD回撤 2000
+          <br>
+          <span class="highlight-red">日损 1000</span>
+         </td>
+         <td>
+          <span class="highlight-blue">目标 6000</span>
+          <br>
+          EOD回撤 4000
+          <br>
+          <span class="highlight-red">日损 2000</span>
+         </td>
+        </tr>
+        <tr>
+         <td>
+          考核一致性
+         </td>
+         <td colspan="2">
+          考核无一致性，可当天过
+         </td>
+        </tr>
+        <tr>
+         <td>
+          出金号门槛
+         </td>
+         <td colspan="2">
+          满足5个$200盈利日 + 出金号40%一致性
+          <br>
+          <span style="font-size:12px; color:#86868b">(满足条件随时提款，出50%且有单笔上限)</span>
+         </td>
+        </tr>
+        <tr>
+         <td>
+          出金规则
+         </td>
+         <td colspan="2">
+          每满足5个$200盈利日出利润50%，合计满30个$200盈利日出全部利润
+          <br>
+          <span class="highlight-orange">单笔上限：50k号$1500，100k号$3000 (是单笔而不是总出金)</span>
+         </td>
+        </tr>
+        <tr>
+         <td>
+          出金号日损
+         </td>
+         <td>
+          日损 1000
+         </td>
+         <td>
+          日损 2000
+         </td>
+        </tr>
+        <tr>
+         <td>
+          魔法
+         </td>
+         <td colspan="2">
+            付费魔法 固定一个地区
+         </td>
+        </tr>
+        <tr>
+         <td>
+          新闻交易
+         </td>
+         <td colspan="2">
+          考核不限制；
+          <br>
+          <span class="highlight-red">出金号限制高影响力新闻前后2分钟不得执行任何订单</span>
+          <br>
+         </td>
+        </tr>
+        <tr>
+         <td>
+          禁止行为
+         </td>
+         <td colspan="2">
+          日交易超100笔；
+          <br>
+          <span class="highlight-red">交易间隔少于10个tick且少于2分钟产生的利润无效</span> (10tick对应NQ为2.5点)
+         </td>
+        </tr>
+        <tr>
+         <td>
+          日内平仓
+         </td>
+         <td colspan="2">
+          每日美东时间下午 4:20 前平仓 (系统会自动平仓)
+         </td>
+        </tr>
+        <tr>
+         <td>
+          LIVE
+         </td>
+         <td colspan="2">
+          单号盈利4万或5次进live；live有月薪 (领月薪需剩余利润超5000) 和60%分成
+         </td>
+        </tr>
+       </tbody>
+      </table>
+     </div>
+    </div>
+   </section>
+
+   <!-- Section 2: Standard Plan -->
+   <section id="standard">
+    <h2>
+     Alpha 标准 Standard 账号
+    </h2>
+    <p class="section-intro">
+     标准考核账号，适合习惯传统考核模式的交易员
+    </p>
+    <div class="card">
+     <div class="promo-banner">
+     Alpha注册连接：<a href="https://app.alpha-futures.com/signup/Hu012572/" target="_blank" style="color: white; text-decoration: underline;">点击注册</a>
+     </div>
+     </div>
+     <div class="table-wrapper">
+      <table class="col-4">
+       <thead>
+        <tr>
+         <th>
+          账号规格
+         </th>
+         <th>
+          50K Standard
+         </th>
+         <th>
+          100K Standard
+         </th>
+         <th>
+          150K Standard
+         </th>
+        </tr>
+       </thead>
+       <tbody>
+        <tr>
+         <td>
+          价格 (按月订阅)
+         </td>
+         <td>
+          <span class="price-tag">71</span>
+          <span class="highlight-red">(9折)</span>
+          <br>
+          <span style="font-size:12px;">激活费149</span>
+         </td>
+         <td>
+          <span class="price-tag">143</span>
+          <span class="highlight-red">(9折)</span>
+          <br>
+          <span style="font-size:12px;">激活费149</span>
+         </td>
+         <td>
+          <span class="price-tag">215</span>
+          <span class="highlight-red">(9折)</span>
+          <br>
+          <span style="font-size:12px;">激活费149</span>
+         </td>
+        </tr>
+        <tr>
+         <td>
+          交易平台
+         </td>
+         <td colspan="3">
+          AlphaTicks (ProjectX)
+         </td>
+        </tr>
+        <tr>
+         <td>
+          考核目标与回撤
+         </td>
+         <td>
+          <span class="highlight-blue">目标 3000</span>
+          <br>
+          EOD回撤 2000
+         </td>
+         <td>
+          <span class="highlight-blue">目标 6000</span>
+          <br>
+          EOD回撤 4000
+         </td>
+         <td>
+          <span class="highlight-blue">目标 9000</span>
+          <br>
+          EOD回撤 6000
+         </td>
+        </tr>
+        <tr>
+         <td>
+          考核日损
+         </td>
+         <td colspan="3">
+          <span class="highlight-blue">考核无日损</span>
+         </td>
+        </tr>
+        <tr>
+         <td>
+          一致性要求
+         </td>
+         <td colspan="3">
+          50%一致性，可2天过关
+         </td>
+        </tr>
+        <tr>
+         <td>
+          出金号门槛
+         </td>
+         <td colspan="3">
+          最低3天70 (满200)
+         </td>
+        </tr>
+        <tr>
+         <td>
+          出金要求
+         </td>
+         <td colspan="3">
+          每14天；最少3个交易日；40%一致性
+          <br>
+          <span class="highlight-red"></span>
+         </td>
+        </tr>
+        <tr>
+         <td>
+          魔法
+         </td>
+         <td colspan="3">
+        付费魔法 固定一个地区
+         </td>
+        </tr>
+        <tr>
+         <td>
+          新闻交易
+         </td>
+         <td colspan="3">
+          考核不限制；出金号限制高影响力新闻前后2分钟
+         </td>
+        </tr>
+        <tr>
+         <td>
+          禁止的行为
+         </td>
+         <td colspan="3">
+          日交易超100笔；
+          <br>
+          交易间隔少于10个tick且少于 2 分钟产生的利润无效；(10tick对应NQ为2.5点)
+         </td>
+        </tr>
+        <tr>
+         <td>
+          日内平仓
+         </td>
+         <td colspan="3">
+          交易时间：所有交易必须于每日美国东部时间下午 4:20 前平仓，评估账户和出金号均是如此。
+         </td>
+        </tr>
+        <tr>
+         <td>
+          LIVE
+         </td>
+         <td colspan="3">
+          单号盈利4万或5次进live；live有月薪 (领月薪需剩余利润超5000) 和60%分成
+         </td>
+        </tr>
+       </tbody>
+      </table>
+     </div>
+    </div>
+   </section>
+
+   <!-- Section 3: Advanced Plan -->
+   <section id="advanced">
+    <h2>
+     Alpha 高级 Advanced 账号
+    </h2>
+    <p class="section-intro">
+     高级考核账号，出金规则更灵活
+    </p>
+    <div class="card">
+     <div class="promo-banner purple">
+      Alpha注册连接：<a href="https://app.alpha-futures.com/signup/Hu012572/" target="_blank" style="color: white; text-decoration: underline;">点击注册</a>
+     </div>
+     <div class="table-wrapper">
+      <table class="col-3">
+       <thead>
+        <tr>
+         <th>
+          账号规格
+         </th>
+         <th>
+          50K Advanced
+         </th>
+         <th>
+          150K Advanced
+         </th>
+        </tr>
+       </thead>
+       <tbody>
+        <tr>
+         <td>
+          价格 (按月订阅)
+         </td>
+         <td>
+          <span class="price-tag">125</span>
+          <span class="highlight-red">(9折)</span>
+          <br>
+          <span style="font-size:12px;">激活费149</span>
+         </td>
+         <td>
+          <span class="price-tag">377</span>
+          <span class="highlight-red">(9折)</span>
+          <br>
+          <span style="font-size:12px;">激活费149</span>
+         </td>
+        </tr>
+        <tr>
+         <td>
+          交易平台
+         </td>
+         <td colspan="2">
+          AlphaTicks (ProjectX)
+         </td>
+        </tr>
+        <tr>
+         <td>
+          考核目标与回撤
+         </td>
+         <td>
+          <span class="highlight-blue">目标 4000</span>
+          <br>
+          EOD回撤 1750
+         </td>
+         <td>
+          <span class="highlight-blue">目标 12000</span>
+          <br>
+          EOD回撤 5250
+         </td>
+        </tr>
+        <tr>
+         <td>
+          考核日损
+         </td>
+         <td colspan="2">
+          <span class="highlight-blue">无日损</span>
+         </td>
+        </tr>
+        <tr>
+         <td>
+          一致性要求
+         </td>
+         <td colspan="2">
+          50%一致性，可2天过关
+         </td>
+        </tr>
+        <tr>
+         <td>
+          出金号门槛
+         </td>
+         <td colspan="2">
+          最低5天200 (满1000)
+         </td>
+        </tr>
+        <tr>
+         <td>
+          出金要求
+         </td>
+         <td colspan="2">
+          满足5个200盈利日随时出金，出50%; 满30个200盈利日可出全部
+          <br>
+          <span class="highlight-blue">无一致性规则; 出金号无日损</span>
+         </td>
+        </tr>
+        <tr>
+         <td>
+          魔法
+         </td>
+         <td colspan="2">
+          付费魔法 固定一个地区
+         </td>
+        </tr>
+        <tr>
+         <td>
+          新闻交易
+         </td>
+         <td colspan="2">
+          <span class="highlight-blue">考核和出金号均无任何新闻交易限制</span>
+         </td>
+        </tr>
+        <tr>
+         <td>
+          禁止的行为
+         </td>
+         <td colspan="2">
+          日交易超100笔；
+          <br>
+          交易间隔少于10个tick且少于 2 分钟产生的利润无效 (10tick对应NQ为2.5点)
+         </td>
+        </tr>
+        <tr>
+         <td>
+          日内平仓
+         </td>
+         <td colspan="2">
+          交易时间：所有交易必须于每日美国东部时间下午 4:20 前平仓，评估账户和出金号均是如此。
+         </td>
+        </tr>
+        <tr>
+         <td>
+          LIVE
+         </td>
+         <td colspan="2">
+          单号盈利4万或5次进live；live有月薪 (领月薪需剩余利润超5000) 和60%分成
+         </td>
+        </tr>
+       </tbody>
+      </table>
+     </div>
+    </div>
+   </section>
+
+  </main>
+  <script>
+   document.addEventListener('DOMContentLoaded', () => {
+            // 1. 移动端菜单切换功能
+            const headerToggle = document.querySelector('.header__toggle');
+            const headerNav = document.querySelector('.header__nav');
+            const body = document.body;
+
+            if (headerToggle && headerNav) {
+                headerToggle.addEventListener('click', () => {
+                    const isActive = headerNav.classList.toggle('active');
+                    headerToggle.classList.toggle('active');
+                    
+                    // 防止菜单打开时页面滚动
+                    if (isActive) {
+                        body.style.overflow = 'hidden';
+                    } else {
+                        body.style.overflow = '';
+                    }
+                });
+
+                // 点击导航链接时关闭菜单
+                const navLinks = document.querySelectorAll('.header__link, .header__cta');
+                navLinks.forEach(link => {
+                    link.addEventListener('click', () => {
+                        headerNav.classList.remove('active');
+                        headerToggle.classList.remove('active');
+                        body.style.overflow = '';
+                    });
+                });
+            }
+
+            // 2. 平滑滚动功能(用于锚点链接)
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href');
+                    if (targetId === '#') return;
+                    
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        const headerOffset = 80; // 固定导航栏高度补偿
+                        const elementPosition = targetElement.getBoundingClientRect().top;
+                        const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+
+                        window.scrollTo({
+                            top: offsetPosition,
+                            behavior: "smooth"
+                        });
+                    }
+                });
+            });
+        });
+
+        // Intersection Observer for Fade-in Animation
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('section').forEach(section => {
+            observer.observe(section);
+        });
+  </script>
+ </body>
+</html>

@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <link rel="icon" href="../assets/images/favicon.ico" type="image/x-icon">
+  <title>
+   帮助中心 &amp; 联系方式
+  </title>
+  <link href="../assets/css/styles.css" rel="stylesheet"/>
+  <script src="../assets/js/layout.js">
+  </script>
+  <script src="../assets/js/scripts.js">
+  </script>
+  <style>
+   /* --- Design System & Variables (Apple Style) --- */
+        :root {
+            --bg-color: #fbfbfd;
+            --card-bg: #ffffff;
+            --text-primary: #1d1d1f;
+            --text-secondary: #86868b;
+            --accent-color: #0066cc;
+            --accent-hover: #004499;
+            --divider: #d2d2d7;
+            --nav-bg: rgba(251, 251, 253, 0.8);
+            --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.04);
+            --shadow-md: 0 14px 40px rgba(0, 0, 0, 0.08);
+            --radius-lg: 20px;
+            --font-stack: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            
+            /* ===== New Navigation Variables ===== */
+            --color-nav-bg: rgba(22, 22, 23, 0.8); /* 深色半透明背景 */
+            --color-nav-text: #e8e8ed; /* 导航文字颜色 */
+            --color-nav-text-hover: #ffffff; /* 导航文字悬停颜色 */
+            --color-accent: #0071e3; /* 苹果蓝强调色 */
+            --color-accent-hover: #0077ed; /* 强调色悬停 */
+            
+            /* Typography */
+            --font-family-base: "SF Pro Text", "SF Pro Icons", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
+            
+            /* Layout */
+            --container-width: 1200px;
+            --header-height: 64px;
+            --transition-speed: 0.3s;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; -webkit-font-smoothing: antialiased; }
+        
+        body {
+            font-family: var(--font-family-base);
+            background-color: var(--bg-color);
+            color: var(--text-primary);
+            line-height: 1.5;
+            font-weight: 400;
+            letter-spacing: -0.01em;
+        }
+
+
+
+
+
+
+        .header__link {
+            font-weight: 400;
+            letter-spacing: -0.01em;
+            opacity: 0.8;
+            transition: opacity 0.2s;
+            text-decoration: none;
+        }
+
+        .header__link:hover { color: var(--color-nav-text-hover); opacity: 1; text-decoration: none; }
+
+        /* CTA按钮样式(联系方式) */
+        .header__cta {
+            font-size: 14px;
+            background: #fff; /* 纯白背景 */
+            color: #000 !important; /* 黑色文字 */
+            padding: 8px 20px;
+            border-radius: 980px; /* 圆角胶囊形状 */
+            opacity: 1;
+            text-decoration: none;
+            transition: background 0.2s;
+        }
+
+        .header__cta:hover { background: #f5f5f7; text-decoration: none; }
+
+        /* ===== 下拉菜单样式 ===== */
+        .header__dropdown {
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: rgba(22, 22, 23, 0.95); /* 深色半透明 */
+            backdrop-filter: saturate(180%) blur(20px);
+            -webkit-backdrop-filter: saturate(180%) blur(20px);
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            min-width: 180px;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 1000;
+            margin-top: 10px;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        /* 悬停显示下拉菜单 */
+        .header__menu-item:hover .header__dropdown { opacity: 1; visibility: visible; margin-top: 0; }
+        .header__dropdown-inner { display: flex; flex-direction: column; gap: 12px; text-align: center; }
+
+        /* 下拉菜单链接样式 */
+        .dropdown-link {
+            color: var(--color-nav-text);
+            font-size: 14px;
+            white-space: nowrap;
+            transition: color 0.2s;
+            display: block;
+            text-decoration: none;
+        }
+
+        .dropdown-link:hover { color: var(--color-accent); text-decoration: none; }
+
+        /* 下拉菜单三角箭头 */
+        .header__dropdown::before {
+            content: '';
+            position: absolute;
+            top: -6px;
+            left: 50%;
+            transform: translateX(-50%);
+            border-width: 0 6px 6px 6px;
+            border-style: solid;
+            border-color: transparent transparent rgba(22, 22, 23, 0.95) transparent;
+        }
+
+
+
+        /* --- Main Layout --- */
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 60px 24px 80px; /* Adjusted top padding for sticky header */
+        }
+
+        /* --- Typography --- */
+        h1 {
+            font-size: 48px;
+            line-height: 1.08;
+            font-weight: 700;
+            letter-spacing: -0.003em;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: var(--text-secondary);
+            font-size: 20px;
+            max-width: 600px;
+            margin: 0 auto 60px;
+            font-weight: 400;
+        }
+
+        h2 {
+            font-size: 28px;
+            font-weight: 600;
+            margin-top: 80px;
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid var(--divider);
+        }
+
+        h3 { font-size: 20px; font-weight: 600; margin-bottom: 12px; margin-top: 30px; }
+        p { font-size: 17px; color: var(--text-primary); margin-bottom: 16px; }
+
+        /* --- Contact Cards --- */
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 24px;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border-radius: var(--radius-lg);
+            padding: 32px 24px;
+            box-shadow: var(--shadow-sm);
+            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            text-decoration: none;
+            color: inherit;
+            border: 1px solid rgba(0,0,0,0.02);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card:hover {
+            transform: scale(1.02);
+            box-shadow: var(--shadow-md);
+            text-decoration: none !important;
+        }
+
+        .card-icon {
+            width: 60px;
+            height: 60px;
+            margin-bottom: 20px;
+            border-radius: 50%;
+            background: #f5f5f7;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            color: var(--text-primary);
+        }
+
+        .card-title { font-size: 19px; font-weight: 600; margin-bottom: 8px; }
+        .card-desc { font-size: 14px; color: var(--text-secondary); margin-bottom: 20px; line-height: 1.4; }
+        
+        .card-link {
+            font-size: 14px;
+            color: var(--accent-color);
+            font-weight: 500;
+            margin-top: auto;
+            display: flex;
+            align-items: center;
+            transition: text-decoration 0.2s;
+        }
+        
+        .card-link:hover {
+            text-decoration: underline;
+        }
+        
+        .card-link::after { content: "›"; font-size: 18px; margin-left: 4px; margin-top: -2px; }
+
+        /* --- Knowledge Base Section --- */
+        .content-section {
+            background: var(--card-bg);
+            border-radius: var(--radius-lg);
+            padding: 48px;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .content-section ul { padding-left: 20px; margin-bottom: 20px; color: var(--text-secondary); }
+        .content-section li { margin-bottom: 10px; font-size: 16px; }
+        .content-section strong { color: var(--text-primary); }
+
+        /* --- Footer --- */
+        .footer {
+            margin-top: 100px;
+            padding-top: 40px;
+            border-top: 1px solid var(--divider);
+            text-align: center;
+            color: var(--text-secondary);
+            font-size: 12px;
+        }
+
+        /* --- Responsive --- */
+        @media (max-width: 734px) {
+            h1 { font-size: 36px; }
+            .container { padding-top: 100px; padding-left: 20px; padding-right: 20px; }
+            .content-section { padding: 30px 24px; }
+        }
+  </style>
+ </head>
+ <body>
+  <!-- Header -->
+  <!-- Main Content -->
+  <div class="container">
+   <!-- Hero Section -->
+   <section>
+    <h1>
+     联系方式
+    </h1>
+    <p class="subtitle">
+     可通过下列方式联系管理员
+    </p>
+   </section>
+   <!-- Contact Cards (Data from 联系方式.md) -->
+   <section class="contact-grid" id="contact">
+    <!-- QQ -->
+    <a class="card" href="https://qm.qq.com/q/Gbxzdksiis" target="_blank">
+     <div class="card-icon">
+        <img src="https://favicon.run/favicon?domain=im.qq.com&sz=64" alt="Website Favicon" />  
+     </div>
+     <div class="card-title">
+      QQ
+     </div>
+     <div class="card-desc">
+      QQ:2147676104
+     </div>
+     <div class="card-link">
+      添加好友
+     </div>
+    </a>
+    <!-- Discord -->
+    <a class="card" href="https://discord.gg/DDT24rzW" target="_blank">
+     <div class="card-icon" style="background-color: #5865F2; color: white;">
+        <img src="https://favicon.run/favicon?domain=www.discord.com&sz=64" alt="Website Favicon" />
+     </div>
+     <div class="card-title">
+      Discord
+     </div>
+     <div class="card-desc">
+      加入Discord 社区，获取实时行情讨论。
+     </div>
+     <div class="card-link">
+      加入Discord服务器
+     </div>
+    </a>
+    <!-- Telegram -->
+    <a class="card" href="https://t.me/+vC8FqXeAYEQyMGQ9" target="_blank">
+     <div class="card-icon" style="background-color: #24A1DE; color: white;">
+        <img src="https://favicon.run/favicon?domain=www.telegram.org&sz=64" alt="Website Favicon" />
+     </div>
+     <div class="card-title">
+      Telegram
+     </div>
+     <div class="card-desc">
+      加入Telegram社区，获取实时行情讨论。
+     </div>
+     <div class="card-link">
+      前往Telegram社区
+     </div>
+    </a>
+    <!-- X -->
+    <a class="card" href="https://x.com/HPeter2468" target="_blank">
+     <div class="card-icon" style="background-color: #000000; color: white;">
+        <img src="https://favicon.run/favicon?domain=www.twitter.com&sz=64" alt="Website Favicon" />
+     </div>
+     <div class="card-title">
+      X
+     </div>
+     <div class="card-desc">
+      关注X账号，获取最新动态。
+     </div>
+     <div class="card-link">
+      前往X账号
+     </div>
+    </a>
+   </section>
+   <!-- Interaction Scripts -->
+   <script>
+    document.addEventListener('DOMContentLoaded', () => {
+            // 1. 移动端菜单切换功能
+            const headerToggle = document.querySelector('.header__toggle');
+            const headerNav = document.querySelector('.header__nav');
+            const body = document.body;
+
+            if (headerToggle && headerNav) {
+                headerToggle.addEventListener('click', () => {
+                    const isActive = headerNav.classList.toggle('active');
+                    headerToggle.classList.toggle('active');
+                    
+                    // 防止菜单打开时页面滚动
+                    if (isActive) {
+                        body.style.overflow = 'hidden';
+                    } else {
+                        body.style.overflow = '';
+                    }
+                });
+
+                // 点击导航链接时关闭菜单
+                const navLinks = document.querySelectorAll('.header__link, .header__cta');
+                navLinks.forEach(link => {
+                    link.addEventListener('click', () => {
+                        headerNav.classList.remove('active');
+                        headerToggle.classList.remove('active');
+                        body.style.overflow = '';
+                    });
+                });
+            }
+
+            // 2. 平滑滚动功能(用于锚点链接)
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href');
+                    if (targetId === '#') return;
+                    
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        const headerOffset = 80; // 固定导航栏高度补偿
+                        const elementPosition = targetElement.getBoundingClientRect().top;
+                        const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+
+                        window.scrollTo({
+                            top: offsetPosition,
+                            behavior: "smooth"
+                        });
+                    }
+                });
+            });
+        });
+
+        // Card Hover Effect Enhancement
+        const cards = document.querySelectorAll('.card');
+        cards.forEach(card => {
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                // Optional: Add subtle spotlight effect here if desired
+            });
+        });
+   </script>
+  </div>
+ </body>
+</html>
