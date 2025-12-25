@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WorkMarket 指南 - Futures Propfirm 中文社区</title>
+    <link rel="icon" href="../assets/images/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="../assets/css/styles.css">
+    <style>
+        /* Custom Styles for WorkMarket Guide */
+        .guide-hero {
+            text-align: center;
+            padding: 80px 20px 40px;
+            background-color: var(--color-bg-body);
+        }
+        
+        .guide-hero h1 {
+            font-size: 48px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            color: var(--color-text-primary);
+            letter-spacing: -0.01em;
+        }
+        
+        .guide-hero p {
+            font-size: 24px;
+            color: var(--color-text-secondary);
+            font-weight: 400;
+        }
+
+        /* Segmented Control (Tabs) */
+        .segmented-control {
+            display: flex;
+            justify-content: center;
+            background-color: var(--color-bg-alt);
+            padding: 4px;
+            border-radius: 980px;
+            max-width: 600px;
+            margin: 40px auto 60px;
+            position: relative;
+        }
+
+        .segment-btn {
+            flex: 1;
+            padding: 10px 20px;
+            border: none;
+            background: none;
+            border-radius: 980px;
+            font-size: 15px;
+            font-weight: 500;
+            color: var(--color-text-secondary);
+            cursor: pointer;
+            transition: color 0.3s ease;
+            z-index: 2;
+            position: relative;
+        }
+
+        .segment-btn.active {
+            color: var(--color-text-primary);
+            background-color: #fff;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+        }
+
+        /* Content Sections with Fade Animation */
+        .guide-content {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 22px 100px;
+            position: relative;
+            min-height: 600px;
+        }
+
+        .tab-pane {
+            display: none;
+            opacity: 0;
+            transition: opacity 0.4s ease-in-out;
+        }
+
+        .tab-pane.active {
+            display: block;
+            animation: fadeIn 0.5s forwards;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Step Items */
+        .step-item {
+            margin-bottom: 60px;
+            border-bottom: 1px solid var(--color-border);
+            padding-bottom: 40px;
+        }
+
+        .step-item:last-child {
+            border-bottom: none;
+        }
+
+        .step-title {
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: var(--color-text-primary);
+        }
+
+        .step-number {
+            background-color: var(--color-text-primary);
+            color: #fff;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            font-weight: 700;
+        }
+
+        .step-desc {
+            font-size: 17px;
+            line-height: 1.6;
+            color: var(--color-text-secondary);
+            margin-bottom: 24px;
+        }
+
+        .step-image {
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            border: 1px solid rgba(0,0,0,0.05);
+            width: 100%;
+            height: auto;
+            margin-top: 20px;
+            display: block;
+        }
+
+        /* Apple Style Tips */
+        .tip-box {
+            background-color: var(--color-bg-alt);
+            border-radius: 18px;
+            padding: 24px;
+            margin: 30px 0;
+            display: flex;
+            gap: 16px;
+            align-items: flex-start;
+        }
+
+        .tip-box.warning {
+            background-color: var(--color-system-orange-light);
+        }
+        
+        .tip-box.danger {
+            background-color: #FFF2F2; /* Light Red */
+        }
+
+        .tip-icon {
+            font-size: 24px;
+            line-height: 1;
+        }
+
+        .tip-content h4 {
+            font-size: 17px;
+            font-weight: 600;
+            margin-bottom: 4px;
+            color: var(--color-text-primary);
+        }
+
+        .tip-content p {
+            font-size: 15px;
+            color: var(--color-text-secondary);
+            line-height: 1.5;
+            margin: 0;
+        }
+        
+        .tip-box.warning .tip-content h4 { color: #bf4800; }
+        .tip-box.danger .tip-content h4 { color: var(--color-system-red); }
+
+        /* Highlight Text */
+        .text-highlight {
+            color: var(--color-accent);
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Hero Section -->
+    <section class="guide-hero">
+        <div class="container">
+            <h1>WorkMarket 指南</h1>
+            <p>全球收款</p>
+        </div>
+    </section>
+
+    <!-- Tab Navigation -->
+    <div class="container">
+        <div class="segmented-control">
+            <button class="segment-btn active" onclick="switchTab('account')">账户注册</button>
+            <button class="segment-btn" onclick="switchTab('tax')">税务信息</button>
+            <button class="segment-btn" onclick="switchTab('payment')">Wise收款绑定</button>
+        </div>
+    </div>
+
+    <!-- Content Sections -->
+    <div class="guide-content">
+        
+        <!-- Tab 1: 账户注册 -->
+        <div id="account" class="tab-pane active">
+            <div class="tip-box">
+                <div class="tip-icon">💡</div>
+                <div class="tip-content">
+                    <h4>准备工作</h4>
+                    <p>请确保您已收到来自 Lucid 的注册邀请邮件，或拥有有效的注册链接。</p>
+                </div>
+            </div>
+
+            <div class="step-item">
+                <div class="step-title">
+                    <span class="step-number">1</span>
+                    注册基本资料
+                </div>
+                <div class="step-desc">
+                    通过 Lucid 发送的链接进入注册页面。填写 First Name（名）和 Last Name（姓），Industry（行业）选择您的相关领域。
+                </div>
+                <img src="../assets/images/Pasted image 20251225113920.png" alt="基本资料填写" class="step-image">
+            </div>
+
+            <div class="step-item">
+                <div class="step-title">
+                    <span class="step-number">2</span>
+                    设置登录信息
+                </div>
+                <div class="step-desc">
+                    设置您的 WorkMarket 登录邮箱和密码。建议使用与 Lucid 注册一致的邮箱地址。
+                </div>
+                <img src="../assets/images/37a37680e3bce2307da3850f2f81f42c.png" alt="登录信息设置" class="step-image">
+            </div>
+
+            <div class="step-item">
+                <div class="step-title">
+                    <span class="step-number">3</span>
+                    完善联系方式
+                </div>
+                <div class="step-desc">
+                    填写您的真实联系方式。
+                    <ul>
+                        <li><strong>Phone:</strong> 选择 China (+86) 并填写实名手机号。</li>
+                        <li><strong>Address:</strong> 建议填写与 Lucid 注册一致的地址。</li>
+                    </ul>
+                </div>
+                <img src="../assets/images/Pasted image 20251225114033.png" alt="联系方式填写" class="step-image">
+            </div>
+        </div>
+
+        <!-- Tab 2: 税务信息 -->
+        <div id="tax" class="tab-pane">
+            <div class="tip-box warning">
+                <div class="tip-icon">⚠️</div>
+                <div class="tip-content">
+                    <h4>关键提示</h4>
+                    <p>地址填写务必使用<strong>全英文</strong>，且必须<strong>选择系统自动弹出的地址选项</strong>，否则可能导致验证失败。</p>
+                </div>
+            </div>
+
+            <div class="step-item">
+                <div class="step-title">
+                    <span class="step-number">1</span>
+                    进入税务设置
+                </div>
+                <div class="step-desc">
+                    登录后，点击左侧菜单栏的 "Tax Info"，然后点击右下角的 "Next"。
+                </div>
+                <img src="../assets/images/04a11e91a92018dadba7a0436ae7f95e.png" alt="Tax Info 入口" class="step-image">
+            </div>
+
+            <div class="step-item">
+                <div class="step-title">
+                    <span class="step-number">2</span>
+                    选择税收国家
+                </div>
+                <div class="step-desc">
+                    选择您的税收居民国家（通常为 China），点击 "Next"。
+                </div>
+                <img src="../assets/images/cfae4bbf143213cb1596cec332d343ad.png" alt="选择国家" class="step-image">
+            </div>
+
+            <div class="step-item">
+                <div class="step-title">
+                    <span class="step-number">3</span>
+                    填写纳税人身份
+                </div>
+                <div class="step-desc">
+                    <p><strong>Type of Beneficial Owner:</strong> 选择 <span class="text-highlight">Individual</span>。</p>
+                    <p><strong>Name:</strong> 填写拼音姓名。</p>
+                    <p><strong>National ID:</strong> 填写您的身份证号码。</p>
+                </div>
+                <img src="../assets/images/69e0c64597c2b70a7a9e3d3a1d190299.png" alt="纳税人身份" class="step-image">
+            </div>
+
+            <div class="step-item">
+                <div class="step-title">
+                    <span class="step-number">4</span>
+                    确认税务地址
+                </div>
+                <div class="step-desc">
+                    输入地址时，请选择 Google 地图自动弹出的建议地址。无需与居住地址完全一致，但必须是系统识别的有效地址。
+                </div>
+                <img src="../assets/images/Pasted image 20251225120809.png" alt="地址填写" class="step-image">
+                <img src="../assets/images/182eca8eb1831f53713c495c49cb1c72.png" alt="地址确认" class="step-image" style="margin-top: 10px;">
+            </div>
+
+            <div class="step-item">
+                <div class="step-title">
+                    <span class="step-number">5</span>
+                    提交信息
+                </div>
+                <div class="step-desc">
+                    核对信息无误后，勾选确认框并点击 "Submit"。
+                </div>
+                <img src="../assets/images/abe18e756a4e37c00ff09f3b32d6c97b.png" alt="提交税务信息" class="step-image">
+            </div>
+        </div>
+
+        <!-- Tab 3: 收款绑定 -->
+        <div id="payment" class="tab-pane">
+            <div class="tip-box danger">
+                <div class="tip-icon">🚫</div>
+                <div class="tip-content">
+                    <h4>Paypal 风险提示</h4>
+                    <p>Paypal 风控较为严格，容易导致资金冻结。强烈建议优先使用 <strong>WISE (Bank Account)</strong> 进行收款。</p>
+                </div>
+            </div>
+
+            <div class="tip-box">
+                <div class="tip-icon">ℹ️</div>
+                <div class="tip-content">
+                    <h4>收款方式说明</h4>
+                    <p>WorkMarket 支持 ACH（美国本地转账）、WISE 和电汇。电汇通常需要 5 个工作日或更久。</p>
+                </div>
+            </div>
+
+            <div class="step-item">
+                <div class="step-title">
+                    <span class="step-number">1</span>
+                    添加付款账户
+                </div>
+                <div class="step-desc">
+                    在设置页面找到并点击 "Add payment account" 按钮。
+                </div>
+                <img src="../assets/images/0395007f27c2f5d79589d1ff029282c4.png" alt="添加账户" class="step-image">
+            </div>
+
+            <div class="step-item">
+                <div class="step-title">
+                    <span class="step-number">2</span>
+                    选择账户类型
+                </div>
+                <div class="step-desc">
+                    在下拉菜单中选择 <strong>Bank Account</strong>（如果您使用 WISE，也请选择此项）。
+                </div>
+                <img src="../assets/images/3134a8f3a4e974eb483f6b55492a677c.png" alt="选择 Bank Account" class="step-image">
+            </div>
+
+            <div class="step-item">
+                <div class="step-title">
+                    <span class="step-number">3</span>
+                    填写银行信息 (WISE 示例)
+                </div>
+                <div class="step-desc">
+                    <p>请根据 WISE 提供的美元账户信息填写：</p>
+                    <ul>
+                        <li><strong>Country:</strong> 选择 United States (WISE 提供的账户通常为美区)。</li>
+                        <li><strong>Currency:</strong> USD。</li>
+                        <li><strong>Account Type:</strong> Checking。</li>
+                        <li><strong>Routing Number:</strong> 填写 WISE 提供的路由号。</li>
+                        <li><strong>Account Number:</strong> 填写 WISE 提供的账号。</li>
+                    </ul>
+                </div>
+                <img src="../assets/images/1de601ee01fe6ebac3410be703a688bb.png" alt="填写银行信息" class="step-image">
+                <img src="../assets/images/Pasted image 20251225175509.png" alt="Routing Number" class="step-image" style="margin-top: 10px;">
+            </div>
+            
+            <div class="step-item">
+                <div class="step-title">
+                    <span class="step-number">4</span>
+                    确认 Profile
+                </div>
+                <div class="step-desc">
+                    Profile 和 Address 信息通常由系统自动填充，无需修改。确认无误后保存。
+                </div>
+                <img src="../assets/images/afe56fee51a86e0cbf1ff476ecf001ef.png" alt="Profile 确认" class="step-image">
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Scripts -->
+    <script src="../assets/js/layout.js"></script>
+    <script src="../assets/js/scripts.js"></script>
+    <script>
+        function switchTab(tabId) {
+            // Remove active class from all buttons
+            document.querySelectorAll('.segment-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            
+            // Add active class to clicked button
+            event.target.classList.add('active');
+            
+            // Hide all tab panes
+            document.querySelectorAll('.tab-pane').forEach(pane => {
+                pane.classList.remove('active');
+            });
+            
+            // Show selected tab pane
+            const selectedPane = document.getElementById(tabId);
+            if (selectedPane) {
+                selectedPane.classList.add('active');
+            }
+        }
+    </script>
+</body>
+</html>

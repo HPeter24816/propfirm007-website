@@ -1,0 +1,864 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prop Firm 交易考试介绍</title>
+    <link rel="icon" href="../assets/images/favicon.ico" type="image/x-icon">
+    <!-- 引入公共样式 -->
+    <link href="../assets/css/styles.css" rel="stylesheet"/>
+    <style>
+        :root {
+            /* Apple System Colors */
+            --primary: #007AFF;
+            --primary-hover: #0051a8;
+            --success: #34C759;
+            --warning: #FF9500;
+            --danger: #FF3B30;
+            
+            /* Light Mode Backgrounds */
+            --bg-main: #FFFFFF;
+            --bg-card: #F2F2F7;
+            --bg-card-hover: #E5E5EA;
+            
+            /* Light Mode Text */
+            --text-main: #000000;
+            --text-muted: rgba(60, 60, 67, 0.6);
+            
+            /* Light Mode Borders */
+            --border-color: rgba(60, 60, 67, 0.29);
+            
+            --radius-lg: 16px;
+            --radius-md: 12px;
+            --radius-sm: 8px;
+            
+            --shadow-sm: 0 2px 8px rgba(0,0,0,0.05);
+            --shadow-md: 0 8px 24px rgba(0,0,0,0.1);
+            
+            --font-main: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: var(--font-main);
+            background-color: var(--bg-main);
+            color: var(--text-main);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        a { text-decoration: none; color: inherit; }
+        ul { list-style: none; }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .section {
+            padding: 80px 0;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .section__title {
+            font-size: 36px;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 48px;
+            background: linear-gradient(135deg, #000 0%, #666 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 80vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            background: radial-gradient(circle at center, #F2F2F7 0%, #FFFFFF 100%);
+            padding-top: 60px;
+        }
+
+        .hero__title {
+            font-size: 48px;
+            font-weight: 800;
+            margin-bottom: 16px;
+            line-height: 1.2;
+        }
+
+        .hero__subtitle {
+            font-size: 20px;
+            color: var(--text-muted);
+            margin-bottom: 40px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .hero__actions {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 12px 24px;
+            border-radius: 999px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: 1px solid transparent;
+        }
+
+        .btn--primary {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        .btn--primary:hover {
+            background-color: var(--primary-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 122, 255, 0.3);
+        }
+
+        .btn--outline {
+            background-color: transparent;
+            border-color: var(--border-color);
+            color: var(--text-main);
+        }
+
+        .btn--outline:hover {
+            background-color: rgba(0, 0, 0, 0.05);
+            border-color: var(--text-main);
+        }
+
+        /* Cards Grid */
+        .grid {
+            display: grid;
+            gap: 24px;
+        }
+
+        .grid--3-cols { grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); }
+        .grid--2-cols { grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); }
+
+        .card {
+            background-color: var(--bg-card);
+            border-radius: var(--radius-lg);
+            padding: 32px;
+            border: 1px solid var(--border-color);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-md);
+            background-color: var(--bg-card-hover);
+        }
+
+        .card__icon {
+            font-size: 32px;
+            margin-bottom: 16px;
+            display: block;
+        }
+
+        .card__title {
+            font-size: 20px;
+            margin-bottom: 12px;
+            color: var(--primary);
+        }
+
+        .card__text {
+            color: var(--text-muted);
+            font-size: 15px;
+        }
+
+        /* Tables */
+        .table-container {
+            overflow-x: auto;
+            background-color: var(--bg-card);
+            border-radius: var(--radius-lg);
+            padding: 24px;
+            border: 1px solid var(--border-color);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 600px;
+        }
+
+        th, td {
+            padding: 16px;
+            text-align: left;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        th {
+            color: var(--text-muted);
+            font-weight: 600;
+            font-size: 14px;
+            text-transform: uppercase;
+        }
+
+        tr:last-child td { border-bottom: none; }
+
+        /* Tabs */
+        .tabs {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            margin-bottom: 32px;
+            background: rgba(0,0,0,0.05);
+            padding: 4px;
+            border-radius: 999px;
+            width: fit-content;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .tab-btn {
+            padding: 8px 24px;
+            border-radius: 999px;
+            background: transparent;
+            border: none;
+            color: var(--text-muted);
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .tab-btn.active {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        .tab-content { display: none; animation: fadeIn 0.5s; }
+        .tab-content.active { display: block; }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Comparison Split */
+        .split-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0;
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+        }
+
+        .split-side {
+            padding: 40px;
+        }
+
+        .split-side--prop { background-color: rgba(0, 122, 255, 0.1); }
+        .split-side--broker { background-color: rgba(0, 0, 0, 0.05); }
+
+        .comparison-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 16px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+        }
+
+        .comparison-label { color: var(--text-muted); font-size: 14px; }
+        .comparison-value { font-weight: 600; }
+
+        /* Accordion */
+        .accordion-item {
+            background-color: var(--bg-card);
+            border-radius: var(--radius-md);
+            margin-bottom: 12px;
+            border: 1px solid var(--border-color);
+            overflow: hidden;
+        }
+
+        .accordion-header {
+            padding: 20px;
+            width: 100%;
+            text-align: left;
+            background: none;
+            border: none;
+            color: var(--text-main);
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .accordion-content {
+            padding: 0 20px;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease, padding 0.3s ease;
+            color: var(--text-muted);
+        }
+
+        .accordion-item.active .accordion-content {
+            padding-bottom: 20px;
+            max-height: 500px;
+        }
+
+        .risk-badge {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            margin-right: 8px;
+        }
+        .risk-high { background: rgba(255, 59, 48, 0.2); color: var(--danger); }
+        .risk-med { background: rgba(255, 149, 0, 0.2); color: var(--warning); }
+
+        /* Timeline */
+        .timeline {
+            position: relative;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 40px 0;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: var(--border-color);
+            transform: translateX(-50%);
+        }
+
+        .timeline-item {
+            margin-bottom: 40px;
+            position: relative;
+            width: 50%;
+        }
+
+        .timeline-item:nth-child(odd) { left: 0; padding-right: 40px; text-align: right; }
+        .timeline-item:nth-child(even) { left: 50%; padding-left: 40px; }
+
+        .timeline-dot {
+            position: absolute;
+            width: 16px;
+            height: 16px;
+            background: var(--primary);
+            border-radius: 50%;
+            top: 0;
+        }
+
+        .timeline-item:nth-child(odd) .timeline-dot { right: -8px; }
+        .timeline-item:nth-child(even) .timeline-dot { left: -8px; }
+
+        /* Footer */
+        .footer {
+            background-color: #F2F2F7;
+            padding: 60px 0 20px;
+            text-align: center;
+            border-top: 1px solid var(--border-color);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero__title { font-size: 32px; }
+            .split-container { grid-template-columns: 1fr; }
+            .timeline::before { left: 20px; }
+            .timeline-item { width: 100%; left: 0 !important; padding-left: 50px !important; text-align: left !important; }
+            .timeline-item:nth-child(odd) .timeline-dot,
+            .timeline-item:nth-child(even) .timeline-dot { left: 12px; right: auto; }
+        }
+    </style>
+    <!-- 引入布局脚本 -->
+    <script src="../assets/js/layout.js"></script>
+</head>
+<body>
+
+    <!-- Navigation Placeholder -->
+    <nav style="position: absolute; top: 20px; left: 20px; z-index: 10;">
+        <a href="../index.html" class="btn btn--outline" style="padding: 8px 16px; font-size: 14px;">← 返回首页</a>
+    </nav>
+
+    <main class="main">
+        <!-- Hero Section -->
+        <header class="hero" id="hero">
+            <div class="container">
+                <h1 class="hero__title">Prop Firm 交易考试<br>介绍</h1>
+                <p class="hero__subtitle">低门槛进入专业交易世界，管理大额资金的机会。本文档全面解析自营交易公司的运作机制、风险与机遇。</p>
+                <div class="hero__actions">
+                    <a href="#concepts" class="btn btn--primary">什么是 Prop Firm?</a>
+                    <a href="#comparison" class="btn btn--outline">考试类型对比</a>
+                    <a href="#risks" class="btn btn--outline">风险识别</a>
+                    <a href="#selection" class="btn btn--outline">如何选择</a>
+                </div>
+            </div>
+        </header>
+
+        <!-- Section 1: Core Concepts -->
+        <section class="section" id="concepts">
+            <div class="container">
+                <h2 class="section__title"> 核心概念速览</h2>
+                <div class="grid grid--3-cols">
+                    <!-- Card 1 -->
+                    <article class="card">
+                        <span class="card__icon">💼</span>
+                        <h3 class="card__title">什么是 Prop Firm?</h3>
+                        <p class="card__text">Proprietary Trading Firm（自营公司）通过提供资金给交易员进行交易，以换取利润分成。</p>
+                        <div style="margin-top: 16px; padding-top: 16px; border-top: 1px solid var(--border-color);">
+                            <p style="font-size: 13px; color: var(--text-muted);"><strong>传统自营商:</strong> 公司内部员工，自有资金</p>
+                            <p style="font-size: 13px; color: var(--text-muted); margin-top: 4px;"><strong>新型 Prop Firm:</strong> 面向散户，提供交易考试</p>
+                        </div>
+                    </article>
+                    <!-- Card 2 -->
+                    <article class="card">
+                        <span class="card__icon">🎯</span>
+                        <h3 class="card__title">交易考试机制</h3>
+                        <p class="card__text">参与者付费获得"虚拟资金账户"操作权。通过考试目标后，可获得能提领"利润分成"的账户。</p>
+                        <div style="margin-top: 16px; background: rgba(16, 185, 129, 0.1); padding: 8px; border-radius: 8px; font-size: 13px; color: var(--success);">
+                             只能提领利润，不能提领账户本金
+                        </div>
+                    </article>
+                    <!-- Card 3 -->
+                    <article class="card">
+                        <span class="card__icon">🤝</span>
+                        <h3 class="card__title">底层商业逻辑</h3>
+                        <p class="card__text">从互惠合作转向付费制。公司主要收入往往来自报名费，而非交易获利。只有部分龙头的公司能实现交易盈利。</p>
+                        <div style="margin-top: 16px;">
+                            <div style="display: flex; justify-content: space-between; font-size: 13px; margin-bottom: 4px;">
+                                <span>A (公司)</span>
+                                <span>提供资金/平台</span>
+                            </div>
+                            <div style="display: flex; justify-content: space-between; font-size: 13px;">
+                                <span>B (交易者)</span>
+                                <span>提供技术</span>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 2: Comparison -->
+        <section class="section" id="comparison">
+            <div class="container">
+                <h2 class="section__title"> 交易考试完整对比</h2>
+                
+                <div class="tabs">
+                    <button class="tab-btn active" onclick="openTab(event, 'tab-steps')">按账号模式</button>
+                    <button class="tab-btn" onclick="openTab(event, 'tab-size')">按账户规模</button>
+                    <button class="tab-btn" onclick="openTab(event, 'tab-dd')">按回撤类型</button>
+                </div>
+
+                <div id="tab-steps" class="tab-content active">
+                    <div class="table-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>类型</th>
+                                    <th>阶段数</th>
+                                    <th>平均费用</th>
+                                    <th>特点</th>
+                                    <th>适合人群</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>即时 (Instant)</td>
+                                    <td>0</td>
+                                    <td>$$$ (最高)</td>
+                                    <td>直接购买大资金账户</td>
+                                    <td>资深交易者</td>
+                                </tr>
+                                <tr>
+                                    <td>一阶段</td>
+                                    <td>1</td>
+                                    <td>$$</td>
+                                    <td>只需通过一次考试</td>
+                                    <td>有经验者</td>
+                                </tr>
+                                <tr style="background: rgba(59, 130, 246, 0.1);">
+                                    <td>二阶段 (推荐)</td>
+                                    <td>2</td>
+                                    <td>$</td>
+                                    <td>最常见，定价最合理</td>
+                                    <td>新手</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div id="tab-size" class="tab-content">
+                    <div class="grid grid--2-cols">
+                        <div class="card">
+                            <h3 class="card__title">费用逻辑</h3>
+                            <p class="card__text">时间越少 + 金额越大 = 费用越贵</p>
+                            <p class="card__text">时间越多 + 金额越小 = 费用越便宜</p>
+                            <div style="margin-top: 20px; padding: 15px; background: rgba(0,0,0,0.05); border-radius: 8px;">
+                                <h4 style="color: var(--text-main); margin-bottom: 10px;">$50,000 账户示例</h4>
+                                <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
+                                    <span style="color: var(--text-muted);">一阶段</span>
+                                    <span>$459</span>
+                                </div>
+                                <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
+                                    <span style="color: var(--text-muted);">二阶段</span>
+                                    <span style="color: var(--success);">$349 (推荐)</span>
+                                </div>
+                                <div style="display: flex; justify-content: space-between;">
+                                    <span style="color: var(--text-muted);">三阶段</span>
+                                    <span>$239</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <h3 class="card__title">常规规模 (USD)</h3>
+                            <div style="display: flex; flex-wrap: wrap; gap: 10px; margin-top: 15px;">
+                                <span style="padding: 8px 16px; background: var(--bg-main); border-radius: 8px; border: 1px solid var(--border-color);">$25K</span>
+                                <span style="padding: 8px 16px; background: var(--primary); color: white; border-radius: 8px;">$50K</span>
+                                <span style="padding: 8px 16px; background: var(--bg-main); border-radius: 8px; border: 1px solid var(--border-color);">$100K</span>
+                                <span style="padding: 8px 16px; background: var(--bg-main); border-radius: 8px; border: 1px solid var(--border-color);">$200K</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="tab-dd" class="tab-content">
+                    <div class="grid grid--2-cols">
+                        <div class="card">
+                            <h3 class="card__title">EOD (日终余额回撤)</h3>
+                            <p class="card__text" style="margin-bottom: 10px;">只在每天收盘结算后，根据你的收盘净值更新高点和回撤线。</p>
+                            <div style="background: rgba(52, 199, 89, 0.1); padding: 10px; border-radius: 8px; margin-top: 8px;">
+                                <p style="font-size: 13px; color: var(--success);">✅ 适合：日内波动大、但能控制日终结果的交易策略。</p>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <h3 class="card__title">TDD (实时追踪回撤)</h3>
+                            <p class="card__text" style="margin-bottom: 10px;">实时根据账户权益（含浮盈）计算，只要创出更高权益，回撤线立刻上移。</p>
+                            <div style="background: rgba(255, 59, 48, 0.1); padding: 10px; border-radius: 8px; margin-top: 8px;">
+                                <p style="font-size: 13px; color: var(--danger);"> 最严格：一旦触线直接失败。适合 Scalp 交易策略。</p>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <h3 class="card__title">EOT (End of Trade)</h3>
+                            <p class="card__text" style="margin-bottom: 10px;">只在每笔交易平仓时更新净值高点与回撤线，浮盈浮亏过程本身不触发追踪。</p>
+                            <p style="font-size: 13px; color: var(--text-muted); margin-top: 8px;">注：这种回撤方式非常少见 (< 1%)。</p>
+                        </div>
+                        <div class="card">
+                            <h3 class="card__title">静态回撤 (Static)</h3>
+                            <p class="card__text" style="margin-bottom: 10px;">最大回撤是固定数字，永不追踪。只要余额不低于那条线，账户就安全。</p>
+                            <p style="font-size: 13px; color: var(--text-muted); margin-top: 8px;">注：几乎所有平台在超过缓冲区后都会变成静态账户。</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 3: Advantages -->
+        <section class="section" id="advantages">
+            <div class="container">
+                <h2 class="section__title"> 五大核心优势</h2>
+                <div class="grid grid--3-cols">
+                    <div class="card">
+                        <span class="card__icon">💰</span>
+                        <h3 class="card__title">管理大额资金</h3>
+                        <p class="card__text">低成本尝试获得大额资金。适合有技术但资金有限的交易者。</p>
+                    </div>
+                    <div class="card">
+                        <span class="card__icon">🚪</span>
+                        <h3 class="card__title">低门槛进入</h3>
+                        <p class="card__text">不需要学历、证照、专业背景。通过规则与目标证明能力。</p>
+                    </div>
+                    <div class="card">
+                        <span class="card__icon">🛡️</span>
+                        <h3 class="card__title">降低个人风险</h3>
+                        <p class="card__text">小额可控成本参加。使用虚拟资金，最大损失仅为考试费用。</p>
+                    </div>
+                    <div class="card">
+                        <span class="card__icon">📈</span>
+                        <h3 class="card__title">高额分润机制</h3>
+                        <p class="card__text">分润比例通常为 80%-90%，远高于传统机构交易员的分成。</p>
+                    </div>
+                    <div class="card">
+                        <span class="card__icon">🎓</span>
+                        <h3 class="card__title">长期职业潜力</h3>
+                        <p class="card__text">可管理数百万美元资金。从个体交易者成长为专业交易员。</p>
+                    </div>
+                    <!-- Stats Dashboard -->
+                    <div class="card" style="background: linear-gradient(135deg, #007AFF 0%, #5856D6 100%);">
+                        <h3 class="card__title" style="color: white;">数据参考</h3>
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 16px;">
+                            <div>
+                                <div style="font-size: 24px; font-weight: 700; color: var(--success);">5~14%</div>
+                                <div style="font-size: 12px; color: rgba(255,255,255,0.7);">通过率</div>
+                            </div>
+                            <div>
+                                <div style="font-size: 24px; font-weight: 700; color: white;">$4,000</div>
+                                <div style="font-size: 12px; color: rgba(255,255,255,0.7);">平均月收 ($150K账户)</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 4: Vs Broker -->
+        <section class="section" id="vs-broker">
+            <div class="container">
+                <h2 class="section__title"> 风险对比分析</h2>
+                <div class="split-container">
+                    <div class="split-side split-side--prop">
+                        <h3 style="margin-bottom: 24px; color: var(--primary);">Prop Firm (自营公司)</h3>
+                        <div class="comparison-item">
+                            <span class="comparison-label">操作资金</span>
+                            <span class="comparison-value">虚拟资金</span>
+                        </div>
+                        <div class="comparison-item">
+                            <span class="comparison-label">交易风险</span>
+                            <span class="comparison-value">公司承受</span>
+                        </div>
+                        <div class="comparison-item">
+                            <span class="comparison-label">最大风险</span>
+                            <span class="comparison-value" style="color: var(--warning);">损失考试费用</span>
+                        </div>
+                        <div class="comparison-item">
+                            <span class="comparison-label">获取利润</span>
+                            <span class="comparison-value">部分利润 (80-90%)</span>
+                        </div>
+                    </div>
+                    <div class="split-side split-side--broker">
+                        <h3 style="margin-bottom: 24px; color: var(--text-main);">传统经纪商</h3>
+                        <div class="comparison-item">
+                            <span class="comparison-label">操作资金</span>
+                            <span class="comparison-value">自己存入资金</span>
+                        </div>
+                        <div class="comparison-item">
+                            <span class="comparison-label">交易风险</span>
+                            <span class="comparison-value">自行承受</span>
+                        </div>
+                        <div class="comparison-item">
+                            <span class="comparison-label">最大风险</span>
+                            <span class="comparison-value" style="color: var(--danger);">损失所有本金</span>
+                        </div>
+                        <div class="comparison-item">
+                            <span class="comparison-label">获取利润</span>
+                            <span class="comparison-value">全部利润</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 5: Risks -->
+        <section class="section" id="risks">
+            <div class="container">
+                <h2 class="section__title"> 完整风险图谱</h2>
+                <div class="accordion">
+                    <div class="accordion-item">
+                        <button class="accordion-header">
+                            <span><span class="risk-badge risk-high">高风险</span> 公司财务风险 (拒绝出金/倒闭)</span>
+                            <span>▼</span>
+                        </button>
+                        <div class="accordion-content">
+                            <p>风险来源：进入门槛低，素质参差不齐；现金流问题导致拒绝出金或倒闭；用各种理由指控交易者"违规"。</p>
+                            <br>
+                            <strong>应对策略：</strong>
+                            <ol style="padding-left: 20px; margin-top: 8px;">
+                                <li>出金策略：小额分散出金，避免一次大额提取。</li>
+                                <li>公司筛选：选择运营时间长、口碑好、有出金记录的公司。</li>
+                                <li>规则熟悉：完全符合规定，不给对方找借口。</li>
+                            </ol>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <button class="accordion-header">
+                            <span><span class="risk-badge risk-med">中风险</span> 行业风险 (法律与监管)</span>
+                            <span>▼</span>
+                        </button>
+                        <div class="accordion-content">
+                            <p>行业新兴，监管缺失。可能不合规（国际金融法规）或仅符合所在国法律。</p>
+                            <br>
+                            <strong>应对策略：</strong>
+                            <ul style="padding-left: 20px; margin-top: 8px;">
+                                <li>风险分散：同时使用多家好评 Prop Firm。</li>
+                                <li>保存所有交易记录和邮件沟通记录。</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <button class="accordion-header">
+                            <span><span class="risk-badge risk-med">中风险</span> 诈骗风险 (代考服务)</span>
+                            <span>▼</span>
+                        </button>
+                        <div class="accordion-content">
+                            <p>常见手法：声称"零风险""100% 通过"；承诺代考、代管理账户。</p>
+                            <br>
+                            <div style="background: rgba(239, 68, 68, 0.1); padding: 10px; border-radius: 8px; margin-top: 8px;">
+                                <strong> 为什么代考无意义：</strong> 即使通过考试，没有真实交易能力最终会因违规失去账户。
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 6: Selection -->
+        <section class="section" id="selection">
+            <div class="container">
+                <h2 class="section__title"> 如何选择 Prop Firm</h2>
+                
+                <div class="card" style="text-align: center; margin-bottom: 40px;">
+                    <h3 class="card__title" style="margin-bottom: 24px;">选择流程</h3>
+                    <div style="display: flex; flex-direction: column; align-items: center; gap: 16px;">
+                        <div style="padding: 12px 24px; background: var(--bg-main); border-radius: 8px; border: 1px solid var(--border-color);">1. 筛选可顺利出金的 Prop Firm</div>
+                        <div style="color: var(--text-muted);">↓</div>
+                        <div style="padding: 12px 24px; background: var(--bg-main); border-radius: 8px; border: 1px solid var(--border-color);">2. 参加交易考试</div>
+                        <div style="color: var(--text-muted);">↓</div>
+                        <div style="display: flex; gap: 32px;">
+                            <div style="text-align: center;">
+                                <div style="color: var(--success); font-size: 12px; margin-bottom: 4px;">通过</div>
+                                <div style="padding: 12px 24px; background: rgba(16, 185, 129, 0.1); border-radius: 8px; border: 1px solid var(--success);">管理账户 → 持续出金</div>
+                            </div>
+                            <div style="text-align: center;">
+                                <div style="color: var(--danger); font-size: 12px; margin-bottom: 4px;">失败</div>
+                                <div style="padding: 12px 24px; background: rgba(239, 68, 68, 0.1); border-radius: 8px; border: 1px solid var(--danger);">分析原因 → 改进重试</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="grid grid--2-cols">
+                    <div class="card">
+                        <h3 class="card__title">核心原则</h3>
+                        <p class="card__text" style="font-size: 18px; color: var(--text-main); font-weight: 600;">最重要因素：能否顺利出金</p>
+                        <p class="card__text" style="margin-top: 8px;">没有人愿在"会吃币"的游戏机上浪费时间和金钱。</p>
+                    </div>
+                    <div class="card">
+                        <h3 class="card__title">辅助决策清单</h3>
+                        <ul style="list-style: none; color: var(--text-muted);">
+                            <li style="margin-bottom: 8px;">✅ 有真实出金评价</li>
+                            <li style="margin-bottom: 8px;">✅ 规则透明清晰</li>
+                            <li>✅ 客服响应快速</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 7: Final Advice -->
+        <section class="section" id="advice">
+            <div class="container">
+                <h2 class="section__title">🏆 成功路径规划</h2>
+                
+                <div style="text-align: center; margin-bottom: 60px; max-width: 800px; margin-left: auto; margin-right: auto;">
+                    <blockquote style="font-size: 24px; font-weight: 600; color: var(--text-main); font-style: italic;">
+                        "技术才是根本：当你具备真正的交易获利能力，在任何 Prop Firm 都能轻松通过考试、获得稳定收益。"
+                    </blockquote>
+                </div>
+
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <h3 style="color: var(--primary); margin-bottom: 8px;">初期 (0-3个月)</h3>
+                        <p style="color: var(--text-muted);">通过 Prop Firm 练习风控与资金管理。专注于建立稳定的交易系统。</p>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <h3 style="color: var(--primary); margin-bottom: 8px;">中期 (3-9个月)</h3>
+                        <p style="color: var(--text-muted);">累积资金，管理多个大额账户。利用利润分成扩大资本基数。</p>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <h3 style="color: var(--primary); margin-bottom: 8px;">后期 (9个月+)</h3>
+                        <p style="color: var(--text-muted);">回归经纪商，操作自己的资金。实现交易资金自由。</p>
+                    </div>
+                </div>
+
+                <div style="text-align: center; margin-top: 60px;">
+                    <a href="../index.html#firm-list" class="btn btn--primary" style="padding: 16px 48px; font-size: 18px;">Prop Firm推荐</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p style="color: var(--text-muted);">© 2025 Futures Propfirm 中文社区</p>
+        </div>
+    </footer>
+
+    <!-- 引入公共脚本 -->
+    <script src="../assets/js/scripts.js"></script>
+
+    <script>
+        // Tabs Logic
+        function openTab(evt, tabName) {
+            var i, tabContent, tabBtn;
+            tabContent = document.getElementsByClassName("tab-content");
+            for (i = 0; i < tabContent.length; i++) {
+                tabContent[i].style.display = "none";
+                tabContent[i].classList.remove("active");
+            }
+            tabBtn = document.getElementsByClassName("tab-btn");
+            for (i = 0; i < tabBtn.length; i++) {
+                tabBtn[i].className = tabBtn[i].className.replace(" active", "");
+            }
+            document.getElementById(tabName).style.display = "block";
+            document.getElementById(tabName).classList.add("active");
+            evt.currentTarget.className += " active";
+        }
+
+        // Accordion Logic
+        var acc = document.getElementsByClassName("accordion-header");
+        var i;
+        for (i = 0; i < acc.length; i++) {
+            acc[i].addEventListener("click", function() {
+                this.parentElement.classList.toggle("active");
+                var panel = this.nextElementSibling;
+                if (panel.style.maxHeight) {
+                    panel.style.maxHeight = null;
+                } else {
+                    panel.style.maxHeight = panel.scrollHeight + "px";
+                }
+            });
+        }
+
+        // Scroll Animation
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.section').forEach(section => {
+            observer.observe(section);
+        });
+    </script>
+</body>
+</html>

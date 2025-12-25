@@ -41,13 +41,15 @@ document.addEventListener('DOMContentLoaded', () => {
                         </div>
                     </li>
 
-                    <!-- 12月优惠 -->
+                    <!-- 出金教程 -->
                     <li class="header__menu-item">
-                        <a href="${homeAnchorPrefix}#top-discounts" class="header__link">12月优惠</a>
+                        <a href="#" class="header__link">出金教程</a>
                         <div class="header__dropdown">
                             <div class="header__dropdown-inner">
-                                <a href="${homeAnchorPrefix}#top-discounts" class="dropdown-link">FundedNext</a>
-                                <a href="${homeAnchorPrefix}#top-discounts" class="dropdown-link">Lucid</a>
+                                <a href="${basePath}/pages/W-8_BEN.html" class="dropdown-link">W-8 BEN文件指南</a>
+                                <a href="${basePath}/pages/wise_sign_up.html" class="dropdown-link">Wise注册攻略</a>
+                                <a href="${basePath}/pages/wise_profile.html" class="dropdown-link">Wise收款信息下载</a>
+                                <a href="${basePath}/pages/workmarket_sign_up.html" class="dropdown-link">Workmarket注册攻略</a>
                             </div>
                         </div>
                     </li>
@@ -70,7 +72,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         <a href="${homeAnchorPrefix}#faq" class="header__link">常见问题</a>
                         <div class="header__dropdown">
                             <div class="header__dropdown-inner">
-                                <a href="${homeAnchorPrefix}#faq-1" class="dropdown-link">什么是 Futures 自营公司？</a>
+                                <a href="${basePath}/pages/propfirm_new.html" class="dropdown-link" target="_blank">什么是 Futures 自营公司？</a>
                                 <a href="${homeAnchorPrefix}#faq-2" class="dropdown-link">新手该如何开始？</a>
                                 <a href="${homeAnchorPrefix}#faq-3" class="dropdown-link">关于交易技术</a>
                                 <a href="${homeAnchorPrefix}#faq-4" class="dropdown-link">如何使用折扣码？</a>

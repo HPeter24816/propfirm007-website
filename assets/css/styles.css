@@ -22,6 +22,11 @@
     --header-height: 64px;
     --border-radius-card: 18px;
     --transition-speed: 0.3s;
+    
+    /* Colors for System */
+    --color-system-orange: #FF9500;
+    --color-system-orange-light: #FFF4E5;
+    --color-system-red: #FF3B30;
 }
 
 /* Reset */
@@ -336,16 +341,6 @@ img { display: block; max-width: 100%; height: auto; }
 }
 
 /* Animations */
-.fade-in {
-    opacity: 0;
-    transform: translateY(20px);
-    animation: fadeInUp 0.8s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
-}
-
-.delay-1 { animation-delay: 0.1s; }
-.delay-2 { animation-delay: 0.2s; }
-.delay-3 { animation-delay: 0.3s; }
-
 @keyframes fadeInUp {
     to {
         opacity: 1;
@@ -353,7 +348,259 @@ img { display: block; max-width: 100%; height: auto; }
     }
 }
 
-/* Responsive */
+/* Sub Navigation (Sticky) */
+.sub-nav {
+    position: sticky;
+    top: var(--header-height);
+    z-index: 900;
+    background-color: rgba(255, 255, 255, 0.8);
+    backdrop-filter: saturate(180%) blur(20px);
+    -webkit-backdrop-filter: saturate(180%) blur(20px);
+    border-bottom: 1px solid var(--color-border);
+    transition: top 0.3s;
+}
+
+.sub-nav__container {
+    max-width: var(--container-width);
+    margin: 0 auto;
+    padding: 0 22px;
+    height: 52px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.sub-nav__title {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--color-text-primary);
+}
+
+.sub-nav__links {
+    display: flex;
+    gap: 24px;
+}
+
+.sub-nav__link {
+    font-size: 12px;
+    color: var(--color-text-primary);
+    opacity: 0.8;
+    transition: opacity 0.2s;
+}
+
+.sub-nav__link:hover {
+    opacity: 1;
+    text-decoration: none;
+    color: var(--color-accent);
+}
+
+/* Apple Style Table - Enhanced */
+.apple-table-wrapper {
+    overflow-x: auto;
+    margin: 40px 0;
+    border-radius: 18px;
+    border: 1px solid rgba(0,0,0,0.08);
+    box-shadow: 0 4px 20px rgba(0,0,0,0.04);
+    background: #fff;
+}
+
+.apple-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 15px;
+    background-color: #fff;
+    min-width: 600px;
+}
+
+.apple-table th {
+    text-align: left;
+    padding: 18px 24px;
+    border-bottom: 1px solid var(--color-border);
+    color: var(--color-text-secondary);
+    font-weight: 600;
+    background-color: #fafafa;
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.apple-table td {
+    padding: 18px 24px;
+    border-bottom: 1px solid var(--color-border);
+    color: var(--color-text-primary);
+    vertical-align: top;
+    line-height: 1.5;
+}
+
+.apple-table tr:last-child td {
+    border-bottom: none;
+}
+
+.apple-table tr:hover td {
+    background-color: #f5f5f7;
+}
+
+/* Step Cards Grid - Enhanced */
+.step-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 30px;
+    margin-top: 40px;
+}
+
+.step-card {
+    background: #fff;
+    border-radius: 22px;
+    padding: 32px;
+    border: 1px solid rgba(0,0,0,0.04);
+    box-shadow: 0 4px 24px rgba(0,0,0,0.04);
+    transition: all 0.3s cubic-bezier(0.25, 0.1, 0.25, 1);
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    overflow: hidden;
+}
+
+.step-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.12);
+}
+
+/* Colored strip for cards */
+.step-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 6px;
+    background: var(--color-bg-alt);
+}
+
+.step-card__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+    margin-top: 8px;
+}
+
+.step-card__number {
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: var(--color-text-secondary);
+    letter-spacing: 0.05em;
+}
+
+.step-card__badge {
+    font-size: 10px;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-weight: 600;
+    text-transform: uppercase;
+    background-color: var(--color-bg-alt);
+    color: var(--color-text-primary);
+}
+
+.step-card__badge--required {
+    background-color: var(--color-system-red);
+    color: white;
+}
+
+.step-card__badge--highlight {
+    background-color: var(--color-system-orange);
+    color: white;
+}
+
+.step-card__title {
+    font-size: 21px;
+    font-weight: 600;
+    margin-bottom: 12px;
+    color: var(--color-text-primary);
+}
+
+.step-card__desc {
+    font-size: 15px;
+    color: var(--color-text-secondary);
+    line-height: 1.6;
+    margin-bottom: 24px;
+    flex-grow: 1;
+}
+
+.step-card__example {
+    background-color: var(--color-bg-alt);
+    padding: 16px;
+    border-radius: 12px;
+    font-family: "SF Mono", monospace;
+    font-size: 13px;
+    color: var(--color-text-primary);
+    border-left: 4px solid var(--color-accent);
+}
+
+/* Form Section - Alternating Backgrounds */
+.form-section {
+    padding: 80px 0;
+    border-bottom: none;
+}
+
+.form-section:nth-of-type(even) {
+    background-color: var(--color-bg-alt);
+}
+
+.form-section:nth-of-type(odd) {
+    background-color: #fff;
+}
+
+.form-section__header {
+    text-align: center;
+    margin-bottom: 50px;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.form-section__title {
+    font-size: 36px;
+    font-weight: 700;
+    margin-bottom: 16px;
+    color: var(--color-text-primary);
+    letter-spacing: -0.01em;
+}
+
+/* Image Wrapper Polish */
+.form-image-wrapper {
+    max-width: 1000px;
+    margin: 0 auto 60px;
+    border-radius: 18px;
+    overflow: hidden;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.12);
+    border: 1px solid rgba(0,0,0,0.05);
+    background-color: #fff;
+    transition: transform 0.5s ease;
+}
+
+.form-image-wrapper:hover {
+    transform: scale(1.01);
+}
+
+.form-image {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* Warning Section Polish */
+.warning-section {
+    background-color: var(--color-system-orange-light);
+    border-radius: 24px;
+    padding: 50px;
+    margin: 0 auto;
+    text-align: center;
+    max-width: 900px;
+}
+
+/* Responsive for Homepage */
 @media (max-width: 1023px) {
     :root {
         --font-size-h1: 40px;

@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Wise 注册与开户全攻略</title>
+    <link rel="icon" href="../assets/images/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="../assets/css/styles.css">
+    <style>
+        :root {
+            --background: #FFFFFF;
+            --text-primary: #000000;
+            --text-secondary: #3C3C4399; /* Label Color */
+            --accent: #007AFF;
+            --card-bg: #F2F2F7; /* System Gray 6 Light */
+            --separator: #C6C6C8;
+            --shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        }
+
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --background: #000000;
+                --text-primary: #FFFFFF;
+                --text-secondary: #EBEBF599;
+                --accent: #0A84FF;
+                --card-bg: #1C1C1E; /* System Gray 6 Dark */
+                --separator: #38383A;
+                --shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            }
+        }
+
+        /* Override styles.css body to ensure compatibility */
+        body {
+            padding-top: 0;
+            background-color: var(--background);
+            color: var(--text-primary);
+        }
+
+        /* Main Content */
+        main {
+            max-width: 1200px; /* Increased for 2-column layout */
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        /* Hero Section */
+        .hero {
+            margin-bottom: 60px;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 34px;
+            font-weight: 700;
+            margin-bottom: 10px;
+            letter-spacing: -0.02em;
+        }
+
+        .subtitle {
+            font-size: 20px;
+            color: var(--text-secondary);
+            font-weight: 400;
+        }
+
+        /* Sections */
+        section {
+            margin-bottom: 60px;
+        }
+
+        h2 {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 30px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid var(--separator);
+        }
+
+        /* Steps */
+        .step-card {
+            background-color: var(--card-bg);
+            border-radius: 24px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: var(--shadow);
+        }
+
+        .step-header {
+            display: flex;
+            align-items: baseline;
+            margin-bottom: 20px;
+        }
+
+        .step-number {
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--accent);
+            text-transform: uppercase;
+            margin-right: 10px;
+            letter-spacing: 0.05em;
+        }
+
+        .step-title {
+            font-size: 22px;
+            font-weight: 600;
+        }
+
+        .step-content ul {
+            list-style: none;
+            margin-bottom: 20px;
+        }
+
+        .step-content li {
+            margin-bottom: 10px;
+            padding-left: 20px;
+            position: relative;
+            color: var(--text-primary);
+        }
+
+        .step-content li::before {
+            content: "•";
+            color: var(--accent);
+            position: absolute;
+            left: 0;
+            font-weight: bold;
+        }
+
+        .highlight {
+            color: var(--accent);
+            font-weight: 600;
+        }
+
+        .warning {
+            color: #FF3B30; /* System Red */
+            font-weight: 600;
+        }
+
+        /* Images */
+        .image-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center; /* Center images */
+        }
+
+        .image-wrapper {
+            background-color: rgba(120, 120, 128, 0.1); /* System Fill */
+            border-radius: 16px;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 10px;
+            /* Allow wrapper to size to content, but constrained */
+            max-width: 100%;
+        }
+
+        .image-wrapper img {
+            max-width: 100%;
+            max-height: 500px; /* Constrain vertical height for portrait images */
+            width: auto; /* Allow width to adjust naturally */
+            height: auto; /* Maintain aspect ratio */
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .image-wrapper:hover img {
+            transform: scale(1.02);
+        }
+
+        .image-caption {
+            font-size: 13px;
+            color: var(--text-secondary);
+            text-align: center;
+            margin-top: 8px;
+        }
+
+        /* Assets Section */
+        #assets {
+            padding-top: 40px;
+        }
+
+        .assets-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+            gap: 15px;
+        }
+
+        .asset-item {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            padding: 10px;
+            text-align: center;
+            font-size: 12px;
+            color: var(--text-secondary);
+            text-decoration: none;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .asset-item img {
+            width: 100%;
+            height: 80px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-bottom: 5px;
+        }
+
+        /* Responsive */
+        @media (max-width: 600px) {
+            h1 { font-size: 28px; }
+            h2 { font-size: 24px; }
+            .step-card { padding: 20px; border-radius: 20px; }
+            .step-title { font-size: 20px; }
+            
+            /* On mobile, allow images to be larger but still constrained */
+            .image-wrapper img {
+                max-height: 400px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navbar will be injected by layout.js -->
+
+    <main>
+        <div class="hero">
+            <h1>Wise 注册与开户全攻略</h1>
+            <p class="subtitle">注册前准备：稳定的网络 • 30分钟时间 • 邮箱/身份证/手机号</p>
+        </div>
+
+        <section id="phase-1">
+            <h2>第一阶段：电脑端基础注册</h2>
+
+            <!-- Step 1 -->
+            <div class="step-card">
+                <div class="step-header">
+                    <span class="step-number">Step 1</span>
+                    <h3 class="step-title">邮箱注册</h3>
+                </div>
+                <div class="step-content">
+                    <ul>
+                        <li>点击链接打开 Wise 首页 <a href="https://wise.com/invite/ahpc/yz84g75" target="_blank" class="highlight">https://wise.com/invite/ahpc/yz84g75</a></li>
+                        <li>  点击右上角注册</li>
+                        <li>输入个人邮箱（建议使用 Gmail 或 Outlook，尽量不用国内邮箱）</li>
+                    </ul>
+                    <div class="image-container">
+                        <div class="image-wrapper">
+                            <img src="../assets/images/1.png" alt="注册首页">
+                        </div>
+                        <div class="image-wrapper">
+                            <img src="../assets/images/2.png" alt="邮箱输入">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 2 -->
+            <div class="step-card">
+                <div class="step-header">
+                    <span class="step-number">Step 2</span>
+                    <h3 class="step-title">账户选择与国籍</h3>
+                </div>
+                <div class="step-content">
+                    <ul>
+                        <li>选择 <span class="highlight">个人账户 (Personal Account)</span>。</li>
+                        <li>国籍选择“中国”。</li>
+                        <li>注意：系统会提示可能需要地址证明，请填写能够提供相关证明的地址。</li>
+                    </ul>
+                    <div class="image-container">
+                        <div class="image-wrapper">
+                            <img src="../assets/images/3.png" alt="账户类型">
+                        </div>
+                        <div class="image-wrapper">
+                            <img src="../assets/images/4.png" alt="国籍选择">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 3 -->
+            <div class="step-card">
+                <div class="step-header">
+                    <span class="step-number">Step 3</span>
+                    <h3 class="step-title">中国地区功能确认</h3>
+                </div>
+                <div class="step-content">
+                    <ul>
+                        <li>目前中国地区暂不支持发放实体借记卡（不影响中转使用）。</li>
+                        <li>不支持理财赚取收益功能。</li>
+                    </ul>
+                    <div class="image-container">
+                        <div class="image-wrapper">
+                            <img src="../assets/images/5.png" alt="功能限制提示">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 4 -->
+            <div class="step-card">
+                <div class="step-header">
+                    <span class="step-number">Step 4</span>
+                    <h3 class="step-title">安全验证与密码</h3>
+                </div>
+                <div class="step-content">
+                    <ul>
+                        <li>填写手机号码并接收验证码。</li>
+                        <li>设置登录密码，请务必记录保存。</li>
+                    </ul>
+                    <div class="image-container">
+                        <div class="image-wrapper">
+                            <img src="../assets/images/6.png" alt="手机验证">
+                        </div>
+                        <div class="image-wrapper">
+                            <img src="../assets/images/7.png" alt="验证码">
+                        </div>
+                        <div class="image-wrapper">
+                            <img src="../assets/images/8.png" alt="密码设置">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 5 -->
+            <div class="step-card">
+                <div class="step-header">
+                    <span class="step-number">Step 5</span>
+                    <h3 class="step-title">填写个人信息与货币选择</h3>
+                </div>
+                <div class="step-content">
+                    <ul>
+                        <li>姓名：统一使用拼音填写。例如中文名：李小四 名填写XIAOSI 姓LI</li>
+                        <li>住址：建议翻译成英文进行填写。可借助AI工具辅助翻译。</li>
+                        <li>使用目的：选择“持有资金或收款”。</li>
+                        <li>初始货币：可优先选择美元（USD）和港币（HKD）。</li>
+                    </ul>
+                    <div class="image-container">
+                        <div class="image-wrapper">
+                            <img src="../assets/images/9.png" alt="信息填写">
+                        </div>
+                        <div class="image-wrapper">
+                            <img src="../assets/images/10.png" alt="地址填写">
+                        </div>
+                        <div class="image-wrapper">
+                            <img src="../assets/images/12.png" alt="使用目的">
+                        </div>
+                        <div class="image-wrapper">
+                            <img src="../assets/images/13.png" alt="货币选择">
+                        </div>
+                        <div class="image-wrapper">
+                            <img src="../assets/images/14.png" alt="确认">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="phase-2">
+            <h2>第二阶段：App 端身份认证</h2>
+
+            <!-- Step 1 -->
+            <div class="step-card">
+                <div class="step-header">
+                    <span class="step-number">Step 1</span>
+                    <h3 class="step-title">登录与同设备验证</h3>
+                </div>
+                <div class="step-content">
+                    <ul>
+                        <li>打开 Wise App 并输入注册邮箱。</li>
+                        <li class="highlight">核心操作：必须在同一台手机上打开邮箱点击验证链接，不要在电脑上操作。</li>
+                        <li>提示：QQ 邮箱可能存在验证不成功的情况，可尝试用手机浏览器登录网页版邮箱进行验证。</li>
+                    </ul>
+                    <div class="image-container">
+                        <div class="image-wrapper">
+                            <img src="../assets/images/15.png" alt="App登录">
+                        </div>
+                        <div class="image-wrapper">
+                            <img src="../assets/images/A.png" alt="邮箱验证">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 2 -->
+            <div class="step-card">
+                <div class="step-header">
+                    <span class="step-number">Step 2</span>
+                    <h3 class="step-title">获取账户详情</h3>
+                </div>
+                <div class="step-content">
+                    <ul>
+                        <li>进入主页选择“美元”，点击“获取账户详情”。</li>
+                        <li>确认身份：勾选“我不是美国公民”且“没有社会安全号码”。</li>
+                    </ul>
+                    <div class="image-container">
+                        <div class="image-wrapper">
+                            <img src="../assets/images/B.png" alt="账户详情">
+                        </div>
+                        <div class="image-wrapper">
+                            <img src="../assets/images/C.png" alt="身份确认">
+                        </div>
+                        <div class="image-wrapper">
+                            <img src="../assets/images/D.png" alt="SSN确认">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 3 -->
+            <div class="step-card">
+                <div class="step-header">
+                    <span class="step-number">Step 3</span>
+                    <h3 class="step-title">上传证件与人脸识别</h3>
+                </div>
+                <div class="step-content">
+                    <ul>
+                        <li class="highlight">关键选择：证件类型请选择“国民身份证”，而非护照。</li>
+                        <li>按照提示拍摄身份证照片并进行人脸验证。</li>
+                    </ul>
+                    <div class="image-container">
+                        <div class="image-wrapper">
+                            <img src="../assets/images/E.png" alt="证件选择">
+                        </div>
+                        <div class="image-wrapper">
+                            <img src="../assets/images/F.png" alt="拍摄身份证">
+                        </div>
+                        <div class="image-wrapper">
+                            <img src="../assets/images/G.png" alt="人脸识别">
+                        </div>
+                        <div class="image-wrapper">
+                            <img src="../assets/images/H.png" alt="验证中">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 4 -->
+            <div class="step-card">
+                <div class="step-header">
+                    <span class="step-number">Step 4</span>
+                    <h3 class="step-title">资金用途问卷</h3>
+                </div>
+                <div class="step-content">
+                    <ul>
+                        <li>用途选择：“向朋友和家人付款”。</li>
+                        <li>预计年交易金额：选择中间档位即可。</li>
+                    </ul>
+                    <div class="image-container">
+                        <div class="image-wrapper">
+                            <img src="../assets/images/I.png" alt="用途选择">
+                        </div>
+                        <div class="image-wrapper">
+                            <img src="../assets/images/J.png" alt="金额选择">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 5 -->
+            <div class="step-card">
+                <div class="step-header">
+                    <span class="step-number">Step 5</span>
+                    <h3 class="step-title">完成认证并开通</h3>
+                </div>
+                <div class="step-content">
+                    <ul>
+                        <li>完成基础认证后进入审核阶段。</li>
+                        <li>审核通过后，即可查看并使用您的美元及港币账户。</li>
+                    </ul>
+                    <div class="image-container">
+                        <div class="image-wrapper">
+                            <img src="../assets/images/K.png" alt="审核中">
+                        </div>
+                        <div class="image-wrapper">
+                            <img src="../assets/images/L.png" alt="开通成功">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    
+    <script src="../assets/js/layout.js"></script>
+    <script src="../assets/js/scripts.js"></script>
+</body>
+</html>
