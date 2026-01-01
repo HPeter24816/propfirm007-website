@@ -81,6 +81,16 @@ document.addEventListener('DOMContentLoaded', () => {
                         </div>
                     </li>
 
+                    <!-- 交易训练 -->
+                    <li class="header__menu-item">
+                        <a href="#" class="header__link">交易训练</a>
+                        <div class="header__dropdown">
+                            <div class="header__dropdown-inner">
+                                <a href="${basePath}/pages/trading_tool.html" class="dropdown-link">交易日志</a>
+                            </div>
+                        </div>
+                    </li>
+
                     <!-- 社区 -->
                     <li class="header__menu-item">
                         <a href="${basePath}/pages/communicate.html" class="header__link">社区</a>

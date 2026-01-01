@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>交易日志日志</title>
+    <link rel="stylesheet" href="../assets/css/styles.css">
+    <link rel="stylesheet" href="../assets/css/trading-tool.css">
+    <link rel="icon" href="../assets/images/favicon.ico" type="image/x-icon">
+    <!-- SheetJS for Excel Export -->
+    <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+    <!-- FileSaver for saving files -->
+    <script src="https://cdn.jsdelivr.net/npm/file-saver@2.0.5/dist/FileSaver.min.js"></script>
+    <!-- JSZip for image ZIP export -->
+    <script src="https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js"></script>
+</head>
+<body>
+
+    <main class="tool-container">
+        <!-- Settings Modal - Hidden by default -->
+        <div class="settings-modal-overlay" id="settingsModal">
+            <div class="settings-modal">
+                <!-- 顶部标题栏 -->
+                <div class="settings-header">
+                    <h2> 自定义模板</h2>
+                    <button class="settings-close-btn" onclick="closeSettingsModal()">✕</button>
+                </div>
+                
+                <!-- 四区块布局 -->
+                <div class="settings-grid-4">
+                    <!-- 每日目标 - 跨两列显示 -->
+                    <div class="settings-card settings-card-wide">
+                        <div class="settings-card-header">
+                            <span class="settings-card-icon"></span>
+                            <div class="settings-card-title">
+                                <strong>每日目标</strong>
+                                <small>用于约束当日交易行为</small>
+                            </div>
+                        </div>
+                        <div class="settings-card-body">
+                            <div class="settings-input-group">
+                                <input type="text" class="settings-input" id="goalTitleInput" placeholder="目标标题">
+                                <input type="text" class="settings-input" id="goalDescInput" placeholder="目标备注">
+                                <button class="settings-add-btn" onclick="addGoalFromSettings()">+</button>
+                            </div>
+                            <div class="settings-tags-list" id="goalsList"></div>
+                        </div>
+                    </div>
+                    
+                    <!-- 策略/周期 -->
+                    <div class="settings-card">
+                        <div class="settings-card-header">
+                            <span class="settings-card-icon"></span>
+                            <div class="settings-card-title">
+                                <strong>策略 / 周期</strong>
+                                <small>交易策略与时间周期标签</small>
+                            </div>
+                        </div>
+                        <div class="settings-card-body">
+                            <div class="settings-input-group">
+                                <input type="text" class="settings-input" id="strategyTagsInput" placeholder="输入标签后按回车添加" onkeypress="handleSettingsInputEnter(event, 'strategyTags', 'strategyTagsInput')">
+                                <button class="settings-add-btn" onclick="addTagFromInput('strategyTags', 'strategyTagsInput')">+</button>
+                            </div>
+                            <div class="settings-tags-list" id="strategyTagsList"></div>
+                        </div>
+                    </div>
+                    
+                    <!-- 入场理由 -->
+                    <div class="settings-card">
+                        <div class="settings-card-header">
+                            <span class="settings-card-icon"></span>
+                            <div class="settings-card-title">
+                                <strong>入场理由</strong>
+                                <small>进场交易标签</small>
+                            </div>
+                        </div>
+                        <div class="settings-card-body">
+                            <div class="settings-input-group">
+                                <input type="text" class="settings-input" id="entryTagsInput" placeholder="输入标签后按回车添加" onkeypress="handleSettingsInputEnter(event, 'entryTags', 'entryTagsInput')">
+                                <button class="settings-add-btn" onclick="addTagFromInput('entryTags', 'entryTagsInput')">+</button>
+                            </div>
+                            <div class="settings-tags-list" id="entryTagsList"></div>
+                        </div>
+                    </div>
+                    
+                    <!-- 离场理由 -->
+                    <div class="settings-card">
+                        <div class="settings-card-header">
+                            <span class="settings-card-icon"></span>
+                            <div class="settings-card-title">
+                                <strong>离场理由</strong>
+                                <small>出场交易标签</small>
+                            </div>
+                        </div>
+                        <div class="settings-card-body">
+                            <div class="settings-input-group">
+                                <input type="text" class="settings-input" id="exitTagsInput" placeholder="输入标签后按回车添加" onkeypress="handleSettingsInputEnter(event, 'exitTags', 'exitTagsInput')">
+                                <button class="settings-add-btn" onclick="addTagFromInput('exitTags', 'exitTagsInput')">+</button>
+                            </div>
+                            <div class="settings-tags-list" id="exitTagsList"></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 底部操作栏 -->
+                <div class="settings-footer">
+                    <button class="settings-btn settings-btn-export" onclick="exportTemplate()">
+                        <span>⬇️</span> 导出模板
+                    </button>
+                    <label class="settings-btn settings-btn-import">
+                        <span>⬆️</span> 导入模板
+                        <input type="file" accept=".json" onchange="importTemplate(event)" style="display: none;">
+                    </label>
+                </div>
+            </div>
+        </div>
+
+    <!-- User Manual Modal - Hidden by default -->
+    <div class="user-manual-modal-overlay" id="userManualModal">
+        <div class="user-manual-modal">
+            <!-- 固定头部 -->
+            <div class="user-manual-header">
+                <h2>📘 交易日志工具 - 新手快速入门指南</h2>
+                <button class="user-manual-close-btn" onclick="closeUserManualModal()">✕</button>
+            </div>
+            <!-- 可滚动内容区 -->
+            <div class="user-manual-content">
+
+            <div class="manual-intro">
+                <p>这是一款帮助交易者记录和复盘交易的日志工具，包含三个核心模块：<strong>开盘前准备</strong>、<strong>盘中记录</strong>、<strong>盘后复盘</strong>。</p>
+            </div>
+
+            <h3> 第一步：开盘前准备</h3>
+            
+            <h4>1. 情绪检查</h4>
+            <ul>
+                <li>选择当前的情绪状态（最多选3项）</li>
+                <li>点击「确认状态」查看系统给出的交易建议</li>
+                <li> <strong>提示</strong>：了解自己的情绪有助于避免冲动交易</li>
+            </ul>
+
+            <h4>2. 市场新闻</h4>
+            <ul>
+                <li>勾选「已检查新闻」确认已查看财经日历</li>
+                <li>点击链接可直接跳转到财经日历网站</li>
+            </ul>
+
+            <h4>3. 盘前分析</h4>
+            <ul>
+                <li>在文本框中记录你对市场的分析</li>
+                <li>例如：<em>"NQ在16500上方看涨，关注支撑位16400"</em></li>
+            </ul>
+
+            <h4>4. 每日目标</h4>
+            <ul>
+                <li>点击「+ 添加目标」设定今日交易目标</li>
+                <li>例如：<em>"拒绝FOMO"、"单笔亏损不超过2%"</em></li>
+            </ul>
+
+            <h3> 第二步：盘中交易记录</h3>
+            
+            <h4>添加交易</h4>
+            <ol>
+                <li>点击「+ 添加交易」按钮</li>
+                <li>填写基本信息：
+                    <ul>
+                        <li><strong>时间</strong>：入场时间</li>
+                        <li><strong>品种</strong>：输入交易品种（NQ/ES/YM等）</li>
+                        <li><strong>方向</strong>：多/空</li>
+                        <li><strong>手数</strong>：交易数量</li>
+                        <li><strong>盈亏比</strong>：实际实现的盈亏比</li>
+                        <li><strong>盈亏金额</strong>：输入后状态自动更新</li>
+                    </ul>
+                </li>
+            </ol>
+
+            <h4>标签系统</h4>
+            <ul>
+                <li><strong>策略标签</strong>：记录使用的策略（突破/反转/趋势跟踪等）</li>
+                <li><strong>入场理由</strong>：记录为什么入场</li>
+                <li><strong>离场理由</strong>：记录为什么出场</li>
+                <li> 点击输入框可选择预设标签，也可直接输入后按 <kbd>Enter</kbd> 添加</li>
+            </ul>
+
+            <h4>截图上传</h4>
+            <ul>
+                <li>按 <kbd>Ctrl+V</kbd> 粘贴K线截图</li>
+                <li>或直接拖拽图片到上传区域</li>
+                <li>点击图片可放大预览</li>
+            </ul>
+
+            <h4>删除交易</h4>
+            <ul>
+                <li>点击交易卡片右上角的 <strong>✕</strong> 按钮</li>
+            </ul>
+
+            <h3> 第三步：盘后复盘</h3>
+            
+            <h4>交易总结</h4>
+            <ul>
+                <li>系统自动统计：总交易数、胜率、净盈亏</li>
+            </ul>
+
+            <h4>自我评分</h4>
+            <p>拖动滑块为以下维度打分（0-100分）：</p>
+            <table class="manual-table">
+                <thead>
+                    <tr><th>维度</th><th>权重</th><th>说明</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td>风险管理</td><td>40%</td><td>是否严格控制风险</td></tr>
+                    <tr><td>情绪控制</td><td>30%</td><td>是否保持冷静</td></tr>
+                    <tr><td>计划遵守</td><td>20%</td><td>是否按计划执行</td></tr>
+                    <tr><td>执行情况</td><td>10%</td><td>入场出场是否果断</td></tr>
+                </tbody>
+            </table>
+
+            <h4>复盘笔记</h4>
+            <ul>
+                <li>支持文字输入</li>
+                <li>支持 <kbd>Ctrl+V</kbd> 粘贴图片</li>
+                <li>支持拖拽图片</li>
+            </ul>
+
+            <h4>导出日志</h4>
+            <ul>
+                <li>点击「完成复盘 下载日志记录表」</li>
+                <li>自动生成 Excel 文件（包含交易记录和总结）</li>
+            </ul>
+
+            <h3> 自定义模板</h3>
+            <p>点击页面顶部「自定义模板」按钮，可以：</p>
+            <ul>
+                <li><strong>每日目标</strong>：预设常用目标</li>
+                <li><strong>策略标签</strong>：自定义策略标签库</li>
+                <li><strong>入场理由</strong>：自定义入场理由标签</li>
+                <li><strong>离场理由</strong>：自定义离场理由标签</li>
+                <li><strong>导出/导入模板</strong>：备份或恢复你的设置</li>
+            </ul>
+
+            <h3> 快捷键</h3>
+            <table class="manual-table">
+                <thead>
+                    <tr><th>快捷键</th><th>功能</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td><kbd>Enter</kbd></td><td>在标签输入框中添加自定义标签</td></tr>
+                    <tr><td><kbd>Esc</kbd></td><td>关闭弹窗或下拉菜单</td></tr>
+                    <tr><td><kbd>Ctrl+V</kbd></td><td>在截图区域/笔记区域粘贴图片</td></tr>
+                </tbody>
+            </table>
+
+            <h3> 数据说明</h3>
+            <ul>
+                <li>所有设置自动保存在浏览器本地存储</li>
+                <li>建议定期导出配置备份</li>
+                <li>每日交易结束后导出 Excel 日志</li>
+            </ul>
+
+            <h3> 新手建议</h3>
+            <ol>
+                <li><strong>交易前</strong>：先完成情绪检查，设定明确目标</li>
+                <li><strong>交易中</strong>：每笔交易都及时记录，不要事后补填</li>
+                <li><strong>交易后</strong>：认真复盘，诚实打分，写下改进点</li>
+                <li><strong>坚持</strong>：养成记录习惯，至少坚持30天</li>
+            </ol>
+            </div>
+        </div>
+    </div>
+
+        <header class="page-header">
+            <h1 class="page-title">交易日志</h1>
+            <div class="page-date" id="currentDate">正在获取日期...</div>
+            <div class="header-buttons">
+                <button class="global-config-btn" onclick="openSettingsModal()" title="自定义模板">
+                     自定义模板
+                </button>
+                <button class="global-config-btn" onclick="openUserManualModal()" title="教程指南">
+                     教程指南
+                </button>
+            </div>
+        </header>
+
+        <!-- SECTION 1: MORNING PREP -->
+        <section class="section-block" id="morning-prep">
+            <div class="section-header">
+                <h2 class="section-title">1. 开盘前准备</h2>
+            </div>
+
+            <div class="grid-2 no-gap">
+                <!-- Emotion Check - Fixed Width 431.67px -->
+                <div class="card emotion-check-card" style="position: relative;">
+                    <h3 class="form-label" style="font-size: 18px; margin-bottom: 8px;">情绪检查 (最多选3项)</h3>
+                    <p style="font-size: 14px; color: var(--text-secondary); margin-bottom: 16px; line-height: 1.4;">
+                        作为一名交易者，每天交易前检查自己的情绪非常重要。这些信息能够帮助你了解情绪并知道各种情绪如何影响交易表现。
+                    </p>
+                    <div class="emotion-grid" id="emotionGrid" style="margin-bottom: 40px;">
+                        <!-- Generated by JS -->
+                    </div>
+
+                    <div style="position: absolute; bottom: 20px; right: 20px;">
+                        <button class="btn btn-primary" onclick="confirmEmotions()" style="padding: 8px 20px; font-size: 14px;">确认状态</button>
+                    </div>
+                </div>
+
+                <!-- Market Analysis -->
+                <div class="card">
+                    <h3 class="form-label" style="font-size: 18px; margin-bottom: 16px;">盘前分析</h3>
+                    
+                    <div class="form-group">
+                        <label class="form-label">市场新闻</label>
+                        <div style="display: flex; gap: 16px; align-items: center; flex-wrap: wrap;">
+                            <label class="news-option-container">
+                                <input type="radio" name="news" value="checked"> 已检查新闻
+                            </label>
+                            <label class="news-option-container">
+                                <input type="radio" name="news" value="unchecked" checked> 未检查
+                            </label>
+                            <a href="https://cn.tradingview.com/economic-calendar/" target="_blank" class="btn btn-secondary" style="font-size: 12px; padding: 6px 12px; margin-left: auto;">
+                                📅 查看财经日历
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">市场分析 (例如: NQ在16500上方看涨)</label>
+                        <textarea class="textarea-field" rows="3" placeholder="输入你的市场分析和关键点位..."></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                            <label class="form-label" style="margin: 0;">每日目标</label>
+                            <button class="btn-icon" onclick="openGoalModal()" style="width: 24px; height: 24px; font-size: 14px;">+</button>
+                        </div>
+                        <div id="goalsContainer">
+                            <!-- Dynamic Goals -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+
+        <!-- SECTION 2: INTRADAY LOG -->
+        <section class="section-block" id="intraday-log">
+            <div class="section-header">
+                <h2 class="section-title">2. 盘中交易记录</h2>
+                <button class="btn btn-primary" onclick="addTradeRow()">+ 添加交易</button>
+            </div>
+
+            <div class="card" style="padding: 24px;">
+                <div id="tradesContainer">
+                    <!-- Trade cards will be added here -->
+                </div>
+                <div style="padding: 20px; text-align: center; color: var(--text-secondary); font-style: italic;" id="emptyState">
+                    暂无交易记录。点击"+ 添加交易"开始。
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 3: POST MARKET -->
+        <section class="section-block" id="post-market">
+            <div class="section-header">
+                <h2 class="section-title">3. 盘后复盘</h2>
+            </div>
+
+            <div class="grid-3">
+                <!-- Summary Stats -->
+                <div class="card">
+                    <h3 class="form-label" style="font-size: 18px; margin-bottom: 20px;">交易总结</h3>
+                    <div style="display: flex; flex-direction: column; gap: 16px;">
+                        <div class="summary-stat">
+                            <div class="stat-value" id="totalTrades">0</div>
+                            <div class="stat-label">总交易数</div>
+                        </div>
+                        <div class="summary-stat">
+                            <div class="stat-value" id="winRate">0%</div>
+                            <div class="stat-label">胜率</div>
+                        </div>
+                        <div class="summary-stat">
+                            <div class="stat-value" id="netPnL">$0.00</div>
+                            <div class="stat-label">净盈亏</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Self Grading -->
+                <div class="card" style="grid-column: span 2;">
+                    <h3 class="form-label" style="font-size: 18px; margin-bottom: 20px;">自我评分</h3>
+                    
+                    <div class="slider-container">
+                        <div class="slider-header">
+                            <span class="slider-label">风险管理 </span>
+                            <span class="slider-value" id="val-risk">0%</span>
+                        </div>
+                        <input type="range" class="range-slider" id="slider-risk" min="0" max="100" value="0" oninput="updateSlider('risk', this)">
+                    </div>
+
+                    <div class="slider-container">
+                        <div class="slider-header">
+                            <span class="slider-label">情绪控制 </span>
+                            <span class="slider-value" id="val-emotion">0%</span>
+                        </div>
+                        <input type="range" class="range-slider" id="slider-emotion" min="0" max="100" value="0" oninput="updateSlider('emotion', this)">
+                    </div>
+
+                    <div class="slider-container">
+                        <div class="slider-header">
+                            <span class="slider-label">计划遵守度 </span>
+                            <span class="slider-value" id="val-discipline">0%</span>
+                        </div>
+                        <input type="range" class="range-slider" id="slider-discipline" min="0" max="100" value="0" oninput="updateSlider('discipline', this)">
+                    </div>
+
+                    <div class="slider-container">
+                        <div class="slider-header">
+                            <span class="slider-label">执行情况 </span>
+                            <span class="slider-value" id="val-execution">0%</span>
+                        </div>
+                        <input type="range" class="range-slider" id="slider-execution" min="0" max="100" value="0" oninput="updateSlider('execution', this)">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Total Score & Notes -->
+            <div class="card" style="margin-top: 24px;">
+                <div class="score-box color-red" id="totalScoreBox">
+                    <div class="score-val" id="totalScoreDisplay">0</div>
+                    <div class="score-lbl">今日总得分</div>
+                </div>
+
+                <h3 class="form-label" style="font-size: 18px; margin-bottom: 8px;">复盘笔记</h3>
+                <p style="font-size: 13px; color: var(--text-secondary); margin-bottom: 12px;">
+                    支持直接输入文字，也可以按 Ctrl+V 粘贴图片，或拖拽图片到此区域
+                </p>
+                <div class="rich-textarea" contenteditable="true" id="notesArea" onpaste="handleNotePaste(event)" ondrop="handleNotesDrop(event)" ondragover="handleNotesDragOver(event)">
+                    <!-- User can type and paste images here -->
+                </div>
+            </div>
+            
+            <div style="text-align: right; margin-top: 20px;">
+                <button class="btn btn-primary" onclick="exportToExcel()" style="background: var(--success-color); padding: 16px 40px; font-size: 18px;">完成复盘 下载日志记录表</button>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Global Config Bar - Fixed Top Right -->
+    <div class="global-config-bar">
+        <button class="global-config-btn" onclick="exportGlobalConfig()">
+            ⬇️ 导出配置
+        </button>
+        <label class="global-config-btn">
+            ⬆️ 导入配置
+            <input type="file" accept=".json" onchange="importGlobalConfig(event)" style="display: none;">
+        </label>
+    </div>
+
+    <!-- Lightbox Modal for Image Preview -->
+    <div class="lightbox-modal" id="lightboxModal" onclick="closeLightbox()">
+        <div class="lightbox-content" onclick="event.stopPropagation()">
+            <button class="lightbox-close" onclick="closeLightbox()">×</button>
+            <img id="lightboxImage" src="" alt="预览图片">
+        </div>
+    </div>
+
+    <!-- Advice Modal -->
+    <div class="modal-overlay" id="adviceModal">
+        <div class="modal-card">
+            <button class="close-modal" onclick="closeModal()">✕</button>
+            <h2 style="margin-bottom: 20px; font-size: 24px;">心理状态分析</h2>
+            <div id="modalContent" style="max-height: 60vh; overflow-y: auto;">
+                <!-- Content injected by JS -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Goal Input Modal (Glassmorphism) -->
+    <div class="glass-modal-overlay" id="goalModal">
+        <div class="glass-modal">
+            <h3 style="margin-bottom: 16px; font-size: 20px;">添加每日目标</h3>
+            <div class="form-group">
+                <label class="form-label">目标名称</label>
+                <input type="text" id="newGoalTitle" class="input-field" placeholder="例如：拒绝FOMO">
+            </div>
+            <div class="form-group">
+                <label class="form-label">备注</label>
+                <input type="text" id="newGoalDesc" class="input-field" placeholder="例如：等待设置出现">
+            </div>
+            <div style="display: flex; justify-content: flex-end; gap: 12px; margin-top: 24px;">
+                <button class="btn btn-secondary" onclick="closeGoalModal()">取消</button>
+                <button class="btn btn-primary" onclick="confirmAddGoal()">添加</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Strategy Add Modal -->
+    <div class="glass-modal-overlay" id="strategyAddModal">
+        <div class="glass-modal">
+            <h3 style="margin-bottom: 16px; font-size: 20px;">添加策略标签</h3>
+            <div class="form-group">
+                <label class="form-label">标签名称</label>
+                <input type="text" id="newStrategyTag" class="input-field" placeholder="例如：突破">
+            </div>
+            <div style="display: flex; justify-content: flex-end; gap: 12px; margin-top: 24px;">
+                <button class="btn btn-secondary" onclick="closeStrategyAddModal()">取消</button>
+                <button class="btn btn-primary" onclick="confirmAddStrategyTag()">添加</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Tag Library Management Modal - Module 4: Import/Export -->
+    <div class="glass-modal-overlay" id="tagLibraryModal">
+        <div class="glass-modal" style="max-width: 500px;">
+            <h3 style="margin-bottom: 16px; font-size: 20px;" id="tagLibraryTitle">标签库管理</h3>
+
+            <!-- Module 4: Import/Export Buttons -->
+            <div style="display: flex; gap: 8px; margin-bottom: 16px;">
+                <button class="btn btn-secondary" onclick="exportTagsJSON()" style="flex: 1; font-size: 13px; padding: 8px 16px;">
+                    📤 导出标签库
+                </button>
+                <label class="btn btn-secondary" style="flex: 1; font-size: 13px; padding: 8px 16px; text-align: center; cursor: pointer;">
+                    📥 导入标签库
+                    <input type="file" accept=".json" onchange="importTagsJSON(event)" style="display: none;">
+                </label>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">添加新标签</label>
+                <div style="display: flex; gap: 8px; align-items: center;">
+                    <input type="text" id="newTagName" class="input-field" placeholder="输入标签名称" style="flex: 1; min-width: 200px;">
+                    <button class="btn btn-primary" onclick="addTagToLibrary()" style="white-space: nowrap; padding: 12px 32px;">添加</button>
+                </div>
+            </div>
+
+            <div class="tag-library-list" id="tagLibraryList">
+                <!-- Tag items will be rendered here -->
+            </div>
+
+            <div style="display: flex; justify-content: flex-end; gap: 12px; margin-top: 24px;">
+                <button class="btn btn-secondary" onclick="closeTagLibraryModal()">关闭</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 通用删除确认浮窗 -->
+    <div class="glass-modal-overlay" id="confirmDeleteModal">
+        <div class="glass-confirm-modal">
+            <h3 style="margin-bottom: 12px; font-size: 18px;">确认删除</h3>
+            <p style="margin-bottom: 20px; color: var(--text-secondary);" id="confirmDeleteText">确定要删除吗？</p>
+            <div style="display: flex; justify-content: center; gap: 12px;">
+                <button class="btn btn-secondary" onclick="closeConfirmDeleteModal()">取消</button>
+                <button class="btn btn-primary" onclick="executeConfirmDelete()" style="background: var(--danger-color);">删除</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add Tag Modal - 双层标签添加 -->
+    <div class="glass-modal-overlay" id="addTagModal">
+        <div class="glass-modal" style="max-width: 400px;">
+            <h3 style="margin-bottom: 20px; font-size: 20px;" id="addTagModalTitle">添加标签</h3>
+            
+            <div class="form-group">
+                <label class="form-label">标签名称</label>
+                <input type="text" id="newTagNameInput" class="input-field" placeholder="输入标签名称">
+            </div>
+            
+            <div class="form-group">
+                <label class="form-label">保存范围</label>
+                <div class="scope-selector">
+                    <label class="scope-option">
+                        <input type="radio" name="tagScope" value="global" id="tagScopeGlobal" checked>
+                        <span class="scope-label">
+                            <span class="scope-icon">🌐</span>
+                            <span class="scope-text">
+                                <strong>全局标签</strong>
+                                <small>所有交易记录可见</small>
+                            </span>
+                        </span>
+                    </label>
+                    <label class="scope-option">
+                        <input type="radio" name="tagScope" value="local" id="tagScopeLocal">
+                        <span class="scope-label">
+                            <span class="scope-icon">📌</span>
+                            <span class="scope-text">
+                                <strong>仅限当前</strong>
+                                <small>仅对当前交易有效</small>
+                            </span>
+                        </span>
+                    </label>
+                </div>
+            </div>
+            
+            <div style="display: flex; justify-content: flex-end; gap: 12px; margin-top: 24px;">
+                <button class="btn btn-secondary" onclick="closeAddTagModal()">取消</button>
+                <button class="btn btn-primary" onclick="confirmAddNewTag()">添加</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="../assets/js/layout.js"></script>
+    <script src="../assets/js/trading-tool.js"></script>
+</body>
+</html>
