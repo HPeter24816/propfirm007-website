@@ -124,6 +124,7 @@ img { display: block; max-width: 100%; height: auto; }
     letter-spacing: -0.01em;
     opacity: 0.8;
     transition: opacity 0.2s;
+    white-space: nowrap;
 }
 
 .header__link:hover {
@@ -139,6 +140,7 @@ img { display: block; max-width: 100%; height: auto; }
     padding: 8px 20px;
     border-radius: 980px;
     opacity: 1;
+    white-space: nowrap;
 }
 
 .header__cta:hover {
@@ -607,12 +609,8 @@ img { display: block; max-width: 100%; height: auto; }
     }
 }
 
-@media (max-width: 767px) {
-    :root {
-        --font-size-h1: 32px;
-        --header-height: 48px;
-    }
-
+/* Responsive Navigation (tablet + mobile) */
+@media (max-width: 1024px) {
     .header__toggle {
         display: flex;
     }
@@ -668,7 +666,6 @@ img { display: block; max-width: 100%; height: auto; }
         text-align: center;
     }
 
-    /* Mobile Dropdown */
     .header__dropdown {
         position: static;
         transform: none;
@@ -678,13 +675,13 @@ img { display: block; max-width: 100%; height: auto; }
         padding: 0 0 16px 20px;
         opacity: 1;
         visibility: visible;
-        display: none; /* Hidden by default on mobile, maybe toggle? */
+        display: none;
         min-width: auto;
         margin-top: 0;
     }
-    
+
     .header__menu-item:hover .header__dropdown {
-        display: block; /* Show on hover/click simulation */
+        display: block;
     }
 
     .header__dropdown::before {
@@ -697,7 +694,6 @@ img { display: block; max-width: 100%; height: auto; }
         text-align: left;
     }
 
-    /* Toggle Animation */
     .header__toggle.active .header__toggle-bar:nth-child(1) {
         transform: translateY(5px) rotate(45deg);
     }
@@ -706,5 +702,12 @@ img { display: block; max-width: 100%; height: auto; }
     }
     .header__toggle.active .header__toggle-bar:nth-child(3) {
         transform: translateY(-5px) rotate(-45deg);
+    }
+}
+
+@media (max-width: 767px) {
+    :root {
+        --font-size-h1: 32px;
+        --header-height: 48px;
     }
 }

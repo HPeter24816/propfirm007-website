@@ -41,6 +41,16 @@ document.addEventListener('DOMContentLoaded', () => {
                         </div>
                     </li>
 
+                    <!-- 攻略 -->
+                    <li class="header__menu-item">
+                        <a href="#" class="header__link">攻略</a>
+                        <div class="header__dropdown">
+                            <div class="header__dropdown-inner">
+                                <a href="${basePath}/pages/sign_up_platform.html" class="dropdown-link">新手完整攻略教程</a>
+                            </div>
+                        </div>
+                    </li>
+
                     <!-- 出金教程 -->
                     <li class="header__menu-item">
                         <a href="#" class="header__link">出金教程</a>

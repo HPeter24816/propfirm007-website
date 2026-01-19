@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>新手完整攻略教程 - Futures Propfirm 中文社区</title>
+	<link rel="icon" href="../assets/images/favicon.ico" type="image/x-icon">
+	<link rel="stylesheet" href="../assets/css/styles.css">
+	<style>
+		/* Apple-style guide layout (aligned with workmarket_sign_up.html) */
+		.guide-hero {
+			text-align: center;
+			padding: 80px 20px 40px;
+			background-color: var(--color-bg-body);
+		}
+
+		.guide-hero h1 {
+			font-size: 48px;
+			font-weight: 700;
+			margin-bottom: 16px;
+			color: var(--color-text-primary);
+			letter-spacing: -0.01em;
+		}
+
+		.guide-hero p {
+			font-size: 22px;
+			color: var(--color-text-secondary);
+			font-weight: 400;
+		}
+
+		/* Segmented Control (Tabs) */
+		.segmented-control {
+			display: flex;
+			justify-content: center;
+			background-color: var(--color-bg-alt);
+			padding: 4px;
+			border-radius: 980px;
+			max-width: 720px;
+			margin: 40px auto 60px;
+			position: relative;
+		}
+
+		.segment-btn {
+			flex: 1;
+			padding: 10px 20px;
+			border: none;
+			background: none;
+			border-radius: 980px;
+			font-size: 15px;
+			font-weight: 500;
+			color: var(--color-text-secondary);
+			cursor: pointer;
+			transition: color 0.3s ease;
+			z-index: 2;
+			position: relative;
+		}
+
+		.segment-btn.active {
+			color: var(--color-text-primary);
+			background-color: #fff;
+			box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+		}
+
+		/* Content Sections with Fade Animation */
+		.guide-content {
+			max-width: 900px;
+			margin: 0 auto;
+			padding: 0 22px 100px;
+			position: relative;
+			min-height: 600px;
+		}
+
+		.tab-pane {
+			display: none;
+			opacity: 0;
+			transition: opacity 0.4s ease-in-out;
+		}
+
+		.tab-pane.active {
+			display: block;
+			animation: fadeIn 0.5s forwards;
+		}
+
+		@keyframes fadeIn {
+			from { opacity: 0; transform: translateY(10px); }
+			to { opacity: 1; transform: translateY(0); }
+		}
+
+		/* Step Items */
+		.step-item {
+			margin-bottom: 60px;
+			border-bottom: 1px solid var(--color-border);
+			padding-bottom: 40px;
+		}
+
+		.step-item:last-child {
+			border-bottom: none;
+		}
+
+		.step-title {
+			font-size: 24px;
+			font-weight: 600;
+			margin-bottom: 20px;
+			display: flex;
+			align-items: center;
+			gap: 12px;
+			color: var(--color-text-primary);
+		}
+
+		.step-number {
+			background-color: var(--color-text-primary);
+			color: #fff;
+			width: 28px;
+			height: 28px;
+			border-radius: 50%;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			font-size: 14px;
+			font-weight: 700;
+		}
+
+		.step-desc {
+			font-size: 17px;
+			line-height: 1.6;
+			color: var(--color-text-secondary);
+			margin-bottom: 24px;
+		}
+
+		.step-desc ul {
+			margin-top: 10px;
+			padding-left: 20px;
+		}
+
+		.step-image {
+			border-radius: 12px;
+			box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+			border: 1px solid rgba(0,0,0,0.05);
+			width: 100%;
+			height: auto;
+			margin-top: 20px;
+			display: block;
+		}
+
+		/* Apple Style Tips */
+		.tip-box {
+			background-color: var(--color-bg-alt);
+			border-radius: 18px;
+			padding: 26px 28px;
+			margin: 30px 0;
+			display: flex;
+			gap: 18px;
+			align-items: center;
+			justify-content: space-between;
+			border: 1px solid var(--color-border);
+			box-shadow: 0 10px 30px rgba(0,0,0,0.06);
+		}
+
+		.tip-box.warning {
+			background-color: var(--color-system-orange-light);
+		}
+
+		.tip-icon {
+			font-size: 26px;
+			line-height: 1;
+		}
+
+		.tip-main {
+			display: flex;
+			gap: 14px;
+			align-items: center;
+			flex: 1;
+		}
+
+		.tip-actions {
+			display: flex;
+			align-items: center;
+		}
+
+		.tip-content h4 {
+			font-size: 17px;
+			font-weight: 600;
+			margin-bottom: 4px;
+			color: var(--color-text-primary);
+		}
+
+		.tip-content p {
+			font-size: 15px;
+			color: var(--color-text-secondary);
+			line-height: 1.5;
+			margin: 0;
+		}
+
+		.text-highlight {
+			color: var(--color-accent);
+			font-weight: 600;
+		}
+
+		.link-btn {
+			display: inline-flex;
+			align-items: center;
+			gap: 8px;
+			padding: 10px 18px;
+			border-radius: 999px;
+			background-color: var(--color-accent);
+			color: #fff;
+			text-decoration: none;
+			font-size: 14px;
+			font-weight: 600;
+			box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+		}
+
+		.link-btn:hover {
+			opacity: 0.9;
+		}
+	</style>
+</head>
+<body>
+
+	<!-- Hero Section -->
+	<section class="guide-hero">
+		<div class="container">
+			<h1>新手完整攻略教程</h1>
+			<p>以 Lucid 平台为例，其他平台流程类似</p>
+		</div>
+	</section>
+
+	<!-- Tab Navigation -->
+	<div class="container">
+		<div class="segmented-control">
+			<button class="segment-btn active" onclick="switchTab('signup')">购买注册</button>
+			<button class="segment-btn" onclick="switchTab('data')">数据协议</button>
+			<button class="segment-btn" onclick="switchTab('tradingview')">TradingView 交易</button>
+		</div>
+	</div>
+
+	<!-- Content Sections -->
+	<div class="guide-content">
+
+		<!-- Tab 1: 购买注册 -->
+		<div id="signup" class="tab-pane active">
+			<div class="tip-box info">
+				<div class="tip-main">
+					<div class="tip-icon">🔗</div>
+					<div class="tip-content">
+						<h4>官方链接</h4>
+					</div>
+				</div>
+				<div class="tip-actions">
+					<a class="link-btn" href="https://lucidtrading.com/ref/peterpriceaction/" target="_blank" rel="noopener">点击链接</a>
+				</div>
+			</div>
+
+			<div class="step-item">
+				<div class="step-title">
+					<span class="step-number">1</span>
+					选择账号类型与交易平台
+				</div>
+				<div class="step-desc">
+					进入页面后先选择账号需求，再选择交易平台。
+				</div>
+				<img src="../assets/images/6eb2ecf054980b89633020b3b0d2c3ea.png" alt="选择账号需求" class="step-image">
+				<img src="../assets/images/9253ffe8deada94531940965865fd4e9.png" alt="平台选择补充截图" class="step-image" style="margin-top: 10px;">
+			</div>
+
+			<div class="step-item">
+				<div class="step-title">
+					<span class="step-number">2</span>
+					选择数据源
+				</div>
+				<div class="step-desc">
+					<p>CQG 数据可在 Tradovate 和 TradingView 交易。</p>
+					<p>若使用订单流，选择 Rithmic 数据。只能二选一。</p>
+				</div>
+				<img src="../assets/images/2de35ecdefb2422c8e9f27c329854405.png" alt="选择数据源" class="step-image">
+			</div>
+
+			<div class="step-item">
+				<div class="step-title">
+					<span class="step-number">3</span>
+					填写账单信息
+				</div>
+				<div class="step-desc">
+					<ul>
+						<li><strong>First name</strong> 填写名；<strong>Last name</strong> 填写姓。</li>
+						<li>地址填写可提供证明的英文地址。</li>
+						<li>邮箱用于登录 Lucid，建议使用海外邮箱避免收不到信息。</li>
+					</ul>
+				</div>
+				<img src="../assets/images/9253ffe8deada94531940965865fd4e9.png" alt="账单填写示例" class="step-image">
+			</div>
+
+			<div class="step-item">
+				<div class="step-title">
+					<span class="step-number">4</span>
+					使用优惠码并完成支付
+				</div>
+				<div class="step-desc">
+					<p>填写最大折扣优惠码 <span class="text-highlight">PETER007</span>，点击 “Apply Coupon” 后显示折扣。</p>
+					<p>填写visa/master卡信息并勾选协议，点击 “PROCEED TO PAYMENT” 完成购买。</p>
+				</div>
+				<img src="../assets/images/6ce24c349179addfa617cee2631ac4aa.png" alt="优惠码与支付" class="step-image">
+			</div>
+
+			<div class="step-item">
+				<div class="step-title">
+					<span class="step-number">5</span>
+					获取 Tradovate 账号
+				</div>
+				<div class="step-desc">
+					购买完成后，查看注册邮箱中的邮件，找到 Tradovate 账号和密码。
+				</div>
+				<img src="../assets/images/57f35b16c3332e6083a76d20e2c98e17.png" alt="账号邮件示例" class="step-image">
+			</div>
+		</div>
+
+		<!-- Tab 2: 数据协议 -->
+
+
+			<div class="step-item">
+				<div class="step-title">
+					<span class="step-number">6</span>
+					前往 Tradovate
+				</div>
+				<div class="step-desc">
+					访问官网链接：<a href="https://trader.tradovate.com/welcome" target="_blank" rel="noopener">https://trader.tradovate.com/welcome</a>
+				</div>
+				<img src="../assets/images/Pasted image 20260119144103.png" alt="Tradovate 欢迎页" class="step-image">
+			</div>
+
+			<div class="step-item">
+				<div class="step-title">
+					<span class="step-number">7</span>
+					选择 Non-professional
+				</div>
+				<div class="step-desc">
+					选择非专业用户 “Non-professional”。
+				</div>
+				<img src="../assets/images/Pasted image 20260119144131.png" alt="Non-professional 选择" class="step-image">
+			</div>
+
+			<div class="step-item">
+				<div class="step-title">
+					<span class="step-number">8</span>
+					勾选并确认信息
+				</div>
+				<div class="step-desc">
+					按要求完成勾选与信息确认。
+				</div>
+				<img src="../assets/images/Pasted image 20260119144158.png" alt="勾选信息" class="step-image">
+			</div>
+
+			<div class="step-item">
+				<div class="step-title">
+					<span class="step-number">9</span>
+					开始交易
+				</div>
+				<div class="step-desc">
+					点击右侧按钮即可进入交易界面。
+				</div>
+				<img src="../assets/images/Pasted image 20260119144220.png" alt="交易入口" class="step-image">
+			</div>
+		</div>
+
+		<!-- Tab 3: TradingView 交易 -->
+		<div id="tradingview" class="tab-pane">
+			<div class="step-item">
+				<div class="step-title">
+					<span class="step-number">10</span>
+					Trading Panel 连接 Tradovate
+				</div>
+				<div class="step-desc">
+					打开 TradingView 盘面，在 Trading Panel 中找到 Tradovate 并点击。
+				</div>
+				<img src="../assets/images/542bdce6525fdcce90fbcf395aba7cc5.png" alt="Trading Panel 连接" class="step-image">
+			</div>
+
+			<div class="step-item">
+				<div class="step-title">
+					<span class="step-number">11</span>
+					选择 Demo 并登录
+				</div>
+				<div class="step-desc">
+					选择 Demo，输入邮件中的账号密码即可在 TradingView 交易。
+				</div>
+				<img src="../assets/images/745fb622d511e3ebb208e1572fa2921f.png" alt="TradingView 登录" class="step-image">
+			</div>
+		</div>
+
+	</div>
+
+	<!-- Scripts -->
+	<script src="../assets/js/layout.js"></script>
+	<script src="../assets/js/scripts.js"></script>
+	<script>
+		function switchTab(tabId) {
+			document.querySelectorAll('.segment-btn').forEach(btn => {
+				btn.classList.remove('active');
+			});
+
+			event.target.classList.add('active');
+
+			document.querySelectorAll('.tab-pane').forEach(pane => {
+				pane.classList.remove('active');
+			});
+
+			const selectedPane = document.getElementById(tabId);
+			if (selectedPane) {
+				selectedPane.classList.add('active');
+			}
+		}
+	</script>
+</body>
+</html>
