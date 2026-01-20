@@ -56,10 +56,12 @@ document.addEventListener('DOMContentLoaded', () => {
                         <a href="#" class="header__link">出金教程</a>
                         <div class="header__dropdown">
                             <div class="header__dropdown-inner">
-                                <a href="${basePath}/pages/W-8_BEN.html" class="dropdown-link">W-8 BEN文件指南</a>
-                                <a href="${basePath}/pages/wise_sign_up.html" class="dropdown-link">Wise注册攻略</a>
-                                <a href="${basePath}/pages/wise_profile.html" class="dropdown-link">Wise收款信息下载</a>
-                                <a href="${basePath}/pages/workmarket_sign_up.html" class="dropdown-link">Workmarket注册攻略</a>
+                                <a href="${basePath}/pages/W-8_BEN.html" class="dropdown-link">W-8 BEN 填写指南</a>
+                                <a href="${basePath}/pages/workmarket_sign_up.html" class="dropdown-link">WorkMarket 注册攻略</a>
+                                <a href="${basePath}/pages/wise_sign_up.html" class="dropdown-link">Wise 注册攻略</a>
+                                <a href="${basePath}/pages/wise_profile.html" class="dropdown-link">Wise 收款信息下载</a>
+                                <a href="${basePath}/pages/wise_payout.html" class="dropdown-link">Wise汇款攻略</a>
+                                <a href="${basePath}/pages/wise_problems.html" class="dropdown-link">Wise 常见问题</a>
                             </div>
                         </div>
                     </li>

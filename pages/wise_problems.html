@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Wise 账号常见问题 - Futures Propfirm 中文社区</title>
+	<link rel="icon" href="../assets/images/favicon.ico" type="image/x-icon">
+	<link rel="stylesheet" href="../assets/css/styles.css">
+	<link rel="stylesheet" href="../assets/css/index-custom.css">
+	<style>
+		:root {
+			--system-blue: #007AFF;
+			--system-background: #FFFFFF;
+			--secondary-system-background: #F2F2F7;
+			--tertiary-system-background: #FFFFFF;
+			--label: rgba(0,0,0,1);
+			--secondary-label: rgba(0,0,0,1);
+			--separator: rgba(60,60,67,0.18);
+			--system-gray-6: #F2F2F7;
+			--system-fill: rgba(120,120,128,0.20);
+		}
+
+		body {
+			background: var(--secondary-system-background);
+			color: var(--label);
+		}
+
+		.faq-hero {
+			padding-bottom: 32px;
+		}
+
+		.faq-layout {
+			display: grid;
+			grid-template-columns: 260px 1fr;
+			gap: 28px;
+		}
+
+		.faq-sidebar {
+			position: sticky;
+			top: 96px;
+			align-self: start;
+			background: var(--tertiary-system-background);
+			border: 1px solid var(--separator);
+			border-radius: 16px;
+			padding: 18px 16px;
+			box-shadow: 0 8px 24px rgba(0,0,0,0.06);
+		}
+
+		.faq-sidebar__title {
+			font-size: 14px;
+			color: var(--label);
+			letter-spacing: 0.06em;
+			text-transform: uppercase;
+			margin-bottom: 12px;
+		}
+
+		.faq-sidebar__list {
+			list-style: none;
+			padding: 0;
+			margin: 0;
+		}
+
+		.faq-sidebar__list li {
+			margin-bottom: 8px;
+		}
+
+		.faq-sidebar__list a {
+			display: block;
+			padding: 8px 10px;
+			border-radius: 10px;
+			color: var(--label);
+			text-decoration: none;
+			background: transparent;
+			transition: background 0.2s ease, color 0.2s ease;
+		}
+
+		.faq-sidebar__list a:hover {
+			background: var(--system-fill);
+			color: var(--system-blue);
+		}
+
+		.faq-content {
+			background: var(--tertiary-system-background);
+			border: 1px solid var(--separator);
+			border-radius: 20px;
+			padding: 28px 28px 12px;
+			box-shadow: 0 12px 28px rgba(0,0,0,0.08);
+		}
+
+		.faq-section {
+			padding-bottom: 8px;
+			margin-bottom: 24px;
+			border-bottom: 1px solid var(--separator);
+		}
+
+		.faq-section:last-child {
+			border-bottom: none;
+			margin-bottom: 0;
+		}
+
+		.faq-section__title {
+			font-size: 22px;
+			margin-bottom: 18px;
+		}
+
+		.faq-item {
+			padding: 16px 0;
+			border-top: 1px solid var(--separator);
+		}
+
+		.faq-item:first-of-type {
+			border-top: none;
+		}
+
+		.faq-item__question {
+			font-size: 18px;
+			font-weight: 600;
+			margin-bottom: 10px;
+		}
+
+		.faq-item__answer {
+			color: var(--label);
+			line-height: 1.7;
+		}
+
+		.faq-note {
+			background: var(--system-gray-6);
+			border: 1px solid var(--separator);
+			border-radius: 12px;
+			padding: 12px 14px;
+			margin-top: 12px;
+			color: var(--label);
+		}
+
+		.faq-table {
+			width: 100%;
+			border-collapse: collapse;
+			margin-top: 12px;
+			font-size: 14px;
+		}
+
+		.faq-table th,
+		.faq-table td {
+			padding: 10px 12px;
+			border-bottom: 1px solid var(--separator);
+			text-align: left;
+		}
+
+		.faq-table th {
+			color: var(--label);
+			font-weight: 600;
+		}
+
+		@media (max-width: 980px) {
+			.faq-layout {
+				grid-template-columns: 1fr;
+			}
+
+			.faq-sidebar {
+				position: static;
+			}
+		}
+	</style>
+</head>
+<body>
+	<!-- Header injected by layout.js -->
+
+	<main>
+		<section class="section hero faq-hero">
+			<div class="container">
+				<h1 class="hero__title">Wise 账号常见问题</h1>
+				<p class="hero__subtitle">汇款、额度、验证与人民币出入金常见问题汇总</p>
+			</div>
+		</section>
+
+		<section class="section" style="padding-top: 0;">
+			<div class="container faq-layout">
+				<aside class="faq-sidebar" aria-label="问题目录">
+					<div class="faq-sidebar__title">问题目录</div>
+					<ul class="faq-sidebar__list">
+						<li><a href="#q1">Q1 汇款人民币到中国方式</a></li>
+						<li><a href="#q2">Q2 汇款到中国金额限制</a></li>
+						<li><a href="#q3">Q3 到账时间与延迟原因</a></li>
+						<li><a href="#q4">Q4 汇出人民币资格</a></li>
+						<li><a href="#q5">Q5 可以汇给谁</a></li>
+						<li><a href="#q6">Q6 汇出人民币限额</a></li>
+						<li><a href="#q7">Q7 额度有效期</a></li>
+						<li><a href="#q8">Q8 人民币支付给 Wise</a></li>
+						<li><a href="#q9">Q9 特定银行注意事项</a></li>
+						<li><a href="#q10">Q10 汇出处理时效</a></li>
+						<li><a href="#q11">Q11 退款原因</a></li>
+						<li><a href="#banks">人民币汇出银行清单</a></li>
+					</ul>
+				</aside>
+
+				<div class="faq-content">
+					<div class="faq-section" id="inbound">
+						<h2 class="faq-section__title">第一部分：汇款至人民币（汇入中国）</h2>
+
+						<article class="faq-item" id="q1">
+							<h3 class="faq-item__question">Q1：我可以通过哪些方式汇款人民币到中国？</h3>
+							<div class="faq-item__answer">
+								<ul>
+									<li><strong>个人汇款人</strong>：可以通过银联（UnionPay）、支付宝（Alipay）、微信（Weixin）进行汇款。</li>
+									<li><strong>企业汇款人</strong>：可以通过银联、支付宝、以及本地银行账户（Local Bank Account）进行汇款。</li>
+									<li><strong>注意</strong>：收款人必须是位于中国大陆并持有身份证的个人，或持有人民币银行账户的企业。</li>
+								</ul>
+							</div>
+						</article>
+
+						<article class="faq-item" id="q2">
+							<h3 class="faq-item__question">Q2：汇款到中国有哪些金额限制？</h3>
+							<div class="faq-item__answer">
+								<ul>
+									<li><strong>银联</strong>：单笔上限 33,000 元人民币。</li>
+									<li><strong>支付宝</strong>：
+										<ul>
+											<li>单笔上限 50,000 元人民币。</li>
+											<li>每位收款人每年可接收 30万—60万元人民币（可能受限于汇款用途的月度频次）。</li>
+										</ul>
+									</li>
+									<li><strong>微信</strong>：
+										<ul>
+											<li>单笔上限 50,000 元人民币。</li>
+											<li>每位收款人每年可接收 50万元人民币。</li>
+										</ul>
+									</li>
+									<li><strong>企业银行转账</strong>：没有特定限制，但可能受限于汇款源货币的金额限制。
+										<div class="faq-note"><strong>Tip：</strong>不占用 5w 美金额度。</div>
+									</li>
+								</ul>
+							</div>
+						</article>
+
+						<article class="faq-item" id="q3">
+							<h3 class="faq-item__question">Q3：汇款通常多久到账？为什么会延迟或取消？</h3>
+							<div class="faq-item__answer">
+								<ul>
+									<li><strong>时效</strong>：每次设置汇款时会显示预计时间。</li>
+									<li><strong>延迟/取消原因</strong>：
+										<ul>
+											<li>收款人未及时完成验证或绑卡（支付宝需在收到通知后 72小时内，微信需在 48小时内）。</li>
+											<li>地方当局要求补充汇款目的等资料。</li>
+										</ul>
+									</li>
+									<li><strong>退款</strong>：如果汇款被取消，系统会在 3 个工作日内自动退款。</li>
+								</ul>
+							</div>
+						</article>
+					</div>
+
+					<div class="faq-section" id="outbound">
+						<h2 class="faq-section__title">第二部分：使用人民币汇款（汇出中国）</h2>
+
+						<article class="faq-item" id="q4">
+							<h3 class="faq-item__question">Q4：谁有资格将人民币汇出中国（作为源货币）？</h3>
+							<div class="faq-item__answer">
+								<p>必须同时满足以下条件：</p>
+								<ol>
+									<li><strong>非中国大陆居民</strong>（来自港澳台的人士符合资格）。</li>
+									<li>目前或曾经在中国大陆工作过。</li>
+									<li>持有中国税务机关出具的、显示近 3 年纳税记录的有效完税证明（目前仅接受 2022 年 1 月之后的纳税记录）。</li>
+								</ol>
+								<div class="faq-note">注意：此功能仅限个人账户使用，首次使用需进行 1-2 个工作日的身份验证。</div>
+							</div>
+						</article>
+
+						<article class="faq-item" id="q5">
+							<h3 class="faq-item__question">Q5：我可以汇给谁？</h3>
+							<div class="faq-item__answer">
+								<p>根据监管规定，您<strong>只能汇款给您本人名下的其他账户</strong>（如境外的同名银行账户或您的 Wise 账户余额）。</p>
+							</div>
+						</article>
+
+						<article class="faq-item" id="q6">
+							<h3 class="faq-item__question">Q6：从中国汇出人民币的限额是多少？</h3>
+							<div class="faq-item__answer">
+								<ul>
+									<li><strong>单笔限额</strong>：
+										<ul>
+											<li>通过中国境内银行APP汇出：单笔上限 30万元人民币。</li>
+											<li>通过支付宝汇出：单笔上限 5万元人民币。</li>
+										</ul>
+									</li>
+									<li><strong>总额度限制</strong>：
+										<ul>
+											<li>基于您的年收入、已缴纳税额及纳税年数计算（通常为您在中国境内的税后工资收入）。</li>
+											<li><strong>注意</strong>：Skyremit 用户在 Wise 的汇款也会占用 Skyremit 的额度，反之亦然。</li>
+										</ul>
+									</li>
+								</ul>
+							</div>
+						</article>
+
+						<article class="faq-item" id="q7">
+							<h3 class="faq-item__question">Q7：汇款额度有有效期吗？用完了怎么办？</h3>
+							<div class="faq-item__answer">
+								<ul>
+									<li>限额没有有效期。</li>
+									<li>当达到限额时，系统会提示上传新的税务记录，验证通过后限额会增加。</li>
+								</ul>
+							</div>
+						</article>
+
+						<article class="faq-item" id="q8">
+							<h3 class="faq-item__question">Q8：如何把人民币支付给 Wise？</h3>
+							<div class="faq-item__answer">
+								<p>提交验证后，可通过以下两种方式付款：</p>
+								<ol>
+									<li><strong>银行转账</strong>：
+										<ul>
+											<li>使用 Wise 提供的专属 ACS 账户信息（收款银行分支机构通常为“拉卡拉-备付金账户”），通过中国银行 APP 进行转账。</li>
+											<li>必须使用您本人名下的账户转账。</li>
+										</ul>
+									</li>
+									<li><strong>支付宝</strong>：
+										<ul>
+											<li>网页端：使用支付宝 APP 扫码。</li>
+											<li>手机端：跳转至支付宝 APP 支付。</li>
+											<li>首次使用需输入中国的银行卡号。</li>
+										</ul>
+									</li>
+								</ol>
+							</div>
+						</article>
+
+						<article class="faq-item" id="q9">
+							<h3 class="faq-item__question">Q9：部分特定银行支付时有什么注意事项？</h3>
+							<div class="faq-item__answer">
+								<ul>
+									<li><strong>中国银行</strong>：需在 APP 首页选择专用入口进行汇款，严格遵循官方指引。</li>
+									<li><strong>中国工商银行</strong>：可能显示错误提示，但实际可能已成功，请先查询交易记录。</li>
+									<li><strong>中国建设银行</strong>：如遇报错，尝试删除收款人名称中的空格，或改用电脑端银行门户（语言设为中文，选择“支付机构转账”）。</li>
+								</ul>
+							</div>
+						</article>
+
+						<article class="faq-item" id="q10">
+							<h3 class="faq-item__question">Q10：汇出款项通常多久处理完毕？</h3>
+							<div class="faq-item__answer">
+								<ul>
+									<li><strong>Wise 收款</strong>：通常 0-1 个工作日内收到您的款项（支持 7×24 小时处理）。
+										<div class="faq-note">注：Skyremit 用户通过支付宝支付的款项将于下一个工作日到达。</div>
+									</li>
+									<li><strong>兑换汇出</strong>：收到款项后，兑换最多需要 2 个工作日。</li>
+								</ul>
+							</div>
+						</article>
+
+						<article class="faq-item" id="q11">
+							<h3 class="faq-item__question">Q11：为什么我付给 Wise 的钱被退回了？</h3>
+							<div class="faq-item__answer">
+								<ul>
+									<li>银行转账时填写的收款人信息错误。</li>
+									<li>使用了非本人名下的账户进行付款。</li>
+									<li>退款通常需要 0-3 个工作日到账。</li>
+								</ul>
+							</div>
+						</article>
+					</div>
+
+					<div class="faq-section" id="banks">
+						<h2 class="faq-section__title">我可以从哪些银行汇出人民币？</h2>
+						<div class="faq-item__answer">
+							<p><strong>通过银行转账付款</strong>，您可以通过下列银行支付您的人民币汇款。</p>
+							<p><strong>通过支付宝付款</strong>，您可以从任何支付宝支持的银行付款。</p>
+							<p>此列表并未列出所有银行。如果您的银行不在列表中，请建立新的收款人并在银行列表中查找“支付机构备付金集中存管账户”，他们也许能为您提供转账服务。</p>
+						</div>
+						<table class="faq-table" aria-label="人民币汇出银行列表">
+							<thead>
+								<tr>
+									<th>Bank Name in English</th>
+									<th>Bank Name in Chinese</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr><td>Bank of China</td><td>中国银行</td></tr>
+								<tr><td>Industrial and Commercial Bank of China (ICBC)</td><td>中国工商银行</td></tr>
+								<tr><td>Bank of Communications</td><td>交通银行</td></tr>
+								<tr><td>Bank of Suzhou</td><td>苏州银行</td></tr>
+								<tr><td>China Merchants Bank (CMB)</td><td>招商银行</td></tr>
+								<tr><td>China Construction Bank</td><td>中国建设银行</td></tr>
+								<tr><td>Agricultural Bank of China（AgBank）</td><td>中国农业银行</td></tr>
+								<tr><td>China CITIC Bank</td><td>中信银行</td></tr>
+								<tr><td>Industrial Bank Co., Ltd. (Fujian Industrial Bank Joint-Stock Corporation）</td><td>兴业银行</td></tr>
+								<tr><td>China Everbright Bank Co., Ltd</td><td>光大银行</td></tr>
+								<tr><td>China Guangfa Bank</td><td>广发银行</td></tr>
+								<tr><td>Ping An Bank Co., Ltd</td><td>平安银行</td></tr>
+								<tr><td>Bank of Beijing Co., Ltd</td><td>北京银行</td></tr>
+								<tr><td>Postal Savings Bank of China</td><td>中国邮政储蓄银行</td></tr>
+								<tr><td>Shanghai Pudong Development Bank</td><td>上海浦东发展银行</td></tr>
+								<tr><td>China Minsheng Bank</td><td>中国民生银行</td></tr>
+								<tr><td>Bank of Shanghai</td><td>上海银行</td></tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</section>
+	</main>
+
+	<!-- Footer injected by layout.js -->
+
+	<script src="../assets/js/layout.js"></script>
+	<script src="../assets/js/scripts.js"></script>
+</body>
+</html>
