@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>国际支付卡全攻略 | Futures Propfirm</title>
+    <link rel="stylesheet" href="../assets/css/styles.css">
+    <link rel="stylesheet" href="../assets/css/index-custom.css">
+    
+    <style>
+        /* ========== Apple Design System Colors ========== */
+        :root {
+            /* Standard Colors */
+            --system-blue: #007AFF;
+            --system-green: #34C759;
+            --system-orange: #FF9500;
+            --system-red: #FF3B30;
+            --system-teal: #5AC8FA;
+            --system-gray: #8E8E93;
+            --hero-offset: 120px;
+            
+            /* Background Colors */
+            --system-background: #FFFFFF;
+            --secondary-system-background: #F2F2F7;
+            --tertiary-system-background: #FFFFFF;
+            
+            /* Label Colors */
+            --label: rgba(0,0,0,1);
+            --secondary-label: rgba(60,60,67,0.6);
+            --tertiary-label: rgba(60,60,67,0.3);
+            
+            /* Separator */
+            --separator: rgba(60,60,67,0.29);
+            --opaque-separator: #C6C6C8;
+            
+            /* Fill Colors */
+            --system-fill: rgba(120,120,128,0.20);
+            --secondary-system-fill: rgba(120,120,128,0.16);
+            --tertiary-system-fill: rgba(120,120,128,0.12);
+            
+            /* Font */
+            --font-main: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --system-blue: #0A84FF;
+                --system-green: #30D158;
+                --system-orange: #FF9F0A;
+                --system-red: #FF453A;
+                --system-teal: #64D2FF;
+                
+                --system-background: #000000;
+                --secondary-system-background: #1C1C1E;
+                --tertiary-system-background: #2C2C2E;
+                
+                --label: rgba(255,255,255,1);
+                --secondary-label: rgba(235,235,245,0.6);
+                --tertiary-label: rgba(235,235,245,0.3);
+                
+                --separator: rgba(84,84,88,0.6);
+                --opaque-separator: #38383A;
+                
+                --system-fill: rgba(120,120,128,0.36);
+                --secondary-system-fill: rgba(120,120,128,0.32);
+                --tertiary-system-fill: rgba(120,120,128,0.24);
+            }
+        }
+
+        * { box-sizing: border-box; }
+
+        body {
+            font-family: var(--font-main);
+            background-color: var(--system-background);
+            color: var(--label);
+            margin: 0;
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* ========== Layout: Sidebar + Main ========== */
+        .page-wrapper {
+            display: flex;
+            min-height: 100vh;
+            justify-content: center;
+            align-items: flex-start;
+            gap: 24px;
+            padding: 40px 24px;
+        }
+
+        /* Sidebar Navigation */
+        .sidebar {
+            width: 220px;
+            background-color: var(--secondary-system-background);
+            border: 1px solid var(--opaque-separator);
+            border-radius: 16px;
+            padding: 16px 0;
+            position: sticky;
+            top: 40px;
+            height: fit-content;
+            max-height: calc(100vh - 80px - var(--hero-offset));
+            margin-top: var(--hero-offset);
+            overflow-y: auto;
+            z-index: 100;
+            box-shadow: 0 12px 32px rgba(0,0,0,0.08);
+        }
+
+        .sidebar__title {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--secondary-label);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            padding: 0 20px;
+            margin-bottom: 12px;
+        }
+
+        .sidebar__nav {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .sidebar__nav li a {
+            display: block;
+            padding: 10px 20px;
+            color: var(--label);
+            text-decoration: none;
+            font-size: 15px;
+            font-weight: 500;
+            border-left: 3px solid transparent;
+            transition: all 0.2s ease;
+        }
+
+        .sidebar__nav li a:hover {
+            background-color: var(--tertiary-system-fill);
+            border-left-color: var(--system-blue);
+        }
+
+        .sidebar__nav li a.active {
+            background-color: var(--system-fill);
+            border-left-color: var(--system-blue);
+            color: var(--system-blue);
+        }
+
+        .sidebar__back {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 12px 20px;
+            color: var(--system-blue);
+            text-decoration: none;
+            font-size: 15px;
+            font-weight: 500;
+            margin-bottom: 20px;
+            border-bottom: 1px solid var(--opaque-separator);
+        }
+
+        .sidebar__back:hover {
+            background-color: var(--tertiary-system-fill);
+        }
+
+        /* Main Content Area */
+        .main-content {
+            flex: 1;
+            margin-left: 0;
+            margin-right: 0;
+            padding: 40px;
+            max-width: 900px;
+            min-height: calc(100vh - 80px);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        /* ========== Typography ========== */
+        h1 {
+            font-size: 34px;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            margin: 0 0 8px 0;
+            color: var(--label);
+        }
+
+        .hero-subtitle {
+            color: var(--secondary-label);
+            font-size: 17px;
+            margin-bottom: 40px;
+            font-weight: 400;
+        }
+
+        h2 {
+            font-size: 24px;
+            font-weight: 600;
+            margin: 40px 0 20px 0;
+            color: var(--label);
+        }
+
+        h3 {
+            font-size: 20px;
+            font-weight: 600;
+            margin: 0 0 16px 0;
+            color: var(--label);
+        }
+
+        /* ========== Cards ========== */
+        .card {
+            background-color: var(--secondary-system-background);
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 24px;
+        }
+
+        .top-pick {
+            border: 1px solid var(--system-blue);
+            position: relative;
+        }
+
+        .top-pick h3 {
+            color: var(--system-blue);
+            margin-top: 8px;
+        }
+
+        /* ========== Unified Bank Card Section ========== */
+        .bank-summary {
+            background: var(--secondary-system-background);
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 24px;
+        }
+
+        .bank-summary__grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 16px;
+            margin-top: 16px;
+        }
+
+        .bank-card {
+            background: var(--tertiary-system-fill);
+            border-radius: 12px;
+            padding: 16px;
+        }
+
+        .bank-card__name {
+            font-weight: 600;
+            font-size: 15px;
+            margin-bottom: 8px;
+            color: var(--label);
+        }
+
+        .bank-card__types {
+            font-size: 13px;
+            color: var(--secondary-label);
+        }
+
+        /* ========== Bullet Lists ========== */
+        .bullet-list {
+            list-style: none;
+            padding: 0;
+            margin: 12px 0;
+        }
+
+        .bullet-list li {
+            position: relative;
+            padding-left: 20px;
+            margin-bottom: 10px;
+            font-size: 15px;
+            color: var(--label);
+        }
+
+        .bullet-list li::before {
+            content: '•';
+            position: absolute;
+            left: 0;
+            color: var(--system-blue);
+            font-weight: bold;
+        }
+
+        .bullet-list li strong {
+            color: var(--label);
+        }
+
+        .bullet-list .sub-text {
+            display: block;
+            font-size: 13px;
+            color: var(--secondary-label);
+            margin-top: 4px;
+        }
+
+        /* ========== Warning Module ========== */
+        .warning-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .warning-item {
+            background-color: rgba(255, 59, 48, 0.08);
+            border-left: 4px solid var(--system-red);
+            padding: 14px 18px;
+            border-radius: 10px;
+            margin-bottom: 12px;
+        }
+
+        .warning-item__label {
+            color: var(--system-red);
+            font-weight: 700;
+            font-size: 14px;
+            margin-bottom: 6px;
+        }
+
+        .warning-item__text {
+            font-size: 14px;
+            color: var(--label);
+        }
+
+        /* ========== Step List ========== */
+        .step-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            counter-reset: step-counter;
+        }
+
+        .step-item {
+            position: relative;
+            padding-left: 48px;
+            margin-bottom: 24px;
+        }
+
+        .step-item::before {
+            counter-increment: step-counter;
+            content: counter(step-counter);
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 32px;
+            height: 32px;
+            background-color: var(--system-blue);
+            color: #fff;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 32px;
+            font-weight: 700;
+            font-size: 14px;
+        }
+
+        .step-item__title {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 6px;
+            color: var(--label);
+        }
+
+        .step-item__desc {
+            font-size: 14px;
+            color: var(--secondary-label);
+            margin: 0;
+        }
+
+        /* ========== Logos ========== */
+        .logo-row {
+            display: flex;
+            gap: 16px;
+            margin-top: 16px;
+            flex-wrap: wrap;
+        }
+
+        .card-logo {
+            height: 44px;
+            width: auto;
+            object-fit: contain;
+            border-radius: 8px;
+            background: #fff;
+            padding: 6px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+            transition: transform 0.2s;
+        }
+
+        .card-logo:hover {
+            transform: scale(1.05);
+        }
+
+        /* ========== Notice Box ========== */
+        .notice-box {
+            background: rgba(255, 149, 0, 0.1);
+            border-radius: 10px;
+            padding: 12px 16px;
+            margin-top: 16px;
+        }
+
+        .notice-box p {
+            margin: 0;
+            font-size: 14px;
+            color: var(--system-orange);
+        }
+
+        /* ========== Tip Box ========== */
+        .tip-box {
+            background: rgba(52, 199, 89, 0.1);
+            border-radius: 10px;
+            padding: 12px 16px;
+            margin-top: 12px;
+        }
+
+        .tip-box p {
+            margin: 0;
+            font-size: 14px;
+            color: var(--system-green);
+        }
+
+        /* ========== Responsive ========== */
+        @media (max-width: 768px) {
+            .sidebar {
+                display: none;
+            }
+            .main-content {
+                margin-left: 0;
+                margin-right: auto;
+                padding: 24px 16px;
+                min-height: auto;
+                display: block;
+            }
+            h1 { font-size: 28px; }
+            .bank-summary__grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="page-wrapper">
+    <!-- Sidebar Navigation -->
+    <aside class="sidebar">
+        <a href="../index.html" class="sidebar__back">← 返回首页</a>
+        <p class="sidebar__title">目录导航</p>
+        <ul class="sidebar__nav">
+            <li><a href="#recommend" class="active">核心推荐</a></li>
+            <li><a href="#bank-list">银行卡汇总</a></li>
+            <li><a href="#warnings">避坑指南</a></li>
+            <li><a href="#apply">申请流程</a></li>
+            <li><a href="#topup">充值使用</a></li>
+        </ul>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Hero -->
+        <header>
+            <h1>国际支付卡办理攻略</h1>
+        </header>
+
+        <!-- Section 1: Top Pick -->
+        <section id="recommend">
+            <h2>核心推荐</h2>
+            <div class="card top-pick">
+                <h3>中信银行 Master 单标借记卡</h3>
+                <ul class="bullet-list">
+                    <li><strong>推荐理由：</strong>激活稳定性最强，适配率最高</li>
+                    <li><strong>线下办理：</strong>前往中信银行网点，告知柜员办理"Master 单标借记卡"</li>
+                    <li><strong>线上办理：</strong>下载中信银行 APP，搜索"外币"或"出国金融"申请
+                        <span class="sub-text">约5天寄到，收到后需本人去柜台激活</span>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="card">
+                <h3>备选方案</h3>
+                <ul class="bullet-list">
+                    <li><strong>运通卡 (Amex)：</strong>工行、建行
+                        <span class="sub-text">建议：银联 + 运通双币卡优先，高端卡种，风控好，激活稳定</span>
+                    </li>
+                    <li><strong>Visa / Master 单标：</strong>中国银行、邮储银行
+                        <span class="sub-text">口碑良好，适合作为首选失败后的备用卡</span>
+                    </li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Section 2: Bank Card Summary -->
+        <section id="bank-list">
+            <h2>银行卡汇总（实测可用白名单）</h2>
+            <div class="bank-summary">
+                <div class="bank-summary__grid">
+                    <div class="bank-card">
+                        <div class="bank-card__name">中信银行</div>
+                        <div class="bank-card__types">Visa / Master 外币卡（Master 单标）</div>
+                    </div>
+                    <div class="bank-card">
+                        <div class="bank-card__name">中国银行</div>
+                        <div class="bank-card__types">Visa / Master 卡</div>
+                    </div>
+                    <div class="bank-card">
+                        <div class="bank-card__name">建设银行</div>
+                        <div class="bank-card__types">Visa / Master 外币卡</div>
+                    </div>
+                    <div class="bank-card">
+                        <div class="bank-card__name">农业银行</div>
+                        <div class="bank-card__types">Visa / Master 外币卡</div>
+                    </div>
+                    <div class="bank-card">
+                        <div class="bank-card__name">广发银行</div>
+                        <div class="bank-card__types">Visa / Master 信用卡 / 借记卡</div>
+                    </div>
+                    <div class="bank-card">
+                        <div class="bank-card__name">光大银行</div>
+                        <div class="bank-card__types">Visa 卡</div>
+                    </div>
+                    <div class="bank-card">
+                        <div class="bank-card__name">邮政储蓄</div>
+                        <div class="bank-card__types">Master 信用卡（全币种金卡等）</div>
+                    </div>
+                </div>
+                <div class="notice-box">
+                    <p><strong>⚠️ 招商银行：</strong>曾出现大面积无法使用（11/22 有恢复消息），建议作为备选</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 3: Warnings -->
+        <section id="warnings">
+            <h2>⛔ 关键避坑指南</h2>
+            <ul class="warning-list">
+                <li class="warning-item">
+                    <div class="warning-item__label">1. 基础账户 (必看)</div>
+                    <div class="warning-item__text">
+                        <ul class="bullet-list" style="margin: 0;">
+                            <li>外币卡通常是"二类户"，必须先有该行人民币"一类卡"</li>
+                            <li>如无一类卡，带身份证一次办两张卡 ￥账户对应的储蓄卡和外币卡</li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="warning-item">
+                    <div class="warning-item__label">2. 无人民币功能</div>
+                    <div class="warning-item__text">
+                        <ul class="bullet-list" style="margin: 0;">
+                            <li>Visa/Master 外币卡<strong>不能</strong>直接存人民币</li>
+                            <li>不能在国内普通 POS 机或 ATM 使用</li>
+                            <li>正确用法：手机银行购汇（美元）→ 转账到外币卡</li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="warning-item">
+                    <div class="warning-item__label">3. 和开卡人员的沟通</div>
+                    <div class="warning-item__text">
+                        <ul class="bullet-list" style="margin: 0;">
+                            <li><strong>推荐回答：</strong>"报考CFA/IT认证"、"购买正版软件/服务器"</li>
+                            <li style="color: var(--system-red);"><strong>禁忌：</strong>绝对不要提"交易"、"投资"、"炒币"</li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="warning-item">
+                    <div class="warning-item__label">4. 资金限制</div>
+                    <div class="warning-item__text">
+                        <ul class="bullet-list" style="margin: 0;">
+                            <li>办卡时争取<strong>$1000 - $2000</strong>以上非柜面交易额度</li>
+                            <li>额度过低（如$100）会导致支付大额账单受阻</li>
+                            <li>理由："考试费比较贵" "购物较贵"</li>
+                        </ul>
+                    </div>
+                </li>
+            </ul>
+        </section>
+
+        <!-- Section 4: Apply Process -->
+        <section id="apply">
+            <h2>线上申请流程（推荐路径）</h2>
+            <div class="card">
+                <ul class="step-list">
+                    <li class="step-item">
+                        <div class="step-item__title">下载中信银行 APP</div>
+                        <p class="step-item__desc">官方应用商店搜索"中信银行"下载安装</p>
+                    </li>
+                    <li class="step-item">
+                        <div class="step-item__title">搜索外币卡</div>
+                        <p class="step-item__desc">关键词："外币" 或 "出国金融"</p>
+                    </li>
+                    <li class="step-item">
+                        <div class="step-item__title">选择卡面并申请</div>
+                        <p class="step-item__desc">选择有如下logo的卡面，填写信息提交</p>
+                        <div class="logo-row">
+                    <img src="../assets/images/cbc5159b979f6c12ee99ea5d14b453b5.png" alt="visa_logo.png" class="card-logo">
+                    <img src="../assets/images/ff4e73956d1094d835e185d4fb8e165d.png" alt="master_logo.png" class="card-logo">
+                </div>
+                    </li>
+                    <li class="step-item">
+                        <div class="step-item__title">选择寄送方式</div>
+                        <p class="step-item__desc">邮寄到家或寄到网点均可</p>
+                    </li>
+                    <li class="step-item">
+                        <div class="step-item__title">柜台激活</div>
+                        <p class="step-item__desc">收到卡后，本人带身份证去网点"启用/激活"</p>
+                    </li>
+                </ul>
+
+            </div>
+        </section>
+
+        <!-- Section 5: Top-up & Usage -->
+        <section id="topup">
+            <h2>💸 如何"充值"与使用</h2>
+            <div class="card">
+                <ul class="step-list">
+                    <li class="step-item">
+                        <div class="step-item__title">购汇（买美元）</div>
+                        <p class="step-item__desc">
+                            登录手机银行 APP → 搜索"结售汇" → 选择"人民币购汇"（美元 USD）<br>
+                            <em>用途填写：建议选"因私旅游"或"留学/考试"</em>
+                        </p>
+                    </li>
+                    <li class="step-item">
+                        <div class="step-item__title">转账到外币卡</div>
+                        <p class="step-item__desc">
+                            购汇成功后，钱在主卡（一类卡）里<br>
+                            使用"转账"功能，将美元转入 Master / Visa 外币卡
+                        </p>
+                    </li>
+                    <li class="step-item">
+                        <div class="step-item__title">官网支付</div>
+                        <p class="step-item__desc">
+                            输入卡号、有效期、CVV 即可支付
+                        </p>
+                    </li>
+                </ul>
+                <div class="tip-box">
+                    <p><strong>💡 TIP：</strong>账单地址（Billing Address）填写国内开户预留地址即可，美国的地址验证主要防盗刷，对国内卡影响不大</p>
+                </div>
+            </div>
+        </section>
+
+    </main>
+</div>
+
+<!-- Layout Scripts -->
+<script src="../assets/js/scripts.js"></script>
+<script src="../assets/js/layout.js"></script>
+
+<script>
+    // Sidebar active state on scroll
+    document.addEventListener('DOMContentLoaded', function() {
+        const sections = document.querySelectorAll('section[id]');
+        const navLinks = document.querySelectorAll('.sidebar__nav a');
+        
+        function setActiveLink() {
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                if (window.scrollY >= sectionTop - 100) {
+                    current = section.getAttribute('id');
+                }
+            });
+            
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === '#' + current) {
+                    link.classList.add('active');
+                }
+            });
+        }
+        
+        window.addEventListener('scroll', setActiveLink);
+        setActiveLink();
+    });
+</script>
+</body>
+</html>

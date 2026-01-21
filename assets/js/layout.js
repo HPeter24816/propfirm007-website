@@ -31,7 +31,6 @@ document.addEventListener('DOMContentLoaded', () => {
                         <a href="#" class="header__link">平台规则</a>
                         <div class="header__dropdown">
                             <div class="header__dropdown-inner">
-                                <a href="${basePath}/pages/propfirm-introduction.html" class="dropdown-link">Propfirm操作指南</a>
                                 <a href="${basePath}/pages/lucid-rule.html" class="dropdown-link">Lucid</a>
                                 <a href="${basePath}/pages/topone-rule.html" class="dropdown-link">Topone futures</a>
                                 <a href="${basePath}/pages/Alpha-rule.html" class="dropdown-link">Alpha Futures</a>
@@ -41,12 +40,16 @@ document.addEventListener('DOMContentLoaded', () => {
                         </div>
                     </li>
 
-                    <!-- 攻略 -->
+                    <!-- 教程 -->
                     <li class="header__menu-item">
                         <a href="#" class="header__link">攻略</a>
                         <div class="header__dropdown">
                             <div class="header__dropdown-inner">
-                                <a href="${basePath}/pages/sign_up_platform.html" class="dropdown-link">新手完整攻略教程</a>
+                                <a href="${basePath}/pages/propfirm-introduction.html" class="dropdown-link">propfirm规则功略</a>
+                                <a href="${basePath}/pages/New.html" class="dropdown-link">保姆级新手攻略</a>
+                                <a href="${basePath}/pages/international_card.html" class="dropdown-link">国际支付卡办理攻略</a>
+                                <a href="${basePath}/pages/U_card.html" class="dropdown-link">U卡办理攻略</a>
+                                <a href="${basePath}/pages/sign_up_platform.html" class="dropdown-link">考试号购买攻略</a>
                             </div>
                         </div>
                     </li>
@@ -56,11 +59,11 @@ document.addEventListener('DOMContentLoaded', () => {
                         <a href="#" class="header__link">出金教程</a>
                         <div class="header__dropdown">
                             <div class="header__dropdown-inner">
-                                <a href="${basePath}/pages/W-8_BEN.html" class="dropdown-link">W-8 BEN 填写指南</a>
-                                <a href="${basePath}/pages/workmarket_sign_up.html" class="dropdown-link">WorkMarket 注册攻略</a>
-                                <a href="${basePath}/pages/wise_sign_up.html" class="dropdown-link">Wise 注册攻略</a>
-                                <a href="${basePath}/pages/wise_profile.html" class="dropdown-link">Wise 收款信息下载</a>
-                                <a href="${basePath}/pages/wise_payout.html" class="dropdown-link">Wise汇款攻略</a>
+                                <a href="${basePath}/pages/W-8_BEN.html" class="dropdown-link">W-8 BEN 填写教程</a>
+                                <a href="${basePath}/pages/workmarket_sign_up.html" class="dropdown-link">WorkMarket 注册教程</a>
+                                <a href="${basePath}/pages/wise_sign_up.html" class="dropdown-link">Wise 注册教程</a>
+                                <a href="${basePath}/pages/wise_profile.html" class="dropdown-link">Wise 账户信息下载</a>
+                                <a href="${basePath}/pages/wise_payout.html" class="dropdown-link">Wise 出金教程</a>
                                 <a href="${basePath}/pages/wise_problems.html" class="dropdown-link">Wise 常见问题</a>
                             </div>
                         </div>

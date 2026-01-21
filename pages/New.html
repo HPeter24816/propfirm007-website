@@ -1,0 +1,722 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>保姆级新手攻略 - Futures Propfirm 中文社区</title>
+	<link rel="icon" href="../assets/images/favicon.ico" type="image/x-icon">
+	<link rel="stylesheet" href="../assets/css/styles.css">
+	<style>
+		:root {
+			color-scheme: light dark;
+			--color-bg: #ffffff;
+			--color-bg-alt: #f2f2f7;
+			--color-text-primary: rgba(0, 0, 0, 1);
+			--color-text-secondary: rgba(0, 0, 0, 1);
+			--color-border: rgba(60, 60, 67, 0.29);
+			--color-accent: #007aff;
+			--color-accent-strong: #0a84ff;
+			--color-warning: #ff9500;
+			--color-danger: #ff3b30;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			:root {
+				--color-bg: #000000;
+				--color-bg-alt: #1c1c1e;
+				--color-text-primary: rgba(255, 255, 255, 1);
+				--color-text-secondary: rgba(255, 255, 255, 1);
+				--color-border: rgba(84, 84, 88, 0.6);
+				--color-accent: #0a84ff;
+				--color-accent-strong: #0a84ff;
+				--color-warning: #ff9f0a;
+				--color-danger: #ff453a;
+			}
+		}
+
+		body {
+			font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+			-webkit-font-smoothing: antialiased;
+			-moz-osx-font-smoothing: grayscale;
+			background: var(--color-bg);
+			color: var(--color-text-primary);
+		}
+
+		.guide-hero {
+			text-align: center;
+			padding: 40px 20px 20px;
+			background: linear-gradient(180deg, var(--color-bg-alt) 0%, var(--color-bg) 100%);
+		}
+
+		.hero-label {
+			display: inline-flex;
+			align-items: center;
+			gap: 6px;
+			padding: 4px 10px;
+			border-radius: 999px;
+			font-size: 11px;
+			font-weight: 600;
+			letter-spacing: 0.08em;
+			text-transform: uppercase;
+			color: var(--color-text-secondary);
+			background: rgba(0, 0, 0, 0.04);
+			margin-bottom: 12px;
+		}
+
+		.guide-hero h1 {
+			font-size: 36px;
+			font-weight: 700;
+			margin-bottom: 8px;
+			color: var(--color-text-primary);
+			letter-spacing: -0.01em;
+		}
+
+		.guide-hero p {
+			font-size: 16px;
+			color: var(--color-text-secondary);
+			max-width: 720px;
+			margin: 0 auto 16px;
+		}
+
+		.hero-actions {
+			display: flex;
+			justify-content: center;
+			gap: 12px;
+			flex-wrap: wrap;
+		}
+
+		.button--outline {
+			background: transparent;
+			border: 1px solid var(--color-border);
+			color: var(--color-text-primary);
+		}
+
+		.section-block {
+			padding: 24px 0;
+		}
+
+		.section-title {
+			font-size: 26px;
+			font-weight: 700;
+			text-align: center;
+			margin-bottom: 16px;
+		}
+
+		.section-subtitle {
+			text-align: center;
+			color: var(--color-text-secondary);
+			max-width: 760px;
+			margin: 0 auto 24px;
+			font-size: 15px;
+		}
+
+		.card-grid {
+			display: grid;
+			grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+			gap: 12px;
+		}
+
+		.info-card {
+			background: var(--color-bg);
+			border: 1px solid var(--color-border);
+			border-radius: 12px;
+			padding: 16px;
+			box-shadow: 0 4px 12px rgba(0,0,0,0.04);
+			display: flex;
+			flex-direction: column;
+			gap: 8px;
+			transition: transform 0.2s ease, box-shadow 0.2s ease;
+		}
+
+		.info-card:hover {
+			transform: translateY(-2px);
+			box-shadow: 0 12px 32px rgba(0,0,0,0.08);
+		}
+
+		.info-card h3 {
+			font-size: 17px;
+			font-weight: 600;
+			margin-bottom: 8px;
+		}
+
+		.info-card p {
+			color: var(--color-text-secondary);
+			font-size: 14.5px;
+			line-height: 1.65;
+		}
+
+		.info-card ul {
+			margin-top: 8px;
+			padding-left: 20px;
+			list-style: disc;
+		}
+
+		.info-card li {
+			color: var(--color-text-secondary);
+			font-size: 14px;
+			line-height: 1.6;
+			margin-bottom: 4px;
+		}
+
+		.quick-link {
+			max-width: 760px;
+			margin: 0 auto;
+			text-align: center;
+			background: var(--color-bg-alt);
+			border: 1px solid var(--color-border);
+			border-radius: 12px;
+			padding: 20px;
+			font-size: 15px;
+			color: var(--color-text-secondary);
+			line-height: 1.6;
+		}
+
+		.quick-link .button {
+			margin-top: 12px;
+		}
+
+		.rule-grid {
+			display: grid;
+			grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+			gap: 12px;
+			margin-top: 16px;
+		}
+
+		.rule-stack {
+			display: flex;
+			flex-direction: column;
+			gap: 16px;
+			margin-top: 24px;
+		}
+
+		.rule-card {
+			background: var(--color-bg-alt);
+			border-radius: 12px;
+			padding: 16px;
+			border: 1px solid var(--color-border);
+		}
+
+		.rule-card--split {
+			display: flex;
+			gap: 16px;
+			align-items: flex-start;
+		}
+
+		.rule-card__title {
+			flex: 0 0 120px;
+			display: grid;
+			gap: 4px;
+		}
+
+		.rule-card__label {
+			font-size: 11px;
+			text-transform: uppercase;
+			letter-spacing: 0.1em;
+			color: var(--color-text-secondary);
+		}
+
+		.rule-card__content {
+			flex: 1;
+			min-width: 0;
+		}
+
+		.rule-card h4 {
+			font-size: 16px;
+			font-weight: 700;
+			margin-bottom: 0;
+			color: var(--color-text-primary);
+		}
+
+		.rule-card p,
+		.rule-card li {
+			font-size: 14px;
+			color: var(--color-text-secondary);
+			line-height: 1.6;
+		}
+
+		.callout {
+			background-color: rgba(0, 122, 255, 0.08);
+			border-radius: 8px;
+			padding: 8px 12px;
+			margin-top: 8px;
+			position: relative;
+		}
+
+		.callout::before {
+			content: "";
+			position: absolute;
+			left: 0;
+			top: 0;
+			bottom: 0;
+			width: 3px;
+			border-radius: 8px 0 0 8px;
+			background-color: var(--color-accent);
+		}
+
+		.callout-title {
+			display: block;
+			font-weight: 700;
+			font-size: 11px;
+			letter-spacing: 0.03em;
+			text-transform: uppercase;
+			color: var(--color-accent);
+			margin-bottom: 4px;
+		}
+
+		.callout.callout-tip {
+			background: rgba(0, 122, 255, 0.08);
+		}
+
+		.callout.callout-warning {
+			background: rgba(255, 149, 0, 0.12);
+		}
+
+		.callout.callout-warning::before {
+			background-color: var(--color-warning);
+		}
+
+		.callout.callout-warning .callout-title {
+			color: var(--color-warning);
+		}
+
+		.callout.callout-danger {
+			background: rgba(255, 59, 48, 0.12);
+		}
+
+		.callout.callout-danger::before {
+			background-color: var(--color-danger);
+		}
+
+		.callout.callout-danger .callout-title {
+			color: var(--color-danger);
+		}
+
+		.note-box {
+			background: rgba(255, 149, 0, 0.12);
+			border: 1px solid rgba(255, 149, 0, 0.28);
+			border-radius: 12px;
+			padding: 12px 16px;
+			margin: 16px 0;
+			color: var(--color-text-primary);
+		}
+
+		.note-actions {
+			display: flex;
+			align-items: center;
+			gap: 12px;
+			margin-top: 12px;
+			flex-wrap: wrap;
+		}
+
+		.note-actions .button {
+			min-width: 140px;
+			justify-content: center;
+			text-align: center;
+			font-size: 13px;
+			padding: 8px 14px;
+		}
+
+		.inline-link {
+			font-weight: 600;
+		}
+
+		.payout-grid {
+			display: grid;
+			grid-template-columns: 1fr;
+			gap: 16px;
+			align-items: center;
+		}
+
+		.doc-layout {
+			display: grid;
+			grid-template-columns: 240px minmax(0, 1fr);
+			gap: 20px;
+			align-items: start;
+			padding: 20px 0 40px;
+		}
+
+		.doc-sidebar {
+			position: sticky;
+			top: 60px;
+			align-self: start;
+			background: var(--color-bg);
+			border: 1px solid var(--color-border);
+			border-radius: 12px;
+			padding: 16px 12px;
+			box-shadow: 0 4px 12px rgba(0,0,0,0.04);
+		}
+
+		.doc-sidebar--toc {
+			background: var(--color-bg-alt);
+		}
+
+		.doc-sidebar h4 {
+			font-size: 13px;
+			color: var(--color-text-secondary);
+			text-transform: uppercase;
+			letter-spacing: 0.08em;
+			margin-bottom: 8px;
+		}
+
+		.doc-tree {
+			display: grid;
+			gap: 8px;
+		}
+
+		.toc-list {
+			display: grid;
+			gap: 4px;
+			margin: 0;
+			padding: 0;
+			list-style: none;
+		}
+
+		.toc-list a {
+			display: block;
+			padding: 8px 10px;
+			border-radius: 8px;
+			text-decoration: none;
+			font-size: 13px;
+			font-weight: 600;
+			color: var(--color-text-primary);
+			background: #fff;
+			border: 1px solid transparent;
+			transition: background 0.2s ease, border 0.2s ease, transform 0.2s ease;
+		}
+
+		.toc-list a:hover {
+			border-color: var(--color-border);
+			transform: translateY(-1px);
+		}
+
+		.toc-list a.is-active {
+			background: var(--color-bg);
+			border-color: var(--color-border);
+		}
+
+		.doc-tree details {
+			display: grid;
+			gap: 4px;
+			padding: 6px 8px;
+			border-radius: 8px;
+			background: transparent;
+			border: 1px solid transparent;
+			transition: background 0.2s ease, border 0.2s ease;
+		}
+
+		.doc-tree details[open] {
+			background: var(--color-bg-alt);
+			border-color: var(--color-border);
+		}
+
+		.doc-tree summary {
+			cursor: pointer;
+			font-size: 13px;
+			font-weight: 600;
+			color: var(--color-text-primary);
+			list-style: none;
+		}
+
+		.doc-tree summary::-webkit-details-marker {
+			display: none;
+		}
+
+		.doc-tree summary::after {
+			content: "›";
+			float: right;
+			transform: rotate(90deg);
+			transition: transform 0.2s ease;
+			color: var(--color-text-secondary);
+		}
+
+		.doc-tree details:not([open]) summary::after {
+			transform: rotate(0deg);
+		}
+
+		.doc-tree a {
+			color: var(--color-text-primary);
+			font-size: 13px;
+			padding: 4px 8px;
+			border-radius: 6px;
+			text-decoration: none;
+			transition: background 0.2s ease, color 0.2s ease;
+		}
+
+		.doc-tree a:hover {
+			background: var(--color-bg);
+		}
+
+		.doc-tree a.is-active {
+			background: var(--color-bg);
+			font-weight: 600;
+			color: #111111;
+		}
+
+		.doc-content {
+			min-width: 0;
+			max-width: 880px;
+		}
+
+		.doc-title {
+			font-size: 20px;
+			font-weight: 700;
+			margin-bottom: 8px;
+			color: var(--color-text-primary);
+		}
+
+		.doc-hero {
+			padding: 12px 0 4px;
+		}
+
+		.doc-hero h2 {
+			font-size: 24px;
+			margin-bottom: 6px;
+		}
+
+		.doc-hero p {
+			font-size: 15px;
+			color: var(--color-text-secondary);
+			max-width: 760px;
+			line-height: 1.6;
+		}
+
+		.doc-section h2 {
+			font-size: 1.5rem;
+			line-height: 1.2;
+			padding-bottom: 0.4rem;
+			border-bottom: 1px solid var(--color-border);
+			margin-bottom: 0.8rem;
+		}
+
+		.doc-section h3 {
+			font-size: 1.2rem;
+			margin-top: 1.2rem;
+			margin-bottom: 0.6rem;
+		}
+
+		.section-divider {
+			height: 1px;
+			background: linear-gradient(90deg, transparent, var(--color-border), transparent);
+			margin: 24px 0;
+		}
+
+		@media (max-width: 1200px) {
+			.doc-layout {
+				grid-template-columns: minmax(0, 1fr);
+			}
+
+			.doc-sidebar--toc {
+				display: none;
+			}
+		}
+
+		@media (max-width: 980px) {
+			.doc-layout {
+				grid-template-columns: 1fr;
+			}
+
+			.doc-sidebar {
+				position: static;
+			}
+
+			.rule-card--split {
+				flex-direction: column;
+			}
+
+			.rule-card__title {
+				flex: none;
+			}
+		}
+
+		@media (max-width: 768px) {
+			.doc-layout {
+				grid-template-columns: 1fr;
+			}
+
+			.doc-sidebar {
+				display: none;
+			}
+		}
+	</style>
+</head>
+<body>
+	<main class="main">
+		<section class="guide-hero">
+			<div class="container">
+				<div class="hero-label">Article · Guide</div>
+				<h1>保姆级新手攻略</h1>
+				<p>如何通过交易赚美金？</p>
+				<div class="hero-actions">
+				</div>
+			</div>
+		</section>
+
+		<section class="section-block">
+			<div class="container doc-layout doc-section">
+				<aside class="doc-sidebar doc-sidebar--toc" aria-label="目录">
+					<h4>目录</h4>
+					<ul class="toc-list">
+						<li><a class="is-active" href="#prepare">第一部分：前期准备</a></li>
+						<li><a href="#practice">第二部分：购买流程</a></li>
+						<li><a href="#rules">第三部分：三大规则</a></li>
+						<li><a href="#payout">第四部分：出金</a></li>
+					</ul>
+				</aside>
+					<section class="section-block" id="prepare">
+						<div class="doc-title">第一部分：前期准备</div>
+						<div class="card-grid">
+							<article class="info-card">
+								<h3>1. 护照 (Passport)</h3>
+								<p>通过"小红书"搜索当地办理护照的教程，一般在支付宝"出入境办理"预约后，在预约时间内拿身份证线下办理。从办理到收到护照大约需要一星期。</p>
+								<ul>
+									<li>用于 KYC（Know Your Customer）身份核实验证</li>
+									<li>护照在国外平台验证通过率较高</li>
+								</ul>
+							</article>
+							<article class="info-card">
+								<h3>2. 身份证</h3>
+								<p>用于 KYC（Know Your Customer）身份核实验证。身份证在国外平台验证通过率较低，若无法通过 KYC 需要联系客服进行验证。</p>
+							</article>
+							<article class="info-card">
+								<h3>3. 加密货币钱包</h3>
+								<p>国内发行的 Visa/Mastercard 信用卡/借记卡不一定能支付考试费，若平台支持加密付款可使用加密钱包。部分平台的 payout 可以用加密地址接收赚取的利润。</p>
+								<ul>
+									<li>推荐支付币种：USDT (TRC-20) —— 手续费低</li>
+									<li>建议大型交易所钱包（如 okx/binance）</li>
+								</ul>
+							</article>
+							<article class="info-card">
+								<h3>4. 魔法/VPS</h3>
+								<p>IP 跳动风险：普通魔法 IP 地址可能是动态的，导致平台风控系统判定为"异地登录异常"。IP 关联风险：共享 IP 可能导致账号连坐被封。</p>
+								<ul>
+									<li>建议提前联系客服告知身处大陆，需使用魔法交易</li>
+									<li>使用 Tradovate 可以不用魔法</li>
+								</ul>
+							</article>
+							<article class="info-card">
+								<h3>5. 海外邮箱</h3>
+								<p>国内主流邮箱经常将海外系统通知邮件误判为垃圾邮件，导致无法准时接收验证码、考试通知等重要信息。</p>
+								<ul>
+									<li>首选：Gmail（谷歌邮箱）</li>
+									<li>次选：Outlook（微软邮箱）</li>
+								</ul>
+							</article>
+							<article class="info-card">
+								<h3>6. 国际支付卡 (Visa/Master/运通)</h3>
+								<p>绝大部分 Prop Firm 只能刷国际支付卡。中国大陆用户可选择：</p>
+								<ul>
+									<li>VISA/Master 银行：中国银行、邮储银行、中信银行、招商银行</li>
+									<li>银联双币卡（带 VISA 或 Master 标识）</li>
+									<li>U卡（如 Bybit、Safepal 等虚拟信用卡）</li>
+								</ul>
+							</article>
+						</div>
+						<div class="note-box">
+							<strong>什么是 Prop Firm？</strong> 
+							<a class="inline-link" href="../pages/propfirm_new.html" target="_blank">点击查看</a>
+							<div class="note-actions">
+								<a class="button button--primary" href="../pages/international_card.html" target="_blank">国际支付卡办理攻略</a>
+								<a class="button button--outline" href="../pages/U_card.html" target="_blank">U卡办理攻略</a>
+							</div>
+						</div>
+					</section>
+
+					<div class="section-divider"></div>
+
+					<section class="section-block" id="practice">
+						<div class="doc-title">第二部分：考试号购买流程</div>
+						<div class="quick-link">
+							<div>考试号购买流程请点击下方链接</div>
+							<a class="button button--primary" href="../pages/sign_up_platform.html" target="_blank">前往考试号购买流程</a>
+						</div>
+					</section>
+
+					<div class="section-divider"></div>
+
+					<section class="section-block" id="rules">
+						<div class="doc-title">第三部分：核心三大规则</div>
+						<div class="rule-stack">
+							<div class="rule-card rule-card--split">
+								<div class="rule-card__title">
+									<span class="rule-card__label"></span>
+									<h4>1. 回撤规则（Drawdown）</h4>
+								</div>
+								<div class="rule-card__content">
+									<p style="margin-bottom: 12px;">回撤是平台允许净值下跌的空间，主要分为四种：</p>
+									<p><strong>EOD（日终余额回撤）：</strong>只在每天收盘结算后更新高点和回撤线。日内只要不触发当日最大回撤就不违规。适合日内波动大但能控制日终结果的策略。</p>
+									<p><strong>TDD（实时追踪回撤）：</strong>实时根据账户权益（含浮盈）计算，创出更高权益时回撤线立即上移。一旦触线直接失败，最严格。Scalp 策略适合此类规则。</p>
+									<p><strong>EOT（交易结束回撤）：</strong>只在每笔交易平仓时更新净值高点与回撤线。浮盈浮亏过程不触发追踪。此模式极少见（不到1%平台）。</p>
+									<p><strong>静态回撤：</strong>回撤线固定不变。几乎所有平台账户在超过缓冲区后都会变成静态账户，如 50k 账户回撤始终锁定在 $50,100。</p>
+									<div class="callout callout-tip">
+										<span class="callout-title"> Tip</span>
+										<div>回撤越“追踪”，越严格；短线策略更适配 TDD 规则。</div>
+									</div>
+								</div>
+							</div>
+							<div class="rule-card rule-card--split">
+								<div class="rule-card__title">
+									<span class="rule-card__label"></span>
+									<h4>2. 一致性规则（Consistency）</h4>
+								</div>
+								<div class="rule-card__content">
+									<p style="margin-bottom: 12px;">一致性规则防止"赌博"行为，要求盈利相对均匀分布在多天或多笔交易中。</p>
+									<p><strong>常见要求：</strong></p>
+									<ul>
+										<li>至少 3-5 个交易日盈利，不能只在 1 天完成全部利润</li>
+										<li>单日盈利不超过总利润的 30%-50%</li>
+										<li>例如：目标 $3,000，平台规定单日最多占 50%，则单日账号盈利不超过 $1,500</li>
+									</ul>
+									<p><strong>举例：</strong>Lucid 50k 出金号出金门槛 $3,000，一致性 20%，单日最大盈利计算：3000×20%=600，单日盈利不超过 $600 即满足要求。若第一天赚 $3,000，利润总目标要求变高至 $6,000。</p>
+									<div class="callout callout-warning">
+										<span class="callout-title">重要提示</span>
+										<div>分散盈利天数，控制单日利润占比</div>
+									</div>
+								</div>
+							</div>
+							<div class="rule-card rule-card--split">
+								<div class="rule-card__title">
+									<span class="rule-card__label"></span>
+									<h4>3. 日内平仓</h4>
+								</div>
+								<div class="rule-card__content">
+									<p style="margin-bottom: 12px;">Futures Prop Firm 强制日内平仓：在规定时间前必须全部平掉持仓，不能隔夜。</p>
+									<ul>
+										<li>常见结算时间：北京时间次日 4:00 左右（不同平台略有差异）</li>
+										<li>90% 平台：到点未平仓系统自动平仓（触发自动平仓不算违规）</li>
+										<li>10% 平台：不会自动平仓，忘记平掉会直接违规失败（挂单也要撤掉）</li>
+									</ul>
+									<p><strong>建议：</strong>设定规定时间的闹钟执行平仓任务。</p>
+									<div class="callout callout-danger">
+										<span class="callout-title">⚠️ 警告</span>
+										<div>提前 5-10 分钟提醒，留出平仓与撤单时间。</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</section>
+
+					<div class="section-divider"></div>
+
+					<section class="section-block" id="payout">
+						<div class="doc-title">第四部分：出金</div>
+						<div class="rule-grid" style="grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));">
+							<div class="rule-card">
+								<h4>1. Wise 出金</h4>
+								<p>Wise 是主流的跨境汇款工具，支持多种货币转账，手续费相对较低。查看详细教程：<a href="../pages/wise_payout.html" target="_blank" class="inline-link">Wise 出金教程</a></p>
+							</div>
+							<div class="rule-card">
+								<h4>2. Crypto 出金</h4>
+								<p>部分平台支持加密货币出金，通过 USDT 等稳定币直接接收利润，速度快且无需银行账户。查看详细教程：<a href="../pages/crypto_payout.html" target="_blank" class="inline-link">Crypto 出金教程</a></p>
+							</div>
+						</div>
+					</section>
+				</div>
+
+			</div>
+		</section>
+	</main>
+
+	<script src="../assets/js/layout.js"></script>
+	<script src="../assets/js/scripts.js"></script>
+</body>
+</html>

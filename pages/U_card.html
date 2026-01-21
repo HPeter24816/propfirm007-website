@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SafePal Master 卡开户申领教程</title>
+    <!-- Favicon -->
+    <link rel="icon" href="../assets/images/favicon.ico" type="image/x-icon">
+    <!-- Global Assets -->
+    <link rel="stylesheet" href="../assets/css/styles.css">
+    
+    <!-- Tutorial Specific Styles -->
+    <style>
+        :root {
+            /* Apple/iOS Colors */
+            --ios-bg-light: #FFFFFF;
+            --ios-text-light: #1D1D1F;
+            --ios-card-light: #F5F5F7; /* System Gray 6ish */
+            --ios-accent-light: #0071E3; /* Apple Blue */
+            
+            --ios-bg-dark: #000000;
+            --ios-text-dark: #F5F5F7;
+            --ios-card-dark: #1C1C1E;
+            --ios-accent-dark: #0A84FF;
+            
+            --ios-secondary-text-light: #86868B;
+            --ios-secondary-text-dark: #86868B;
+            
+            --ios-divider-light: #D2D2D7;
+            --ios-divider-dark: #38383A;
+            
+            --ios-danger: #FF3B30;
+
+            /* Default to Light Mode */
+            --page-bg: var(--ios-bg-light);
+            --page-text: var(--ios-text-light);
+            --card-bg: var(--ios-card-light);
+            --accent: var(--ios-accent-light);
+            --secondary-text: var(--ios-secondary-text-light);
+            --divider: var(--ios-divider-light);
+            --code-bg: rgba(0,0,0,0.05);
+        }
+
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --page-bg: var(--ios-bg-dark);
+                --page-text: var(--ios-text-dark);
+                --card-bg: var(--ios-card-dark);
+                --accent: var(--ios-accent-dark);
+                --secondary-text: var(--ios-secondary-text-dark);
+                --divider: var(--ios-divider-dark);
+                --code-bg: rgba(255,255,255,0.1);
+            }
+        }
+
+        body {
+            background-color: var(--page-bg);
+            color: var(--page-text);
+            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            margin: 0;
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Wrapper for tutorial content */
+        .tutorial-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 40px 20px 100px;
+        }
+
+        /* Typography */
+        h1.tutorial-title {
+            font-size: 40px;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            margin-bottom: 40px;
+            color: var(--page-text);
+            text-align: center;
+        }
+
+        h2.section-title {
+            font-size: 30px;
+            font-weight: 600;
+            margin-top: 60px;
+            margin-bottom: 24px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid var(--divider);
+            color: var(--page-text);
+        }
+
+        h3.step-title {
+            font-size: 24px;
+            font-weight: 600;
+            margin-top: 40px;
+            margin-bottom: 16px;
+            color: var(--page-text);
+        }
+
+        p {
+            font-size: 17px;
+            margin-bottom: 16px;
+        }
+
+        ul, ol {
+            font-size: 17px;
+            margin-bottom: 24px;
+            padding-left: 24px;
+        }
+
+        li {
+            margin-bottom: 8px;
+        }
+
+        strong {
+            font-weight: 600;
+            color: var(--page-text);
+        }
+        
+        a {
+            color: var(--accent);
+            text-decoration: none;
+        }
+        
+        a:hover {
+            text-decoration: underline;
+        }
+
+        /* Blockquotes / Notes */
+        blockquote {
+            margin: 24px 0;
+            padding: 16px 24px;
+            background-color: var(--card-bg);
+            border-left: 4px solid var(--accent);
+            border-radius: 8px;
+            color: var(--page-text);
+            font-size: 16px;
+        }
+
+        /* Images */
+        .image-container {
+            margin: 30px 0;
+            border-radius: 18px;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            background-color: var(--card-bg);
+            padding: 20px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+        }
+
+        .image-container img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 12px;
+            display: block;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.12);
+        }
+        
+        /* Layout Adjustments for Layout.js */
+        .tutorial-wrapper {
+             padding-top: 64px; /* Standard header height adjustment */
+        }
+        
+        /* Specific Higlights */
+        .highlight-text {
+            color: var(--accent);
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+    <div class="tutorial-wrapper">
+    <main class="tutorial-container">
+        
+        <!-- Content based on U卡办理教程.md -->
+        <h1 class="tutorial-title">SafePal Master 卡开户申领攻略</h1>
+
+        <h2 class="section-title">一、 准备阶段</h2>
+        <p>在开始之前，请确保做好以下准备工作：</p>
+        <ul>
+            <li>
+                <strong>下载/更新 App</strong>：请确保通过官方渠道（<a href="https://safepal.com/zh-cn/download" target="_blank">safepal.com/zh-cn/download</a>）下载或更新 SafePal 钱包 App 至 v4.8.3 或更高版本。
+            </li>
+            <li>
+                <strong>证件准备</strong>：提前准备好有效身份证件。
+                <ul>
+                    <li>安卓用户：支持使用<strong>身份证</strong>。</li>
+                    <li>iOS 用户：建议优先使用<strong>护照</strong>。</li>
+                </ul>
+            </li>
+            <li>
+                 <strong>流程概览</strong>：
+                 <ul>
+                     <li>无论是否持有 SafePal 硬件钱包，均可直接在 App 内操作。</li>
+                     <li><strong>流程顺序</strong>：必须先开通银行账户，完成后方可申请万事达卡。</li>
+                     <li>所有流程均在 SafePal App 内一站式完成。</li>
+                 </ul>
+            </li>
+        </ul>
+
+        <h2 class="section-title">二、 SafePal 银行账户开户流程</h2>
+
+        <h3 class="step-title">1. 进入开户入口</h3>
+        <p>下载并安装 SafePal 钱包 APP 后，打开 APP，点击右上角「Bank」选项，然后点击「开始」。</p>
+        <div class="image-container">
+            <img src="../assets/images/Pasted image 20260121185752.png" alt="进入开户入口">
+        </div>
+        <p>点击「Sign to continue」，然后在身份验证弹出窗口点击「确认」，完成钱包签名。</p>
+        <div class="image-container">
+            <img src="../assets/images/Pasted image 20260121185803.png" alt="钱包签名">
+        </div>
+
+        <h3 class="step-title">3. 基础信息填写</h3>
+        <p>在注册页面，需要点亮以下选项并点击「Continue」：</p>
+        <ul>
+            <li><strong>地址确认</strong>：确认您在家或私人地址 (I am at home)</li>
+            <li><strong>证件确认</strong>：确认持有生物识别证件 (Passport or National ID)</li>
+            <li><strong>定位授权</strong>：打开手机 GPS 定位 (Activate my GPS)</li>
+        </ul>
+        <div class="image-container">
+            <img src="../assets/images/Pasted image 20260121185828.png" alt="基础信息填写">
+        </div>
+
+        <h3 class="step-title">4. 身份与居住地验证</h3>
+        <ul>
+            <li><strong>居住地与税务地</strong>：确认选择 China（或您的实际居住地）。</li>
+            <li><strong>证件选择</strong>：
+                <ul>
+                    <li>如果您是中国公民且使用<strong>安卓手机</strong>（带 NFC 功能），建议选择 <strong>National ID (中国二代身份证)</strong>。</li>
+                    <li>如果您是 <strong>iOS 用户</strong>，建议选择 <strong>Passport (护照)</strong>。</li>
+                </ul>
+            </li>
+            <li>点亮所有个人信息确认选项，点击「Continue」。</li>
+        </ul>
+        <div class="image-container">
+            <img src="../assets/images/Pasted image 20260121185840.png" alt="身份与居住地验证">
+        </div>
+
+        <h3 class="step-title">5. 合规性问卷</h3>
+        <p>在 "Can we serve you?" 页面，勾选以下所有合规选项 ：</p>
+        <ul>
+            <li>已满 18 岁 。</li>
+            <li>非朝鲜、伊朗或俄罗斯公民 。</li>
+            <li>非美国人 (Not an US Person) 。</li>
+            <li>过去两年本人或家属未从事政治或外交活动 。</li>
+            <li>接受使用条款和隐私政策 。</li>
+        </ul>
+        <div class="image-container">
+            <img src="../assets/images/Pasted image 20260121185924.png" alt="合规性问卷">
+        </div>
+
+        <h3 class="step-title">6. 账户用途与财务信息</h3>
+        <ul>
+            <li><strong>账户用途 (Purpose of the account)</strong>：建议勾选所有选项（Checking Account, Savings, Investment, Money Exchange 等），点击「Next」。</li>
+        </ul>
+        <div class="image-container">
+            <img src="../assets/images/Pasted image 20260121185950.png" alt="账户用途">
+        </div>
+        <ul>
+            <li><strong>风险与收入</strong>：如实填写个人职业（如 Self-employed）、行业（如 IT）、年收入情况等，点击「Next」。</li>
+            <li><strong>知情确认</strong>：点亮“账户归本人所有”等 2 个选项，点击「Next」。</li>
+        </ul>
+        <div class="image-container">
+            <img src="../assets/images/Pasted image 20260121190005.png" alt="知情确认">
+        </div>
+
+        <h3 class="step-title">7. 邮箱绑定与最终签名</h3>
+        <ol>
+            <li>输入您的邮箱地址，点击「Get Code」获取验证码</li>
+            <li>填入收到的验证码，点击「Expired Signature, sign again」</li>
+            <li>在弹出的身份验证窗口点击「确认」完成签名</li>
+            <li>签名完成后，点击「Submit」</li>
+        </ol>
+        <div class="image-container">
+            <img src="../assets/images/Pasted image 20260121190022.png" alt="邮箱绑定与最终签名">
+        </div>
+
+        <h3 class="step-title">8. 证件扫描与人脸识别 (KYC)</h3>
+        <p>进入身份验证环节（以安卓手机使用身份证为例）：</p>
+        <ol>
+            <li><strong>扫描二维码</strong>：点亮选项，使用带有 NFC 功能的安卓手机，在<strong>微信</strong>内扫描屏幕显示的二维码，进入验证小程序。</li>
+            <li><strong>上传证件</strong>：按照提示将身份证放在手机背面进行 NFC 扫描。</li>
+            <li><strong>人脸识别</strong>：完成人脸识别验证。</li>
+            <li><strong>完成</strong>：验证通过后，返回 SafePal App 点击「Click when you finish it」。</li>
+        </ol>
+        <p>注意：如果部分手机无法通过 ReadID App 上传，可使用电脑访问银行 KYC 网站 (<a href="https://id.fiat24.com/" target="_blank">https://id.fiat24.com/</a>) 获取二维码继续认证。</p>
+        <div class="image-container">
+            <img src="../assets/images/Pasted image 20260121190100.png" alt="KYC二维码">
+        </div>
+        <div class="image-container">
+            <img src="../assets/images/Pasted image 20260121190415.png" alt="KYC完成">
+        </div>
+
+        <h2 class="section-title">三、 SafePal 万事达卡申领流程</h2>
+        
+        <blockquote>
+            <strong>重要提示</strong>：
+            <ul>
+                <li>银行账户注册成功后，需等待约 <strong>1 天</strong>（最迟 2-3 天）方可看到申领入口。</li>
+                <li>激活万事达卡需保证银行账户内至少有 <strong>10 USD</strong> 资产。</li>
+            </ul>
+        </blockquote>
+
+        <h3 class="step-title">1. 申请卡片</h3>
+        <p>在 SafePal App 的「Bank」页面，点击「银行卡」图标或相关横幅即可申领联名万事达卡。</p>
+        <div class="image-container">
+            <img src="../assets/images/Pasted image 20260121190425.png" alt="申请卡片">
+        </div>
+
+        <h3 class="step-title">2. 卡片设置与使用</h3>
+        <p>申领成功后，可查看卡片信息及设置支付方式：</p>
+        <ul>
+            <li>
+                <strong>查看卡号</strong>：点击卡片上的眼睛图标，进行钱包签名授权后，即可查看完整卡号、有效期和 CVV 安全码。
+                <ul>
+                    <li>安全提示：请勿将 CVV 安全码泄露给任何人。</li>
+                </ul>
+            </li>
+            <li>
+                <strong>币种设置</strong>：支持 USD、RMB、EUR、CHF 四种货币。
+                <ul>
+                    <li><strong>国内消费</strong>：建议开启 <strong>RMB</strong>。</li>
+                    <li><strong>海外/国际服务</strong>：建议开启 <strong>USD</strong> 或其他对应货币，以减少换汇费用。</li>
+                </ul>
+            </li>
+        </ul>
+        <div class="image-container">
+            <img src="../assets/images/Pasted image 20260121190439.png" alt="卡片设置">
+        </div>
+
+    </main>
+    </div>
+
+    <!-- Scripts -->
+    <script src="../assets/js/layout.js"></script>
+    <script src="../assets/js/scripts.js"></script>
+</body>
+</html>
