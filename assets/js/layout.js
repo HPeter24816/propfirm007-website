@@ -97,9 +97,9 @@ document.addEventListener('DOMContentLoaded', () => {
                         </div>
                     </li>
 
-                    <!-- 交易训练 -->
+                    <!-- 交易工具 -->
                     <li class="header__menu-item">
-                        <a href="#" class="header__link">交易训练</a>
+                        <a href="#" class="header__link">交易工具</a>
                         <div class="header__dropdown">
                             <div class="header__dropdown-inner">
                                 <a href="${basePath}/pages/trading_tool.html" class="dropdown-link">交易日志</a>
