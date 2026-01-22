@@ -45,7 +45,8 @@ document.addEventListener('DOMContentLoaded', () => {
                         <a href="#" class="header__link">攻略</a>
                         <div class="header__dropdown">
                             <div class="header__dropdown-inner">
-                                <a href="${basePath}/pages/propfirm-introduction.html" class="dropdown-link">propfirm规则功略</a>
+                                <a href="${basePath}/pages/propfirm-introduction.html" class="dropdown-link">Propfirm规则攻略</a>
+                                <a href="${basePath}/pages/FAQ.html" class="dropdown-link">Propfirm常见问题</a>
                                 <a href="${basePath}/pages/New.html" class="dropdown-link">保姆级新手攻略</a>
                                 <a href="${basePath}/pages/international_card.html" class="dropdown-link">国际支付卡办理攻略</a>
                                 <a href="${basePath}/pages/U_card.html" class="dropdown-link">U卡办理攻略</a>

@@ -364,52 +364,17 @@
     </div>
     <ul class="nav-list">
      <li class="nav-item">
-      <a class="nav-link active" href="#intro">
-       基础规则指南
-      </a>
-     </li>
-     <li class="nav-item">
-      <a class="nav-link" href="#part-one">
-    三大核心规则
+      <a class="nav-link" href="#part-two">
+       常见问题
       </a>
       <ul class="sub-nav">
-       <li>
-        <a class="nav-link" href="#rule-drawdown">
-         1. 回撤规则
-        </a>
-        <ul class="sub-nav">
-         <li>
-          <a class="nav-link" href="#drawdown-eod">
-           (1) EOD
-          </a>
-         </li>
-         <li>
-          <a class="nav-link" href="#drawdown-tdd">
-           (2) TDD
-          </a>
-         </li>
-         <li>
-          <a class="nav-link" href="#drawdown-eot">
-           (3) EOT
-          </a>
-         </li>
-         <li>
-          <a class="nav-link" href="#drawdown-static">
-           (4) 静态回撤
-          </a>
-         </li>
-        </ul>
-       </li>
-       <li>
-        <a class="nav-link" href="#rule-consistency">
-         2. 一致性规则
-        </a>
-       </li>
-       <li>
-        <a class="nav-link" href="#rule-flat">
-         3. 日内平仓
-        </a>
-       </li>
+       <li><a class="nav-link" href="#q1">1. 如何支付</a></li>
+       <li><a class="nav-link" href="#q2">2. 日损（Daily Loss Limit）</a></li>
+       <li><a class="nav-link" href="#q3">3. 出金号缓冲区</a></li>
+       <li><a class="nav-link" href="#q4">4. 缓冲区与静态回撤</a></li>
+       <li><a class="nav-link" href="#q5">5. 什么是 KYC</a></li>
+       <li><a class="nav-link" href="#q6">6. KYC 注意事项</a></li>
+       <li><a class="nav-link" href="#q7">7. 数据平台选择</a></li>
       </ul>
      </li>
     </ul>
@@ -419,350 +384,125 @@
     <div class="breadcrumbs">
     </div>
     <article>
-     <section id="part-one">
+     <section id="part-two">
       <h2>
-       三大核心规则
+       常见问题
       </h2>
-      <p>
-       Futures Propfirm三大核心规则：
-       <strong>
-        最大回撤规则（Drawdown）
-       </strong>
-       、
-       <strong>
-        一致性规则（Consistency）
-       </strong>
-       和
-       <strong>
-        日内平仓（Flat at Close）
-       </strong>
-       。
-      </p>
-      <div class="callout callout-warning">
-       <span class="callout-title">
-        重要提示
-       </span>
+      <div id="qa-list">
+       <h3 id="q1">1. 如何支付</h3>
        <p>
-        为了避免因不熟悉账号规则而导致爆仓，所有Prop Firm交易员都必须围绕三大核心规则，建立并遵守严格的交易纪律。
-       </p>
-      </div>
-      <h3 id="rule-drawdown">
-       1. 最大回撤规则（Drawdown Rule）
-      </h3>
-      <p>
-       <strong>最大回撤</strong>是指账号净值与账号爆仓线之间的距离，且账号爆仓线会随着不同的回撤规则而发生移动。所有平台的回撤规则主要分为四种：
-      </p>
-      <h4 id="drawdown-eod">
-       (1) EOD（日终余额回撤，End of Day）
-      </h4>
-      <p>
-       <strong>EOD 回撤</strong>指的是<strong>爆仓线的计算仅在每个交易日结束（收盘）时更新</strong>,账号爆仓线以前一个交易日的<strong>结算余额</strong>（Close Balance）为准。
-      </p>
-      <div class="callout callout-tip">
-       <span class="callout-title">
-        💡 举例
-       </span>
-       <p>
-        50K 账户，最大回撤 $2,000。
+        绝大部分 Prop Firm <strong>只能刷国际信用卡（VISA 万事达）</strong>。常见解决方案：
        </p>
        <ul>
         <li>
-         初始账号爆仓线：$48,000
+         <strong>中国大陆用户：</strong><br>
+         1. VISA 银行：中国银行 邮储银行 中信银行 招商银行<br>
+         2. Master 卡 银行：中国银行 邮储银行 中信银行 招商银行<br>
+         3. 银联双币卡（带有 VISA 或 Master 标识的银联卡）<br>
+         4. U卡（如Bybit、Safepal等第三方支付平台发行的虚拟信用卡）
         </li>
         <li>
-         第一天收盘：$51,200 → 新高点 $51,200
-        </li>
-        <li>
-         第一天收盘账号爆仓线：$49,200
-        </li>
-        <li>
-         第二天盘中任何时刻净值低于对应回撤线（$49,200）→ 挑战失败。
+         <strong>海外 / 港澳 / 有外币账户用户：</strong>
+         港卡、境外银行卡直接 VISA/Master 支付。
         </li>
        </ul>
-       <p>
-        在收盘前创新高之后发生利润回撤
-       </p>
+       <div class="callout callout-danger">
+        <span class="callout-title">⚠️ 警告</span>
+        <p><strong>任何平台都禁止非本人的卡付款</strong>。会直接影响到 payout。</p>
+       </div>
+       <div style="margin-top: 1.5rem; display: flex; gap: 1rem; flex-wrap: wrap;">
+           <a href="international_card.html" style="display: inline-block; padding: 8px 16px; background-color: var(--accent-blue); color: #fff; border-radius: 6px; text-decoration: none; font-weight: 500;">国际支付卡办理攻略</a>
+           <a href="U_card.html" style="display: inline-block; padding: 8px 16px; background-color: var(--accent-blue); color: #fff; border-radius: 6px; text-decoration: none; font-weight: 500;">U卡办理攻略</a>
+       </div>
+
+       <h3 id="q2">2. 日损（Daily Loss Limit）</h3>
+       <p>日损是<strong>单个交易日最多允许亏多少</strong>。当日亏损金额超过要求，账号会被强平，当天无法交易，需要等到第二天才允许交易。</p>
+       <div class="callout callout-tip">
+           <span class="callout-title">💡 举例</span>
+           <p><strong>50K账号, 日损 $1,200</strong></p>
+           <ul>
+               <li>第一天 12:00 盘中交易：$50,000 → 盘中账号余额 $48,000 （仓位未平仓）</li>
+               <li>自动平仓：平台自动平仓</li>
+               <li>第一天 12:01 账号无法进行交易</li>
+               <li>第二天 06:00 账号恢复正常，可以进行交易</li>
+           </ul>
+       </div>
+
+       <h3 id="q3">3. 出金号缓冲区</h3>
+       <p>缓冲区是指通过考试的出金号中<strong>必须保留的最低利润</strong>，也常被称为“Buffer”或“垫子”。</p>
        <ul>
-        <li>
-         初始账号爆仓线：$48,000
-        </li>
-        <li>
-         第一天收盘：$50,000 →新高点 $51,200 → 利润回撤到51,000
-        </li>
-        <li>
-         第一天收盘结算账号爆仓线: $49,000
-        </li>
-        <li>
-         第二天盘中任何时刻账号余额低于对应爆仓线（$49,000）→ 挑战失败
-        </li>
+           <li><strong>最低起提线：</strong> 只有当账号总盈利 <strong>&gt;</strong> 缓冲区金额时，你才有资格申请提现。</li>
+           <li><strong>可提现金额计算：</strong><br>
+               <code>可提现金额 = 总利润 - 缓冲区金额</code>
+           </li>
+           <li><strong>缓冲区（安全垫）作用：</strong> <strong>最低利润</strong>留在账号里，是为了防止由于一次亏损就直接导致账号爆仓（触及账号爆仓线）。</li>
        </ul>
-      </div>
-      <h4 id="drawdown-tdd">
-       (2) TDD（实时 Trailing Drawdown，实时追踪回撤）
-      </h4>
-      <p>
-       账号爆仓线随盘中最高利润实时上移，且爆仓线一直抬高
-      </p>
-      <ul>
-       <li>
-        追踪已平仓的余额
-       </li>
-       <li>
-        追踪盘中未平仓的浮动盈亏,一旦账号在盘中创造了最高的资金量，账号爆仓线就会同步上移。
-       </li>
-      </ul>
-      <div class="callout callout-tip">
-       <span class="callout-title">
-        💡 举例
-       </span>
-       <p>
-        初始账号爆仓线：$48,000
-       </p>
+
+       <h3 id="q4">4. 缓冲区与回撤线的关系（静态回撤）</h3>
+       <p>缓冲区与<strong>回撤锁定（Drawdown Lock）</strong>机制配合使用：</p>
        <ul>
-        <li>
-         第一天盘中：做多，账号<strong>盘中最高浮盈（未平仓）</strong> 触及 $51,200
-        </li>
-        <li>
-         第一天盘中账号爆仓线：<strong>立即上移至 $49,200</strong> （$51,200 - $2,000）
-        </li>
-        <li>
-         第一天收盘：在高点平仓，余额 $51,200。
-        </li>
-        <li>
-         <strong>结果</strong>：爆仓线锁定在 $49,200。
-        </li>
+           <li><strong>初始阶段（移动回撤）：</strong> 出金号在还没到达缓冲区要求之前，出金号爆仓线会跟随盈利上涨，爆仓线的计算方式详见 <a href="propfirm-introduction.html">[三大规则]</a>。</li>
+           <li><strong>达标阶段（锁定）：</strong> 当账号余额达到“初始资金 + 缓冲区”时，平台通常会在次日结算，将最大回撤线(账号爆仓线)永久锁定在<strong>初始资金余额</strong>（或初始资金 + $100）。</li>
+           <li><strong>结果：</strong> 此时账号爆仓线变成了<strong>静态回撤</strong>。只要账号余额不跌破账号爆仓线，账号就是安全的。</li>
        </ul>
-       <p>
-        在收盘前创新高之后发生利润回撤
-       </p>
+
+       <div class="callout callout-tip">
+           <span class="callout-title">💡 举例</span>
+           <p>
+               <strong>设定：</strong> 账号规模 $50,000 / 缓冲区 $2,000 / 回撤锁定线 $50,100 / 最大亏损限制 $2,000
+           </p>
+           
+           <h4>场景 A：未达到缓冲区前（回撤线跟随）</h4>
+           <ul>
+               <li><strong>第一天 22:00 盘中交易：</strong> $50,000 → 赚取利润，余额变为 <strong>$51,000</strong>。</li>
+               <li><strong>回撤线变动：</strong> 此时最大回撤线从 $48,000 上移至 <strong>$49,000</strong>（假设是 2K 动态回撤）。</li>
+               <li><strong>提现权限：</strong> 此时盈利仅 $1,000，未达 $2,000 缓冲区，<strong>无法申请出金</strong>。</li>
+               <li><strong>状态：</strong> 账号继续交易。</li>
+           </ul>
+
+           <h4>场景 B：达到缓冲区并锁定回撤（形成“垫子”）</h4>
+           <ul>
+               <li><strong>第二天 23:00 交易结束：</strong> 账号余额达到 <strong>$52,500</strong>（盈利 $2,500，超过缓冲区）。</li>
+               <li><strong>次日 06:00 结算：</strong> 平台触发规则，将回撤线锁定在 <strong>$50,100</strong>。</li>
+               <li><strong>第三天 10:00 盘中交易：</strong> 账户余额由 $52,500 跌至 <strong>$50,500</strong>。</li>
+               <li><strong>结果：</strong> 虽然账户回撤了 $2,000，但因为回撤线已锁定在 $50,100，<strong>账号依然存活</strong>。</li>
+               <li><strong>提现权限：</strong> 虽然账户存活，但因当前盈利（$500）低于缓冲区（$2,000），暂时无法提取这 $500。</li>
+           </ul>
+
+           <h4>场景 C：触及锁定后的回撤线</h4>
+           <ul>
+               <li><strong>第四天 15:00 盘中交易：</strong> 账户余额由 $50,500 跌至 <strong>$50,050</strong>。</li>
+               <li><strong>自动平仓：</strong> 触及锁定回撤线（$50,100），平台强制平仓。</li>
+               <li><strong>第四天 15:01：</strong> 挑战失败。</li>
+           </ul>
+       </div>
+
+       <h3 id="q5">5. 什么是 KYC，优先用护照</h3>
+       <p>KYC 是国外核实客户真实身份的法定流程。在通过考核或者出金前触发 KYC 认证。</p>
+       <p>护照上面的注册姓名通常为英文拼音有助于平台识别，并且护照在国际上比身份证通用。</p>
+
+       <h3 id="q6">6. KYC注意事项</h3>
        <ul>
-        <li>
-         初始账号爆仓线：$48,000
-        </li>
-        <li>
-         第一天盘中：
-         <ol>
-          <li>
-           <strong>冲高</strong>：盘中最高浮盈触及 <strong>$51,200</strong> → 爆仓线<strong>立即</strong>上移至 <strong>$49,200</strong>。
-          </li>
-          <li>
-           <strong>回落</strong>：随后行情回调，利润回吐，最终平仓（或收盘）在 <strong>$51,000</strong>。
-          </li>
-         </ol>
-        </li>
-        <li>
-         第一天收盘账号爆仓线：<strong>$49,200</strong>（<strong>注意！线是跟着$51,200走的，而不是$51,000</strong>）。
-        </li>
-        <li>
-         <strong>结果</strong>：虽然你账户里有 $51,000，但因为爆仓线卡在 $49,200，你第二天的实际可用亏损空间只剩下 <strong>$1,800</strong>（$51,000 - $49,200），而不是 $2,000。
-        </li>
+           <li><strong>支付卡信息：</strong> <strong>严禁</strong>使用他人银行卡付款。付款卡姓名必须与 KYC 证件姓名一致。</li>
+           <li>需填写<strong>英文地址</strong>（可使用翻译工具转换，确保逻辑准确）。</li>
+           <li><strong>禁多 KYC套利：</strong> 严禁利用他人身份开立多套账户进行<strong>对冲</strong>或<strong>共同复制交易</strong>。</li>
+           <li>
+               <strong>防封锁隔离：</strong> 若合法持有/管理多个 KYC 账户，必须在以下三个方面账号隔离：
+               <ul>
+                   <li><strong>交易行为：</strong> 避免同品种、同时间、同方向的完全同步操作。</li>
+                   <li><strong>网络环境：</strong> 独立 IP 地址（避免共用同一 WiFi）。</li>
+                   <li><strong>硬件设备：</strong> 独立的电脑或移动设备。</li>
+               </ul>
+           </li>
+           <li>进行 KYC 验证时，<strong>周围不要有其他人</strong>。系统全程开启摄像头进行扫描，若拍摄到他人，平台将直接拒绝通过 KYC。</li>
        </ul>
-      </div>
-      <div class="callout callout-warning">
-       <span class="callout-title">
-        ⚠️ 实战影响
-       </span>
-       <p>
-        Scalp交易策略适合这类回撤规则
-       </p>
-      </div>
-      <h4 id="drawdown-eot">
-       (3) EOT（End of Trade）
-      </h4>
-      <p>
-       爆仓线仅在平仓（Close Trade）后，根据账号余额的变化进行更新。
-      </p>
-      <div class="callout callout-tip">
-       <span class="callout-title">
-        💡 举例
-       </span>
-       <p>
-        50K 账户，最大回撤 $2,000。
-       </p>
+
+       <h3 id="q7">7. CQG数据 Rithmic数据平台选择</h3>
+       <p>两者数据对应的交易软件不同：</p>
        <ul>
-        <li>
-         初始账号爆仓线：<strong>$48,000</strong>
-        </li>
-        <li>
-         第一天:买入后，<strong>盘中浮盈</strong>达到 +$2,000（账号余额 $52,000）。
-        </li>
-        <li>
-         初始账号爆仓线：<strong>$48,000</strong>
-        </li>
-        <li>
-         <strong>回落</strong>：行情回落，浮盈缩水至 +$1,000。
-        </li>
-        <li>
-         <strong>平仓</strong>：止盈平仓，账户余额变为 <strong>$51,000</strong>
-        </li>
-        <li>
-         账号爆仓线：<strong>$49,000</strong>
-        </li>
+           <li><strong>普通交易员选 CQG 数据：</strong> 可使用 Tradovate、Ninjatrader、Tradingview 进行交易，更符合现代软件的使用，学习难度极低。</li>
+           <li><strong>订单流交易员使用 Atas 软件：</strong> 选用 Rithmic 数据。</li>
        </ul>
-      </div>
-      <h4 id="drawdown-static">
-       (4) 静态回撤（Static Drawdown）
-      </h4>
-      <p>
-       静态回撤的<strong>账号爆仓线是固定不变的</strong>，无论账号盈利多少，这条线永远固定,不会上移。
-      </p>
-      <div class="callout callout-tip">
-       <span class="callout-title">
-        💡 举例
-       </span>
-       <p>
-        50K 账户，静态最大回撤 $2,000
-       </p>
-       <ul>
-        <li>
-         初始账号爆仓线：$48,000
-        </li>
-        <li>
-         第一天收盘：$51,200 → 新高点 $51,200
-        </li>
-        <li>
-         第一天收盘结算账号爆仓线: $48,000
-        </li>
-        <li>
-         第二天：$51,200 →$52,200
-        </li>
-        <li>
-         第二天收盘结算账号爆仓线: $48,000
-        </li>
-       </ul>
-      </div>
-      <h3 id="rule-consistency">
-       2. 一致性规则（Consistency Rule）
-      </h3>
-      <p>
-       对于平台来说他们需要确保利润是靠稳定的策略赚来的，而不是靠一两把梭哈赌出来的。
-      </p>
-      <ul>
-       <li>
-        1.单日盈利不超过总利润的 30%–50%。
-       </li>
-       <li>
-        2.一致性分为两类计算公式
-        <ul>
-         <li>
-          <code>a.一致性 = 单日最大盈利 / 当前总利润</code>
-         </li>
-         <li>
-          <code>b.一致性 = (单日最大盈利 + 单日最大亏损) / 当前总利润</code>
-         </li>
-        </ul>
-       </li>
-       <li>
-        3.因为一致性的存在，所以无法一日通关需要多日积累利润通关，至少需要3-5个交易日
-       </li>
-      </ul>
-      <div class="callout callout-tip">
-       <span class="callout-title">
-        💡 举例
-       </span>
-       <p>
-        以a类公式为例
-       </p>
-       <ul>
-        <li>
-         <strong>账号总利润目标</strong>：$3,000
-        </li>
-        <li>
-         <strong>一致性要求</strong>：50%
-        </li>
-        <li>
-         <strong>核心计算公式</strong>：
-         <code>一致性 = 单日最大盈利 / 当前总利润</code>
-        </li>
-       </ul>
-      </div>
-      <div class="callout callout-tip">
-       <span class="callout-title">
-         达标一致性要求
-       </span>
-       <p>
-        为了在达到账号总利润目标（$3,000），单日的盈利不能占据总利润过大的比例。
-       </p>
-       <ul>
-        <li>
-         <strong>单日最大盈利上限</strong>：$3,000 × 50% = $1,500
-        </li>
-        <li>
-         <strong>规则判定</strong>：
-         只要在通关时的<strong>任意单日盈利不超过 $1,500</strong>，且总利润达到 $3,000，即符合一致性要求，可通过考核。
-        </li>
-       </ul>
-      </div>
-      <div class="callout callout-warning">
-       <span class="callout-title">
-        ⚠️ 单日盈利日超标
-       </span>
-       <p>
-        如果某日的盈利过高，超过50%一致性，需要在当日通过亏损来降低一致性，若当日没降低一致性，则<strong>账号总利润目标</strong>增加
-       </p>
-       <ul>
-        <li>
-         <strong>超标场景</strong>：假设某天的单日盈利达到了 <strong>$1,800</strong>。此时的一致性计算为：
-         <code>1800 / 3000 = 60%</code>
-         (60% > 50%，违反规则，无法在 3000 处通关)
-        </li>
-        <li>
-         <strong>账号总利润目标增加</strong>：
-         需要继续交易，增加账号总利润，直到那笔 $1,800 的盈利占比降回 50% 以下。
-         <br>
-         <code>新通关目标 = 单日最大盈利 / 一致性比例 = $1800 / 50% = $3600</code>
-        </li>
-        <li>
-         <strong>最终</strong>：
-         由于单日赚了 $1,800，<strong>账号总利润目标</strong>从原来的 <strong>$3,000</strong> 动态提高到了 <strong>$3,600</strong>
-        </li>
-        <li>
-         <strong>解决方案</strong>：
-         <ol>
-          <li>超标当日主动亏损降低盈利</li>
-          <li>完成额外增加的利润要求 即后续完成3600目标</li>
-         </ol>
-        </li>
-       </ul>
-      </div>
-      <h3 id="rule-flat">
-       3. 日内平仓（Flat at Close）
-      </h3>
-      <p>
-       交易者必须在当天的交易时段结束前，将所有多单或空单全部平仓，不能留有任何仓位过夜，并且<strong>禁止有挂单</strong>。
-      </p>
-      <p>
-       <strong>目的：</strong> 避免<strong>第二天的隔夜跳空</strong>。
-      </p>
-      <div class="callout callout-warning">
-       <span class="callout-title">
-        重要提示
-       </span>
-       <ul>
-        <li>
-         1.<strong>80%的平台</strong>会在收盘前自动平仓，不违规
-        </li>
-        <li>
-         2.<strong>20%的平台</strong>不会自动平仓，交易员在收盘前忘记平仓算违规，即账号考核失败
-        </li>
-        <li>
-         3.在收盘前<strong>禁止有多单和空单挂着</strong>
-        </li>
-        <li>
-         4.各个平台的要求平仓时间不同，有些平台凌晨4：00，有些平台规则是3：30
-        </li>
-       </ul>
-       <p style="margin-top: 10px;">
-        <strong>芝加哥交易所正常收盘时间</strong>：北京时间凌晨<strong>4:00</strong>
-       </p>
-      </div>
-      <div class="callout callout-tip">
-       <span class="callout-title">
-        💡 解决措施
-       </span>
-       <p>
-        在每日固定时间设定闹钟检查仓位和挂单情况
-       </p>
       </div>
      </section>
     </article>
