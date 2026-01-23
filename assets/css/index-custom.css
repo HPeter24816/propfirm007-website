@@ -28,12 +28,16 @@
 .hero__actions {
     display: flex;
     justify-content: center;
+    flex-wrap: wrap;
     gap: 24px;
     margin-bottom: 24px;
 }
 
 .hero__actions--last {
     margin-bottom: 60px;
+    max-width: 980px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .hero__links {

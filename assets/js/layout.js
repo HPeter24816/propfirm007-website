@@ -79,6 +79,8 @@ document.addEventListener('DOMContentLoaded', () => {
                                 <a href="${basePath}/pages/book.html" class="dropdown-link">书籍清单</a>
                                 <a href="${basePath}/pages/studying-resource.html" class="dropdown-link">价格行为资源</a>
                                 <a href="https://wcnrxdhlalep.feishu.cn/base/AIuQbo6skabINvsuDT3c9wWRnvg?from=from_copylink" class="dropdown-link" target="_blank">复盘模板</a>
+                                <a href="https://ima.qq.com/wiki/?shareId=e94ad0077a20013e1dccbb6e5a3803fc4d8a901cc5eab950ffd67c4af502c052" class="dropdown-link" target="_blank">ima国内核心课AI知识库</a>
+                                <a href="https://notebooklm.google.com/notebook/561b4504-eb4e-4fdb-a177-ecbd3967bb0c" class="dropdown-link" target="_blank">PA核心课AI知识库</a>
                             </div>
                         </div>
                     </li>
@@ -103,6 +105,8 @@ document.addEventListener('DOMContentLoaded', () => {
                         <div class="header__dropdown">
                             <div class="header__dropdown-inner">
                                 <a href="${basePath}/pages/trading_tool.html" class="dropdown-link">交易日志</a>
+                                <a href="https://notebooklm.google.com/notebook/561b4504-eb4e-4fdb-a177-ecbd3967bb0c" class="dropdown-link" target="_blank">PA核心课AI知识库</a>
+                                <a href="https://ima.qq.com/wiki/?shareId=e94ad0077a20013e1dccbb6e5a3803fc4d8a901cc5eab950ffd67c4af502c052" class="dropdown-link" target="_blank">ima国内核心课AI知识库</a>
                             </div>
                         </div>
                     </li>
