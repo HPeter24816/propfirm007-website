@@ -47,7 +47,7 @@ document.addEventListener('DOMContentLoaded', () => {
                             <div class="header__dropdown-inner">
                                 <a href="${basePath}/pages/propfirm-introduction.html" class="dropdown-link">Propfirm规则攻略</a>
                                 <a href="${basePath}/pages/FAQ.html" class="dropdown-link">Propfirm常见问题</a>
-                                <a href="${basePath}/pages/New.html" class="dropdown-link">保姆级新手攻略</a>
+                                <a href="${basePath}/pages/New.html" class="dropdown-link">Propfirm保姆级新手攻略</a>
                                 <a href="${basePath}/pages/international_card.html" class="dropdown-link">国际支付卡办理攻略</a>
                                 <a href="${basePath}/pages/U_card.html" class="dropdown-link">U卡办理攻略</a>
                                 <a href="${basePath}/pages/sign_up_platform.html" class="dropdown-link">考试号购买攻略</a>
@@ -79,8 +79,7 @@ document.addEventListener('DOMContentLoaded', () => {
                                 <a href="${basePath}/pages/book.html" class="dropdown-link">书籍清单</a>
                                 <a href="${basePath}/pages/studying-resource.html" class="dropdown-link">价格行为资源</a>
                                 <a href="https://wcnrxdhlalep.feishu.cn/base/AIuQbo6skabINvsuDT3c9wWRnvg?from=from_copylink" class="dropdown-link" target="_blank">复盘模板</a>
-                                <a href="https://ima.qq.com/wiki/?shareId=e94ad0077a20013e1dccbb6e5a3803fc4d8a901cc5eab950ffd67c4af502c052" class="dropdown-link" target="_blank">ima国内核心课AI知识库</a>
-                                <a href="https://notebooklm.google.com/notebook/561b4504-eb4e-4fdb-a177-ecbd3967bb0c" class="dropdown-link" target="_blank">PA核心课AI知识库</a>
+                                <a href="${basePath}/pages/AI_tool.html" class="dropdown-link">AI 资料知识库</a>
                             </div>
                         </div>
                     </li>
@@ -105,8 +104,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         <div class="header__dropdown">
                             <div class="header__dropdown-inner">
                                 <a href="${basePath}/pages/trading_tool.html" class="dropdown-link">交易日志</a>
-                                <a href="https://notebooklm.google.com/notebook/561b4504-eb4e-4fdb-a177-ecbd3967bb0c" class="dropdown-link" target="_blank">PA核心课AI知识库</a>
-                                <a href="https://ima.qq.com/wiki/?shareId=e94ad0077a20013e1dccbb6e5a3803fc4d8a901cc5eab950ffd67c4af502c052" class="dropdown-link" target="_blank">ima国内核心课AI知识库</a>
+                                <a href="${basePath}/pages/AI_tool.html" class="dropdown-link">AI 资料知识库</a>
                             </div>
                         </div>
                     </li>

@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <link rel="icon" href="../assets/images/favicon.ico" type="image/x-icon">
+  <title>
+    AI 资料知识库
+  </title>
+  <link href="../assets/css/styles.css" rel="stylesheet"/>
+  <script src="../assets/js/layout.js">
+  </script>
+  <script src="../assets/js/scripts.js">
+  </script>
+  <style>
+   /* --- 1. 色彩系统 (基于 Apple 色彩手册) --- */
+        :root {
+            /* Light Mode Palette */
+            --bg-primary: #FFFFFF; /* systemBackground */
+            --bg-secondary: #F2F2F7; /* secondarySystemBackground */
+            --bg-tertiary: #FFFFFF; /* tertiarySystemBackground */
+            
+            --text-primary: rgba(0, 0, 0, 1); /* label */
+            --text-secondary: rgba(60, 60, 67, 0.6); /* secondaryLabel */
+            --text-tertiary: rgba(60, 60, 67, 0.3); /* tertiaryLabel */
+            
+            --accent-blue: #007AFF; /* systemBlue */
+            --accent-green: #34C759; /* systemGreen */
+            --accent-orange: #FF9500; /* systemOrange */
+            --accent-red: #FF3B30; /* systemRed */
+            
+            --separator: rgba(60, 60, 67, 0.29); /* separator */
+            --fill-tertiary: rgba(118, 118, 128, 0.12); /* tertiarySystemFill */
+            --code-bg: rgba(60, 60, 67, 0.05); /* Custom for code */
+
+            /* Layout & Spacing */
+            --nav-width: 280px;
+            --toc-width: 240px;
+            --content-max-width: 880px; /* Apple Docs standard width */
+            --radius-md: 12px;
+            --radius-sm: 8px;
+            
+            /* Typography */
+            --font-sans: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            --font-mono: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+        }
+
+        /* Dark Mode Palette */
+        html[data-theme="dark"] {
+            --bg-primary: #000000; /* systemBackground */
+            --bg-secondary: #1C1C1E; /* secondarySystemBackground */
+            --bg-tertiary: #2C2C2E; /* tertiarySystemBackground */
+            
+            --text-primary: rgba(255, 255, 255, 1); /* label */
+            --text-secondary: rgba(235, 235, 245, 0.6); /* secondaryLabel */
+            --text-tertiary: rgba(235, 235, 245, 0.3); /* tertiaryLabel */
+            
+            --accent-blue: #0A84FF; /* systemBlue */
+            --accent-green: #30D158; /* systemGreen */
+            --accent-orange: #FF9F0A; /* systemOrange */
+            --accent-red: #FF453A; /* systemRed */
+            
+            --separator: rgba(84, 84, 88, 0.6); /* separator */
+            --fill-tertiary: rgba(118, 118, 128, 0.24); /* tertiarySystemFill */
+            --code-bg: rgba(255, 255, 255, 0.1);
+        }
+
+        /* --- 2. 基础重置与排版 --- */
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: var(--font-sans);
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        a {
+            color: var(--accent-blue);
+            text-decoration: none;
+            transition: opacity 0.2s;
+        }
+        a:hover { opacity: 0.8; text-decoration: underline; }
+
+        h1, h2, h3, h4 {
+            color: var(--text-primary);
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            margin-top: 1.5em;
+            margin-bottom: 0.6em;
+            text-align: left;
+        }
+
+        h1 { font-size: 2.5rem; line-height: 1.1; margin-top: 0; margin-bottom: 2rem; }
+        h2 { font-size: 1.8rem; border-bottom: 1px solid var(--separator); padding-bottom: 0.5rem; margin-top: 4rem; scroll-margin-top: 3rem; }
+        h3 { font-size: 1.4rem; margin-top: 2rem; }
+        h4 { font-size: 1.1rem; font-weight: 600; margin-top: 1.5rem; }
+
+        p { margin-bottom: 1.2rem; color: var(--text-primary); }
+        
+        ul, ol { margin-bottom: 1.5rem; padding-left: 1.5rem; color: var(--text-primary); }
+        li { margin-bottom: 0.4rem; }
+
+        code {
+            font-family: var(--font-mono);
+            background-color: var(--code-bg);
+            padding: 0.2em 0.4em;
+            border-radius: 6px;
+            font-size: 0.9em;
+            color: var(--text-primary);
+        }
+
+        .btn-primary {
+            display: inline-block;
+            background-color: var(--accent-blue);
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: var(--radius-sm);
+            font-weight: 500;
+            text-decoration: none;
+            margin: 0.5rem 0 1.5rem 0;
+            transition: background-color 0.2s;
+        }
+        .btn-primary:hover {
+            background-color: #0062cc;
+            text-decoration: none;
+            opacity: 1;
+        }
+        .text-center { text-align: center; }
+
+        /* --- 3. 布局结构 --- */
+        .app-container {
+            display: grid;
+            grid-template-columns: var(--nav-width) minmax(0, 1fr) var(--toc-width);
+            min-height: 100vh;
+        }
+
+        /* Left Sidebar */
+        .sidebar-left {
+            background-color: var(--bg-secondary); /* Apple Sidebar Color */
+            border-right: 1px solid var(--separator);
+            height: 100vh;
+            position: sticky;
+            top: 0;
+            overflow-y: auto;
+            padding: 2rem 1.5rem;
+            display: flex;
+            flex-direction: column;
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            z-index: 100;
+        }
+
+        .sidebar-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--separator);
+        }
+
+        .brand-title {
+            font-weight: 700;
+            font-size: 1rem;
+            color: var(--text-primary);
+        }
+
+        .theme-toggle {
+            background: var(--fill-tertiary);
+            border: none;
+            color: var(--text-primary);
+            cursor: pointer;
+            padding: 6px 10px;
+            border-radius: 8px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            transition: background 0.2s;
+        }
+        .theme-toggle:hover { background: rgba(120,120,128,0.2); }
+
+        .nav-list { list-style: none; padding: 0; margin: 0; }
+        .nav-item { margin-bottom: 4px; }
+        
+        .nav-link {
+            display: block;
+            padding: 8px 12px;
+            border-radius: 8px;
+            color: var(--text-primary);
+            font-size: 0.9rem;
+            font-weight: 400;
+            text-decoration: none;
+            transition: background-color 0.2s, color 0.2s;
+        }
+        .nav-link:hover { background-color: var(--fill-tertiary); text-decoration: none; }
+        .nav-link.active {
+            background-color: var(--accent-blue);
+            color: #FFFFFF;
+            font-weight: 500;
+        }
+
+        /* Main Content */
+        .main-content {
+            padding: 3rem 4rem 6rem 4rem;
+            max-width: 100%;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        .breadcrumbs {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+        }
+        .lead {
+            font-size: 1.3rem;
+            color: var(--text-secondary);
+            font-weight: 300;
+            margin-bottom: 3rem;
+            line-height: 1.5;
+        }
+
+        /* Right Sidebar (TOC) */
+        .sidebar-right {
+            height: 100vh;
+            position: sticky;
+            top: 0;
+            padding: 3rem 1.5rem;
+            overflow-y: auto;
+            border-left: 1px solid transparent; /* Visual balance */
+        }
+
+        /* --- 4. 组件样式 --- */
+        
+        /* Callouts (Apple Style) */
+        .callout {
+            background-color: var(--bg-secondary);
+            border-radius: var(--radius-md);
+            padding: 1.2rem 1.5rem;
+            margin: 1.5rem 0;
+            position: relative;
+            overflow: hidden;
+        }
+        .callout::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+        }
+        .callout-title {
+            display: block;
+            font-weight: 600;
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 0.03em;
+        }
+        .callout p:last-child { margin-bottom: 0; }
+
+        /* Tip (Green) */
+        .callout-tip { background-color: rgba(52, 199, 89, 0.08); } 
+        .callout-tip::before { background-color: var(--accent-green); }
+        .callout-tip .callout-title { color: var(--accent-green); }
+
+        /* Info (Blue) */
+        .callout-info { background-color: rgba(0, 122, 255, 0.08); } 
+        .callout-info::before { background-color: var(--accent-blue); }
+        .callout-info .callout-title { color: var(--accent-blue); }
+
+        /* Warning (Orange) */
+        .callout-warning { background-color: rgba(255, 149, 0, 0.08); } 
+        .callout-warning::before { background-color: var(--accent-orange); }
+        .callout-warning .callout-title { color: var(--accent-orange); }
+
+        /* Danger (Red) */
+        .callout-danger { background-color: rgba(255, 59, 48, 0.08); } 
+        .callout-danger::before { background-color: var(--accent-red); }
+        .callout-danger .callout-title { color: var(--accent-red); }
+
+        /* Custom Image Style */
+        .center-img {
+            display: block;
+            margin: 2rem 0;
+            border-radius: var(--radius-md);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            max-width: 50%;
+            width: auto;
+        }
+        
+        /* Footer */
+        footer {
+            margin-top: 5rem;
+            padding-top: 2rem;
+            border-top: 1px solid var(--separator);
+            color: var(--text-tertiary);
+            font-size: 0.85rem;
+            text-align: center;
+        }
+
+        /* Responsive */
+        @media (max-width: 1200px) {
+            .app-container { grid-template-columns: var(--nav-width) 1fr; }
+            .sidebar-right { display: none; }
+            .main-content { padding-right: 3rem; }
+        }
+
+        @media (max-width: 768px) {
+            .app-container { display: block; }
+            .sidebar-left { display: none; } 
+            .main-content { padding: 2rem 1.5rem; }
+            h1 { font-size: 2rem; }
+            .center-img { max-width: 100%; }
+        }
+  </style>
+ </head>
+<body>
+  <div class="app-container">
+   <!-- Left Sidebar -->
+   <nav aria-label="文档导航" class="sidebar-left">
+    <div class="sidebar-header">
+     <span class="brand-title">
+      AI 资料知识库
+     </span>
+     <button aria-label="切换模式" class="theme-toggle" id="themeToggle">
+      Auto
+     </button>
+    </div>
+    <ul class="nav-list">
+     <li class="nav-item">
+      <a class="nav-link" href="#notebooklm">
+       Notebooklm 资料库
+      </a>
+     </li>
+     <li class="nav-item">
+      <a class="nav-link" href="#albrooks">
+      价格行为每日市场分析
+      </a>
+     </li>
+     <li class="nav-item">
+       <a class="nav-link" href="#ima">
+        国内 ima 资料库
+       </a>
+     </li>
+    </ul>
+   </nav>
+
+   <!-- Main Content -->
+   <main class="main-content">
+    
+    <div style="text-align: left; margin-bottom: 3rem;">
+        <h1>AI 资料知识库</h1>
+        <p class="lead">Al Brooks 核心课程视频知识库与每日市场分析工具均免费使用</p>
+    </div>
+
+    <!-- 1. Notebooklm 资料库 -->
+    <section id="notebooklm">
+        <h2>1. Notebooklm 资料库使用方法</h2>
+        
+        <div class="">
+            <a href="https://notebooklm.google.com/notebook/561b4504-eb4e-4fdb-a177-ecbd3967bb0c" target="_blank" class="btn-primary">
+                打开 Notebooklm 资料库
+            </a>
+        </div>
+        
+        <p>此为Notebooklm 资料库界面，所有关于brooks价格行为问题可以通过文字输入获得回答，由于AI模型思考时间较长所以回答速度较慢</p>
+        <img src="../assets/images/Pasted image 20260127224242.png" alt="Notebooklm 界面截图" class="center-img">
+
+        <div class="callout callout-tip">
+            <span class="callout-title">Tip</span>
+            <p><strong>1. 回答质量高：</strong> 是目前市面上对价格行为回答质量最高的 AI 工具。</p>
+            <p><strong>2. 缺点：</strong> 无法上传 PDF 以及照片。若上传无关的内容，会破坏背后资料库的关联性,从而导致AI视觉问题。目前背后的文件库已经具备 Brooks 价格行为全面的资料。</p>
+            <p> </p>
+        </div>
+
+        <div class="callout callout-warning">
+            <span class="callout-title">无法使用的常见问题</span>
+            <ol>
+                <li>未登录Google账号。</li>
+                <li>没开魔法 (网络代理)。</li>
+                <li>魔法地点位于香港 (需切换到允许访问的地区，例如：日本、新加坡)。</li>
+            </ol>
+        </div>
+    </section>
+
+    <!-- 2. 价格行为每日市场分析 -->
+    <section id="albrooks">
+        <h2>2. 价格行为每日市场分析</h2>
+        
+        <div class="">
+            <a href="https://gemini.google.com/gem/1k-PRQUWHkXOnfyRgEcs-F_vCtIPLKaJr?usp=sharing" target="_blank" class="btn-primary">
+                打开每日市场分析
+            </a>
+        </div>
+        
+        <p>每日市场分析跳转界面</p>
+        <img src="../assets/images/Pasted image 20260127224930.png" alt="Gemini 界面截图" class="center-img">
+
+        <div class="callout callout-tip">
+            <span class="callout-title">Tip：RTH 数据分析说明</span>
+            <p><strong>1. 数据要求：</strong> 目前支持分析 RTH (Regular Trading Hours) 时间段的任意品种，需要发送单个品种 RTH 的 CSV 数据。</p>
+            <p><strong>2. 数据要求：</strong> 若为ETH时间段的K线数据请自行下载 下方有CSV数据的具体格式示例，并需要和AI说明不考虑早盘策略</p>
+            <p><strong>3. 获取方式：</strong> CSV 图表可通过购买 Tradingview 的 Pre 会员进行下载，或通过其他方式自行探索。</p>
+            <p><strong>4. 群福利：</strong> 群主每日会在 QQ 群分享 ES 和 GC 的 RTH CSV 数据。</p>
+            <p style="margin-top: 0.5rem; padding-left: 1rem; border-left: 2px solid var(--separator);">
+                <strong>QQ群：</strong> <code>1060577087</code><br>
+                <!-- Assuming the download link works relative to pages/ folder -->
+                <a href="../assets/download_file/ES_01_27.csv" download>示例 CSV 文件 (ES_01_27.csv)</a>
+            </p>
+        </div>
+
+        <div class="callout callout-info">
+            <span class="callout-title">Tip：复盘纠正功能</span>
+            <p>投喂过csv数据后可用于自己复盘纠正。可以通过文字的方式将自己的复盘思路 以及在哪一根k线入场 入场和离场理由发给 AI 对其处理，让 AI 对其纠正是否有问题。</p>
+            <p><strong>注意：</strong> 作为一名合格的交易员，需要判断 AI 给出的建议是否合理，并由自己决定是否采纳。 所有投资建议仅供参考</p>
+        </div>
+        <div class="callout callout-warning">
+        <span class="callout-title">无法使用的常见问题</span>
+        <ol>
+            <li>未登录 Notebooklm 账号。</li>
+            <li>没开魔法 (网络代理)。</li>
+            <li>魔法地点位于香港 (需切换到允许访问的地区，例如：日本、新加坡)。</li>
+        </ol>
+        </div>
+    </section>
+
+    <!-- 3. 国内 ima 资料库 -->
+    <section id="ima">
+        <h2>3. 国内 ima 资料库</h2>
+        
+        <div class="">
+            <a href="https://ima.qq.com/wiki/?shareId=e94ad0077a20013e1dccbb6e5a3803fc4d8a901cc5eab950ffd67c4af502c052" target="_blank" class="btn-primary">
+                打开国内 ima 知识库
+            </a>
+        </div>
+
+        <p>无魔法的交易员可以使用国内 AI 资料库 ima，通过国内 deepseek 模型处理。</p>
+        
+        <img src="../assets/images/【AL brooks价格行为视频课】知识码.png" alt="ima 知识库二维码" class="center-img" onerror="this.style.display='none';">
+
+        <div class="callout callout-warning">
+            <span class="callout-title">注意 (缺点)</span>
+            <p>输出结果质量较低，没有 Notebooklm 输出质量高。</p>
+        </div>
+    </section>
+
+   </main>
+   
+   <!-- Right Sidebar (Empty / Placeholder for layout balance) -->
+   <aside class="sidebar-right">
+       <!-- Empty as requested content has no headers structure provided suitable for TOC -->
+   </aside>
+
+   <script>
+    // Theme Toggle Logic
+    const themeToggleBtn = document.getElementById('themeToggle');
+    // Check local storage or system preference
+    const savedTheme = localStorage.getItem('theme');
+    const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+    if (savedTheme === 'dark' || (!savedTheme && systemDark)) {
+        document.documentElement.setAttribute('data-theme', 'dark');
+        themeToggleBtn.textContent = 'Light';
+    } else {
+        document.documentElement.setAttribute('data-theme', 'light');
+        themeToggleBtn.textContent = 'Dark';
+    }
+
+    themeToggleBtn.addEventListener('click', () => {
+        const currentTheme = document.documentElement.getAttribute('data-theme');
+        const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+        document.documentElement.setAttribute('data-theme', newTheme);
+        themeToggleBtn.textContent = newTheme === 'dark' ? 'Light' : 'Dark';
+        localStorage.setItem('theme', newTheme);
+    });
+
+    // Simple scroll spy or active link handler for sidebar
+    const sections = document.querySelectorAll('section');
+    const navLinks = document.querySelectorAll('.sidebar-left .nav-link');
+
+    window.addEventListener('scroll', () => {
+        let current = '';
+        sections.forEach(section => {
+            const sectionTop = section.offsetTop;
+            const sectionHeight = section.clientHeight;
+            if (pageYOffset >= (sectionTop - 150)) {
+                current = section.getAttribute('id');
+            }
+        });
+
+        if (current) {
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href').includes(current)) {
+                    link.classList.add('active');
+                }
+            });
+        }
+    });
+   </script>
+  </div>
+ </body>
+</html>
