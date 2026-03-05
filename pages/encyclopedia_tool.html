@@ -1,0 +1,284 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <link rel="icon" href="../assets/images/favicon.ico" type="image/x-icon">
+    <title>百科全书回放工具 - Futures Propfirm 中文社区</title>
+    <link href="../assets/css/styles.css" rel="stylesheet"/>
+    <script src="../assets/js/layout.js"></script>
+    <script src="../assets/js/scripts.js"></script>
+    <style>
+        :root {
+            --enc-primary: #007AFF;
+            --enc-secondary: #5856D6;
+            --enc-bg: var(--color-bg-body, #F5F5F7);
+            --enc-card: var(--color-bg-body, #FFFFFF);
+            --enc-text: var(--color-text-primary, #1d1d1f);
+            --enc-subtext: var(--color-text-secondary, #86868b);
+        }
+
+        body {
+            background-color: var(--enc-bg);
+            color: var(--enc-text);
+            margin: 0;
+            padding: 0;
+        }
+
+        .encyclopedia-page {
+            padding-top: 60px; /* Space for fixed header */
+        }
+
+        /* Hero Section */
+        .encyclopedia-hero {
+            text-align: center;
+            padding: 60px 20px 40px;
+            background: linear-gradient(180deg, rgba(0, 122, 255, 0.05) 0%, transparent 100%);
+        }
+        .encyclopedia-hero h1 {
+            font-size: 3rem;
+            font-weight: 800;
+            letter-spacing: -0.015em;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, var(--enc-primary), var(--enc-secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .encyclopedia-hero p {
+            font-size: 1.2rem;
+            color: var(--enc-subtext);
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.5;
+        }
+
+        /* Main Content Container */
+        .encyclopedia-main {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 20px 80px;
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
+        }
+
+        /* Feature Cards */
+        .feature-card {
+            background: var(--enc-card);
+            border-radius: 24px;
+            padding: 40px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.04);
+            border: 1px solid rgba(0,0,0,0.04);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .feature-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+        }
+
+        .feature-card h2 {
+            font-size: 1.6rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: var(--enc-text);
+        }
+        
+        .feature-card h2 .badge {
+            background: rgba(0, 122, 255, 0.1);
+            color: var(--enc-primary);
+            font-size: 1rem;
+            padding: 4px 12px;
+            border-radius: 999px;
+            font-weight: bold;
+        }
+
+        .feature-card p {
+            color: var(--enc-subtext);
+            font-size: 1.05rem;
+            line-height: 1.6;
+            margin-bottom: 25px;
+        }
+
+        .feature-card img {
+            width: 100%;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+            display: block;
+            margin: 20px 0;
+            border: 1px solid rgba(0,0,0,0.05);
+            transition: transform 0.3s ease;
+        }
+        .feature-card img:hover {
+            transform: scale(1.02);
+        }
+        
+        .feature-card .caption {
+            text-align: center;
+            font-size: 0.9rem;
+            color: var(--enc-subtext);
+            margin-top: -10px;
+            margin-bottom: 20px;
+        }
+
+        /* Video Link Card */
+        .video-card {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: var(--enc-card);
+            padding: 30px 40px;
+            border-radius: 20px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.04);
+            border-left: 5px solid var(--enc-primary);
+        }
+        .video-card-content h2 {
+            font-size: 1.4rem;
+            margin-bottom: 8px;
+            margin-top: 0;
+            color: var(--enc-text);
+        }
+        .video-card-content p {
+            color: var(--enc-subtext);
+            margin: 0;
+        }
+        .video-btn {
+            background: rgba(0, 122, 255, 0.1);
+            color: var(--enc-primary);
+            padding: 12px 24px;
+            border-radius: 999px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            white-space: nowrap;
+        }
+        .video-btn:hover {
+            background: var(--enc-primary);
+            color: white;
+        }
+
+        /* Call to Action */
+        .cta-section {
+            text-align: center;
+            padding: 60px 40px;
+            background: var(--enc-card);
+            border-radius: 24px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.04);
+            margin-top: 20px;
+            border: 1px solid rgba(0,0,0,0.04);
+        }
+        .cta-section h2 {
+            font-size: 2rem;
+            margin-bottom: 15px;
+            margin-top: 0;
+            color: var(--enc-text);
+        }
+        .cta-section p {
+            font-size: 1.1rem;
+            color: var(--enc-subtext);
+            margin-bottom: 30px;
+        }
+        .cta-btn {
+            background: linear-gradient(135deg, var(--enc-primary), var(--enc-secondary));
+            color: white !important;
+            padding: 16px 40px;
+            font-size: 1.25rem;
+            font-weight: bold;
+            border-radius: 999px;
+            text-decoration: none;
+            box-shadow: 0 8px 20px rgba(88, 86, 214, 0.3);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            display: inline-block;
+        }
+        .cta-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 12px 25px rgba(88, 86, 214, 0.4);
+            opacity: 1;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .encyclopedia-hero h1 {
+                font-size: 2.25rem;
+            }
+            .video-card {
+                flex-direction: column;
+                text-align: center;
+                gap: 20px;
+                padding: 30px 20px;
+            }
+            .feature-card {
+                padding: 25px;
+            }
+            .feature-card h2 {
+                font-size: 1.35rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <main class="encyclopedia-page">
+        <!-- Hero Section -->
+        <section class="encyclopedia-hero">
+            <h1>百科全书回放工具</h1>
+
+        </section>
+
+        <!-- Main Content -->
+        <div class="encyclopedia-main">
+
+            <!-- Video Section -->
+            <div class="video-card fade-in">
+                <div class="video-card-content">
+                    <h2>百科全书</h2>
+                    <p>可先通过视频了解具体的功能</p>
+                </div>
+                <a href="https://b23.tv/4ibc1IT" target="_blank" class="video-btn">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right:4px;"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+                    观看 B站视频
+                </a>
+            </div>
+
+            <!-- Feature 1 -->
+            <div class="feature-card fade-in delay-1">
+                <h2><span class="badge">01</span> 核心功能：复盘图回放</h2>
+                <p>完全还原真实盘中体验，实现针对性的K线复盘回放功能</p>
+                
+                <img src="../assets/images/Pasted image 20260305111131.png" alt="复盘图回放 - 界面展示">
+                
+                <div class="caption"> 沉浸式复盘界面 </div>
+
+                <p style="margin-top: 30px;">支持通过移动遮幕来精准控制 K线的逐根显示，提升形态识别能力</p>
+                
+                <img src="../assets/images/Pasted image 20260305111158.png" alt="复盘图回放 - 移动遮幕展示">
+            </div>
+
+            <!-- Feature 2 -->
+            <div class="feature-card fade-in delay-2">
+                <h2><span class="badge">02</span> 配套的中文翻译</h2>
+                <p>已对所有的术语以及解释进行中文翻译 可选择显示中文和英文</p>
+                <img src="../assets/images/Pasted image 20260305111237.png" alt="配套的中文翻译展示">
+            </div>
+
+            <!-- Feature 3 -->
+            <div class="feature-card fade-in delay-3">
+                <h2><span class="badge">03</span> 根据形态对市场状态进行筛选</h2>
+                <p>内置标签筛选系统。可以找寻特定的市场环境、特定的价格结构，以及特定的 Setup 入场信号</p>
+                <img src="../assets/images/Pasted image 20260305111315.png" alt="根据形态对市场状态进行筛选展示">
+            </div>
+
+            <!-- CTA Section -->
+            <div class="cta-section fade-in delay-4">
+                <h2>复盘链接</h2>
+                <a href="https://priceaction007.com/login" target="_blank" class="cta-btn">前往注册</a>
+            </div>
+
+        </div>
+    </main>
+</body>
+</html>

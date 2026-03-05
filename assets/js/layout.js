@@ -105,6 +105,7 @@ document.addEventListener('DOMContentLoaded', () => {
                             <div class="header__dropdown-inner">
                                 <a href="${basePath}/pages/trading_tool.html" class="dropdown-link">交易日志</a>
                                 <a href="${basePath}/pages/AI_tool.html" class="dropdown-link">AI 资料知识库</a>
+                                <a href="${basePath}/pages/encyclopedia_tool.html" class="dropdown-link">百科全书回放工具</a>
                             </div>
                         </div>
                     </li>
