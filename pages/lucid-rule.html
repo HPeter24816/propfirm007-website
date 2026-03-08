@@ -8,9 +8,12 @@
    Lucid Trading Rules
   </title>
   <link href="../assets/css/styles.css" rel="stylesheet"/>
+  <link href="../assets/css/rule-nav.css" rel="stylesheet"/>
   <script src="../assets/js/layout.js">
   </script>
   <script src="../assets/js/scripts.js">
+  </script>
+  <script src="../assets/js/rule-nav.js">
   </script>
   <style>
    :root {
@@ -201,6 +204,14 @@
         .highlight-orange {
             color: #ff9500;
         }
+        .highlight-green {
+            color: #34c759;
+            font-weight: 500;
+        }
+        .highlight-purple {
+            color: #af52de;
+            font-weight: 500;
+        }
 
         .promo-banner {
             background: linear-gradient(90deg, #FF2D55, #FF375F);
@@ -232,6 +243,55 @@
         }
         .tag-blue { background: #eef6ff; color: #0071e3; }
         .tag-red { background: #fff0f0; color: #ff3b30; }
+
+        .rule-sources {
+            margin-bottom: 24px;
+            background: #fbfbfd;
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            padding: 14px 16px;
+        }
+
+        .rule-sources summary {
+            cursor: pointer;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .rule-sources ul {
+            margin-top: 10px;
+            padding-left: 20px;
+            color: var(--text-secondary);
+            font-size: 14px;
+            line-height: 1.7;
+        }
+
+        .rule-sources a {
+            color: #0071e3;
+            word-break: break-all;
+        }
+
+        .rule-report {
+            margin-top: 16px;
+            background: #fbfbfd;
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            padding: 16px 18px;
+        }
+
+        .rule-report h3 {
+            font-size: 18px;
+            margin-bottom: 10px;
+            letter-spacing: -0.2px;
+        }
+
+        .rule-report ul {
+            margin: 0;
+            padding-left: 18px;
+            color: var(--text-secondary);
+            line-height: 1.8;
+            font-size: 14px;
+        }
 
         /* Footer */
         footer {
@@ -343,14 +403,12 @@
     <h2>
      LucidDirect 免考 SIM 账号
     </h2>
-    <p class="section-intro">
-     直接进入模拟实盘阶段，无需考试，适合有交易经验的交易员
-    </p>
     <div class="card">
      <div class="promo-banner">
       Lucid注册连接：<a href="https://lucidtrading.com/ref/peterpriceaction/" target="_blank">点击注册</a>
      </div>
      <div class="table-wrapper">
+      <p class="update-time">更新时间：2026-03-08</p>
       <table>
        <thead>
         <tr>
@@ -358,33 +416,39 @@
           账号规格
          </th>
          <th>
-          50K LucidDirect 
+          50K LucidDirect
          </th>
          <th>
-          150K LucidDirect 
+          150K LucidDirect
          </th>
         </tr>
        </thead>
        <tbody>
         <tr>
          <td>
-          价格 (一次性)
+          价格 (一次性费用)
          </td>
          <td>
-          <span class="price-tag">
-           294
-          </span>
-          <span class="highlight-red">
-           (6折)
-          </span>
+          <span class="price-tag">$364<span class="highlight-red">（7折）</span>
          </td>
          <td>
-          <span class="price-tag">
-           432
-          </span>
-          <span class="highlight-red">
-           (6折)
-          </span>
+          <span class="price-tag">$588<span class="highlight-red">（7折）</span>
+         </td>
+        </tr>
+        <tr>
+         <td>
+          激活费
+         </td>
+         <td colspan="2">
+          无
+         </td>
+        </tr>
+        <tr>
+         <td>
+          KYC
+         </td>
+         <td colspan="2">
+          需联系客服完成身份验证 可采用身份证和护照以及其他有关证明即可
          </td>
         </tr>
         <tr>
@@ -392,55 +456,80 @@
           交易平台
          </td>
          <td colspan="2">
-          ProjectX (LucidX) 或 Rithmic/Quantower/ATAS 或 Tradovate/Ninja
+          CQG: Tradovate / NinjaTrader / TradingView 或 Rithmic: Quantower / ATAS
          </td>
         </tr>
         <tr>
          <td>
-          回撤 (EOD模式)
+          考核号回撤
          </td>
          <td>
-          <span class="highlight-red">
-           EOD回撤 2000
-          </span>
-          (日损1200) 最多4手
+          无考试阶段（LucidDirect 免考 SIM），开户后直接按出金号规则执行
          </td>
          <td>
-          <span class="highlight-red">
-           EOD回撤 6000
-          </span>
-          (日损3600) 最多10手
+          无考试阶段（LucidDirect 免考 SIM），开户后直接按出金号规则执行
          </td>
         </tr>
         <tr>
          <td>
-          利润目标 (第一次出金)
+          考试号通关利润目标
          </td>
          <td>
-          <span class="highlight-blue">
-           3000
-          </span>
+          无考试阶段（免考账号）
          </td>
          <td>
-          <span class="highlight-blue">
-           9000
-          </span>
+          无考试阶段（免考账号）
          </td>
         </tr>
         <tr>
          <td>
-          一致性
+          一致性 (ESS)
+         </td>
+         <td>
+          <strong>20% 一致性</strong><br>
+          公式：最高单日已实现盈利 / 周期总已实现盈利 × 100%<br>
+          50K 举例：周期盈利 $3,000 时，单日盈利不应超过 <span class="highlight-orange">$600</span>
+         </td>
+         <td>
+          <strong>20% 一致性</strong><br>
+          公式：最高单日已实现盈利 / 周期总已实现盈利 × 100%<br>
+          150K 举例：周期盈利 $9,000 时，单日盈利不应超过 <span class="highlight-orange">$1,800</span>
+         </td>
+        </tr>
+        <tr>
+         <td>
+          手数限制
+         </td>
+         <td>
+          <span class="highlight-blue">最多 4 手</span>
+         </td>
+         <td>
+          <span class="highlight-blue">最多 10 手</span>
+         </td>
+        </tr>
+        <tr>
+         <td>
+          最低交易天数
          </td>
          <td colspan="2">
-          20%一致性要求；举例50K账户，3000*20%=600，每日盈利不超600
+          <span class="highlight-blue">8 天</span>（完成 8 天后，第 9 天可首次提交出金申请）
          </td>
         </tr>
         <tr>
          <td>
-          出金要求
+          出金号回撤
          </td>
-         <td colspan="2">
-          满足利润目标 + 满足20%一致性 + 交易满8天
+         <td>
+          <strong>EOD 日终回撤</strong><br>
+          最大亏损限制（MLL）<span class="highlight-red">$2,000</span><br>
+          Day 1 固定日损（DLL）<span class="highlight-red">$1,200</span>；之后 DLL =（当前余额 - 锁定 MLL 余额）× 60%<br>
+          MLL 随日终盈利 1:1 上移，最高锁定于 <span class="highlight-red">$50,100</span>
+         </td>
+         <td>
+          <strong>EOD 日终回撤</strong><br>
+          最大亏损限制（MLL）<span class="highlight-red">$6,000</span><br>
+          Day 1 固定日损（DLL）<span class="highlight-red">$3,600</span>；之后 DLL =（当前余额 - 锁定 MLL 余额）× 60%<br>
+          MLL 随日终盈利 1:1 上移，最高锁定于 <span class="highlight-red">$150,100</span>
          </td>
         </tr>
         <tr>
@@ -448,60 +537,61 @@
           出金利润目标
          </td>
          <td>
-          第1次做3000利润可出2000
-          <br/>
-          第2-3次做2500利润可出2000
-          <br/>
-          第4-6次做2500利润可出2500
-          <br/>
-          <span class="highlight-orange">
-          </span>
+          每个出金周期最低盈利阈值 <span class="highlight-blue">$3,000</span>
          </td>
          <td>
-          第1次做9000利润可出3000
-          <br/>
-          第2-3次做4500利润可出3000
-          <br/>
-          第4-6次做4500利润可出3500
-          <br/>
-          <span class="highlight-orange">
-          </span>
+          每个出金周期最低盈利阈值 <span class="highlight-blue">$9,000</span>
          </td>
         </tr>
         <tr>
          <td>
-          超过缓冲区变静态账户
+          出金要求
          </td>
-         <td colspan="2">
-          超过缓冲区就变静态账户 (50k=2000, 150k=6000)
-          <br/>
-          达到第一次出金门槛后，可以视情况多做些利润作为缓冲
+         <td>
+          无违规 + 一致性 ≤ 20% + 完成 8 天 + 余额高于出金要求<br>
+          出金审批通过后，出金统计条件会重置
+         </td>
+         <td>
+          无违规 + 一致性 ≤ 20% + 完成 8 天 + 余额高于出金要求<br>
+          出金审批通过后，出金统计条件会重置
          </td>
         </tr>
         <tr>
          <td>
-          转移Live流程
+          出金分成 / 提款额度
          </td>
-         <td colspan="2">
-          一般是支付6次后转移到LIVE（或更早），转移利润不超过账户规模10%（如150k不超过15000）
-          <br/>
-          Live每天可出金，没有利润要求，分成降低为80%
+         <td>
+          <strong>90% 分成</strong><br>
+          最低申请 <span class="highlight-red">$500</span><br>
+          第 1 次上限 <span class="highlight-red">$2,000</span>；第 2-3 次上限 <span class="highlight-red">$2,500</span>；第 4 次起无上限<br>
+          每个账户每天可提交 1 次；通常 2 个工作日内处理
+         </td>
+         <td>
+          <strong>90% 分成</strong><br>
+          最低申请 <span class="highlight-red">$500</span><br>
+          第 1 次上限 <span class="highlight-red">$3,000</span>；第 2-3 次上限 <span class="highlight-red">$3,500</span>；第 4 次起无上限<br>
+          每个账户每天可提交 1 次；通常 2 个工作日内处理
          </td>
         </tr>
         <tr>
          <td>
-          其他说明
+          缓冲区 / 静态回撤要求
          </td>
-         <td colspan="2">
-          禁止50%的利润来自5秒内交易；每20天交易1次保持活跃
+         <td>
+          <strong>锁定逻辑</strong><br>
+          MLL 仅在日终盈利增加时上移，达到 <span class="highlight-orange">$50,100</span> 后转为静态不再追踪
+         </td>
+         <td>
+          <strong>锁定逻辑</strong><br>
+          MLL 仅在日终盈利增加时上移，达到 <span class="highlight-orange">$150,100</span> 后转为静态不再追踪
          </td>
         </tr>
         <tr>
          <td>
-          使用魔法 (VPN)
+          盈利日计算时间节点
          </td>
          <td colspan="2">
-          允许使用 固定一个地区
+          日终回撤在 <span class="highlight-orange">4:45 PM EST</span>（美国东部标准时间）更新，需在该结算点前平仓
          </td>
         </tr>
         <tr>
@@ -509,9 +599,60 @@
           新闻交易与日内平仓
          </td>
          <td colspan="2">
-          <span class="highlight-red">
-           没有任何新闻限制。美东时间4:45点前系统自动平仓而不会触发违规
-          </span>
+          <span class="highlight-green">新闻交易允许</span>；但 LucidDirect 账户必须在 <span class="highlight-red">16:45 EST</span> 前平仓（超时仓位会被系统强平）
+         </td>
+        </tr>
+        <tr>
+         <td>
+          魔法
+         </td>
+         <td colspan="2">
+          允许使用固定地区 IP（需保持登录与交易环境一致）
+         </td>
+        </tr>
+        <tr>
+         <td>
+          不活跃规则
+         </td>
+         <td>
+          每 <span class="highlight-orange">20 天</span> 至少交易 1 次以保持活跃
+         </td>
+         <td>
+          每 <span class="highlight-orange">20 天</span> 至少交易 1 次以保持活跃
+         </td>
+        </tr>
+        <tr>
+         <td>
+          推荐策略
+         </td>
+         <td>
+          避免 5 秒内短线收益占当日盈利过高；若该占比达到 <span class="highlight-red">50%</span> 及以上可能触发风控审查
+         </td>
+         <td>
+          避免 5 秒内短线收益占当日盈利过高；若该占比达到 <span class="highlight-red">50%</span> 及以上可能触发风控审查
+         </td>
+        </tr>
+        <tr>
+         <td>
+          LIVE 实盘说明
+         </td>
+         <td>
+          <strong>适用范围</strong><br>
+          适用于 2026-02-27（含）前购买/重置账户；第 6 次出金后或风控团队提前裁定可转实盘<br>
+          最多 5 个实盘账户；50K 每账户转实盘上限 <span class="highlight-purple">$8,000</span>（Legacy 过渡结构为 <span class="highlight-purple">$5,000</span>）<br>
+          Day 1 入账上限 <span class="highlight-purple">$2,400</span>，其余进入 Escrow（托管资金）
+          <br>
+          Escrow 解锁：满足 10 个盈利日且实盘盈利 $10,000 后开始；每新增 $10,000 实盘盈利释放 $5,000（按周审核）<br>
+          仅已释放 Escrow 可提现，且需开户满 60 天；高风险/YOLO 交易不享受 Escrow 释放
+         </td>
+         <td>
+          <strong>适用范围</strong><br>
+          适用于 2026-02-27（含）前购买/重置账户；第 6 次出金后或风控团队提前裁定可转实盘<br>
+          最多 5 个实盘账户；150K 每账户转实盘上限 <span class="highlight-purple">$16,000</span>（Legacy 过渡结构为 <span class="highlight-purple">$15,000</span>）<br>
+          Day 1 入账上限 <span class="highlight-purple">$4,800</span>，其余进入 Escrow（托管资金）
+          <br>
+          Escrow 解锁：满足 10 个盈利日且实盘盈利 $10,000 后开始；每新增 $10,000 实盘盈利释放 $5,000（按周审核）<br>
+          仅已释放 Escrow 可提现，且需开户满 60 天；高风险/YOLO 交易不享受 Escrow 释放
          </td>
         </tr>
        </tbody>
@@ -519,19 +660,17 @@
      </div>
     </div>
    </section>
-   <!-- Section 2: Lucid Flex -->
+   <!-- Section 2: LucidPro -->
    <section id="flex">
     <h2>
-     Lucid Flex 考试账号
+     LucidPro 账号
     </h2>
-    <p class="section-intro">
-     低成本考试账号
-    </p>
     <div class="card">
      <div class="promo-banner" style="background: linear-gradient(90deg, #0071e3, #409cff);">
-        Lucid注册连接：<a href="https://lucidtrading.com/ref/peterpriceaction/" target="_blank">点击注册</a> 
+      Lucid注册链接：<a href="https://lucidtrading.com/ref/peterpriceaction/" target="_blank">点击注册</a>
      </div>
      <div class="table-wrapper">
+      <p class="update-time">更新时间：2026-03-08</p>
       <table>
        <thead>
         <tr>
@@ -539,188 +678,10 @@
           账号规格
          </th>
          <th>
-          50K Lucid Flex 考试账号
+          50K
          </th>
          <th>
-          150K Lucid Flex 考试账号
-         </th>
-        </tr>
-       </thead>
-       <tbody>
-        <tr>
-         <td>
-          价格 (无月费)
-         </td>
-         <td>
-          <span class="price-tag">
-           78
-          </span>
-          <span class="highlight-red">
-           (6折免激活)
-          </span>
-          (一次性费用)
-         </td>
-         <td>
-          <span class="price-tag">
-           189
-          </span>
-          <span class="highlight-red">
-           (6折免激活)
-          </span>
-          (一次性费用)
-         </td>
-        <tr>
-         <td>
-          交易平台
-         </td>
-         <td colspan="2">
-          Tradovate/Ninjatrader 或 Rithmic/quantower/atas
-         </td>
-        </tr>
-        <tr>
-         <td>
-          回撤 (EOD模式)
-         </td>
-         <td>
-          <span class="highlight-blue">
-           EOD回撤 2000 (无日损)
-          </span>
-          考试最多4手
-         </td>
-         <td>
-          <span class="highlight-blue">
-           EOD回撤 4500 (无日损)
-          </span>
-          考试最多10手
-         </td>
-        </tr>
-        <tr>
-         <td>
-          考试通过目标
-         </td>
-         <td>
-          <span class="highlight-blue">
-           3000
-          </span>
-          (最快2天过)
-         </td>
-         <td>
-          <span class="highlight-blue">
-           9000
-          </span>
-         </td>
-        </tr>
-        <tr>
-         <td>
-          一致性
-         </td>
-         <td colspan="2">
-          考试号无日损、50%一致性最快2天过（即50k考试日盈利不超1500，150k考试日盈利不超4500）
-          <br/>
-          出金号无日损、无一致性要求，不需要打缓冲区（出金号初始最大手数：50k 2手，150k 4手）
-         </td>
-        </tr>
-        <tr>
-         <td>
-          出金要求 (EOD模式)
-         </td>
-         <td colspan="2">
-          出金只需要满足2个要求：①5个盈利日 ②每个支付周期内的利润为正值
-          <br/>
-          出金出利润的50%，有单次最高限额（50k=2000，150k=3000）
-          <br/>
-          关于盈利日的说明：50k日利润大于150算盈利日，150k为250
-         </td>
-        </tr>
-        <tr>
-         <td>
-          出金举例
-         </td>
-         <td>
-          50k前6次出金最高$2000（最低500）
-          <br/>
-          举例：50k做2600利润（满足5个150盈利日），第一笔可以出1300美金，剩下的1300美金回撤继续种田5天150，第二次出（1300+150*5）*50%
-         </td>
-         <td>
-          150k前6次出金最高$3000（最低500）
-          <br/>
-          举例：150k做6000利润（满足5个250盈利日）第一笔可以出3000美金，剩下的3000美金回撤在满足要求下继续做3000可以第二次出3000。
-         </td>
-        </tr>
-        <tr>
-         <td>
-          超过初始最大回撤变静态
-         </td>
-         <td colspan="2">
-          日终余额超过初始最大回撤就变静态账户（50k=2000，150k=4500）
-         </td>
-        </tr>
-        <tr>
-         <td>
-          转移Live流程
-         </td>
-         <td colspan="2">
-          一般是支付6次后转移到LIVE（或更早），转移利润不超过5000（如果5个出金号一起复制就是25000）
-          <br/>
-          Live每天可出金，没有利润要求，分成降低为80%
-         </td>
-        </tr>
-        <tr>
-         <td>
-          其他说明
-         </td>
-         <td colspan="2">
-          禁止50%的利润来自5秒内交易；每30天交易1次保持活跃
-         </td>
-        </tr>
-        <tr>
-         <td>
-          使用魔法 (VPN)
-         </td>
-         <td colspan="2">
-          允许使用 固定一个地区
-         </td>
-        </tr>
-        <tr>
-         <td>
-          新闻交易与日内平仓
-         </td>
-         <td colspan="2">
-          <span class="highlight-red">
-           没有任何新闻限制。美东时间4:45点前系统自动平仓而不会触发违规
-          </span>
-         </td>
-        </tr>
-       </tbody>
-      </table>
-     </div>
-    </div>
-   </section>
-
-   <!-- Section 3: Lucid Black -->
-   <section id="black">
-    <h2>
-     Lucid Black 账号
-    </h2>
-    <p class="section-intro">
-     无日损限制，灵活扩容，适合稳定盈利的交易员
-    </p>
-    <div class="card">
-     <div class="promo-banner" style="background: linear-gradient(90deg, #1c1c1e, #2c2c2e);">
-        Lucid注册连接：<a href="https://lucidtrading.com/ref/peterpriceaction/" target="_blank">点击注册</a> 
-     </div>
-     <div class="table-wrapper">
-      <table>
-       <thead>
-        <tr>
-         <th>
-          账号规格
-         </th>
-         <th>
-          50K LucidBlack Account
-         </th>
-         <th>
-          100K LucidBlack Account
+          150K
          </th>
         </tr>
        </thead>
@@ -729,187 +690,178 @@
          <td>
           价格 (一次性)
          </td>
-                 <td>
-                    <span class="price-tag">
-                     108
-                    </span>
-                    <span class="highlight-blue">
-                     (一次性费用，无月费，免激活费)
-                    </span>
-                 </td>
-                 <td>
-                    <span class="price-tag">
-                     204
-                    </span>
-                    <span class="highlight-blue">
-                     (一次性费用，无月费，免激活费)
-                    </span>
-                 </td>
+         <td>
+          <span class="price-tag">$81</span>（6折）
+         </td>
+         <td>
+          <span class="price-tag">$222</span>（6折）
+         </td>
+        </tr>
+        <tr>
+         <td>
+          激活费
+         </td>
+         <td colspan="2">
+          无（升级至出金号无激活费）
+         </td>
+        </tr>
+        <tr>
+         <td>
+          KYC
+         </td>
+         <td colspan="2">
+          需联系客服完成身份验证 可采用身份证和护照以及其他有关证明即可
+         </td>
         </tr>
         <tr>
          <td>
           交易平台
          </td>
          <td colspan="2">
-          未提及
+          CQG: Tradovate / NinjaTrader / TradingView 或 Rithmic: Quantower / ATAS
          </td>
         </tr>
         <tr>
          <td>
-          盈利目标 (考试)
+          考核号回撤
          </td>
          <td>
-          <span class="highlight-blue">
-           $3,000
-          </span>
+          <strong>EOD 回撤</strong><br>
+          最大亏损限制 <span class="highlight-red">$2,000</span>；日损 <span class="highlight-red">$1,200</span><br>
+          初始追踪余额 $52,100；锁定爆仓余额 $50,100
          </td>
          <td>
-          <span class="highlight-blue">
-           $6,000
-          </span>
-         </td>
-        </tr>
-        <tr>
-         <td>
-          最大回撤 (EOD模式)
-         </td>
-         <td>
-          <span class="highlight-red">
-           EOD回撤 $2,000
-          </span>
-          <br/>
-          随盈利上移，至 $50,100 锁定 (初始余额+$100)
-         </td>
-         <td>
-          <span class="highlight-red">
-           EOD回撤 $3,000
-          </span>
-          <br/>
-          随盈利上移，至 $100,100 锁定 (初始余额+$100)
+          <strong>EOD 回撤</strong><br>
+          最大亏损限制 <span class="highlight-red">$4,500</span>；日损 <span class="highlight-red">$2,700</span><br>
+          初始追踪余额 $154,600；锁定爆仓余额 $150,100
          </td>
         </tr>
         <tr>
          <td>
-          日亏损限制
+          考试号通关利润目标
+         </td>
+         <td>
+          <span class="highlight-blue">$3,000</span>
+         </td>
+         <td>
+          <span class="highlight-blue">$9,000</span>
+         </td>
+        </tr>
+        <tr>
+         <td>
+          一致性 (ESS)
+         </td>
+         <td>
+          <strong>一致性阈值</strong><br>
+          出金周期需满足一致性 ≤ <span class="highlight-orange">40%</span>（最大单日盈利 / 周期总盈利）<br>
+          2025-11-28 15:00 EST 及之前购买/重置账户沿用 <span class="highlight-orange">35%</span>
+         </td>
+         <td>
+          <strong>一致性阈值</strong><br>
+          出金周期需满足一致性 ≤ <span class="highlight-orange">40%</span>（最大单日盈利 / 周期总盈利）<br>
+          2025-11-28 15:00 EST 及之前购买/重置账户沿用 <span class="highlight-orange">35%</span>
+         </td>
+        </tr>
+        <tr>
+         <td>
+          手数限制
+         </td>
+         <td>
+          <span class="highlight-blue">4手</span> 或 <span class="highlight-blue">40 微型合约</span>
+         </td>
+         <td>
+          <span class="highlight-blue">10手</span> 或 <span class="highlight-blue">100 微型合约</span>
+         </td>
+        </tr>
+        <tr>
+         <td>
+          最低交易天数
          </td>
          <td colspan="2">
-          <span class="highlight-blue">
-           无限制 (No DLL)
-          </span>
-          - 考试与资金账户均无日亏损限制
+          可在 1 天通过考核（未见单独最低天数硬阈值）
          </td>
         </tr>
         <tr>
          <td>
-          最大手数
+          出金号回撤
          </td>
          <td>
-          考试阶段：<span class="highlight-blue">4 Mini 或 40 Micros</span>
-          <br/>
-          资金账户：初始 <span class="highlight-blue">2 Mini</span>，最高 <span class="highlight-blue">4 Mini</span>
+          <strong>EOD 回撤</strong><br>
+          最大亏损限制 <span class="highlight-red">$2,000</span>；初始阶段日损上限 <span class="highlight-red">$1,200</span>（余额 ≤ $52,100）<br>
+          超过初始追踪余额后切换 LucidScale：每日最大日损 = 峰值日终盈利 × 60%
          </td>
          <td>
-          考试阶段：<span class="highlight-blue">6 Mini 或 60 Micros</span>
-          <br/>
-          资金账户：初始 <span class="highlight-blue">3 Mini</span>，最高 <span class="highlight-blue">6 Mini</span>
+          <strong>EOD 回撤</strong><br>
+          最大亏损限制 <span class="highlight-red">$4,500</span>；初始阶段日损上限 <span class="highlight-red">$2,700</span>（余额 ≤ $154,600）<br>
+          超过初始追踪余额后切换 LucidScale：每日最大日损 = 峰值日终盈利 × 60%
          </td>
         </tr>
         <tr>
          <td>
-          一致性规则
+          出金利润目标
+         </td>
+         <td>
+          <strong>周期目标</strong><br>
+          每个出金周期最低盈利目标 <span class="highlight-blue">$500</span>
+         </td>
+         <td>
+          <strong>周期目标</strong><br>
+          每个出金周期最低盈利目标 <span class="highlight-blue">$1,000</span>
+         </td>
+        </tr>
+        <tr>
+         <td>
+          出金要求
+         </td>
+         <td>
+          <strong>申请前提</strong><br>
+          不得违反交易规则；一致性 ≤ 40%；满足周期盈利目标<br>
+          盈利高于缓冲区方可申请；提交后不可编辑或取消；每次批准出金后条件重置
+         </td>
+         <td>
+          <strong>申请前提</strong><br>
+          不得违反交易规则；一致性 ≤ 40%；满足周期盈利目标<br>
+          盈利高于缓冲区方可申请；提交后不可编辑或取消；每次批准出金后条件重置
+         </td>
+        </tr>
+        <tr>
+         <td>
+          出金分成 / 提款额度
+         </td>
+         <td>
+          <strong>90% 分成</strong><br>
+          最低申请 $500；第 1 次上限 <span class="highlight-red">$2,000</span>，第 2 次及以后 <span class="highlight-red">$2,500</span><br>
+          满足条件后任意日可申请；审批后通常 2 个工作日内打款<br>
+          2025-11-28 15:00 EST 前购买/重置账户首 <span class="highlight-red">$10,000</span> 仍可 100% 分成
+         </td>
+         <td>
+          <strong>90% 分成</strong><br>
+          最低申请 $500；第 1 次上限 <span class="highlight-red">$3,000</span>，第 2 次及以后 <span class="highlight-red">$3,500</span><br>
+          满足条件后任意日可申请；审批后通常 2 个工作日内打款<br>
+          2025-11-28 15:00 EST 前购买/重置账户首 <span class="highlight-red">$10,000</span> 仍可 100% 分成
+         </td>
+        </tr>
+        <tr>
+         <td>
+          缓冲区 / 静态回撤要求
+         </td>
+         <td>
+          <strong>缓冲区</strong><br>
+          初始最大亏损限制 + <span class="highlight-orange">$100</span>，即 $52,100<br>
+          不可从缓冲区出金；若申请处理前余额跌回缓冲区，申请可能被拒
+         </td>
+         <td>
+          <strong>缓冲区</strong><br>
+          初始最大亏损限制 + <span class="highlight-orange">$100</span>，即 $154,600<br>
+          不可从缓冲区出金；若申请处理前余额跌回缓冲区，申请可能被拒
+         </td>
+        </tr>
+        <tr>
+         <td>
+          盈利日计算时间节点
          </td>
          <td colspan="2">
-          考试阶段：<span class="highlight-red">60%</span> (计算公式：单日最大盈利 / 总盈利)
-          <br/>
-          资金账户：<span class="highlight-blue">40%</span>
-          <br/>
-          考试若单日超过60%，需继续交易直到占比降至60%以下
-          <br/>
-          资金账户每次出金后一致性重置
-         </td>
-        </tr>
-        <tr>
-         <td>
-          最少交易日
-         </td>
-         <td colspan="2">
-          考试：<span class="highlight-blue">无限制</span> (最快可当天达标)
-          <br/>
-          资金账户：最快 <span class="highlight-blue">3天</span> 可申请出金
-         </td>
-        </tr>
-        <tr>
-         <td>
-          出金门槛 & 规则
-         </td>
-         <td>
-          分成比例：<span class="highlight-blue">90%</span> (交易员) / 10% (平台)
-          <br/>
-          起提盈利目标：<span class="highlight-blue">$3,000</span>
-          <br/>
-          标准单次最高出金：<span class="highlight-blue">$1,500</span>
-          <br/>
-          Bonus最高出金：<span class="highlight-blue">$1,500</span> (需额外达标，第2-4次出金周期)
-          <br/>
-          最低提现额：<span class="highlight-blue">$500</span>
-         </td>
-         <td>
-          分成比例：<span class="highlight-blue">90%</span> (交易员) / 10% (平台)
-          <br/>
-          起提盈利目标：<span class="highlight-blue">$4,500</span>
-          <br/>
-          标准单次最高出金：<span class="highlight-blue">$2,000</span>
-          <br/>
-          Bonus最高出金：<span class="highlight-blue">$2,000</span> (需额外达标，第2-4次出金周期)
-          <br/>
-          最低提现额：<span class="highlight-blue">$500</span>
-         </td>
-        </tr>
-        <tr>
-         <td>
-          扩容计划
-         </td>
-         <td colspan="2">
-          资金账户受扩容计划限制，根据账户模拟利润动态调整手数限制，日终更新
-          <br/>
-          规避扩容限制可能导致风控审查
-         </td>
-        </tr>
-        <tr>
-         <td>
-          转移Live限制
-         </td>
-         <td>
-          最大转移利润：<span class="highlight-blue">$12,000</span>
-          <br/>
-          首日实盘资金：<span class="highlight-blue">$3,600</span>
-         </td>
-         <td>
-          最大转移利润：<span class="highlight-blue">$16,000</span>
-          <br/>
-          首日实盘资金：<span class="highlight-blue">$4,800</span>
-         </td>
-        </tr>
-        <tr>
-         <td>
-          其他说明
-         </td>
-         <td colspan="2">
-          <span class="highlight-red">无缓冲金 (No Buffer)</span>
-          <br/>
-          出金后一致性重置
-          <br/>
-          申请后约 <span class="highlight-blue">2个工作日</span> 到账
-          <br/>
-          Live阶段禁止 "Yolo" (高风险/鲁莽) 交易
-         </td>
-        </tr>
-        <tr>
-         <td>
-          使用魔法 (VPN)
-         </td>
-         <td colspan="2">
-          允许使用付费魔法，并保持同一个地区IP地址
+          日终回撤在 <span class="highlight-orange">4:45 PM EST</span>（美国东部标准时间）更新，需在该结算点前平仓
          </td>
         </tr>
         <tr>
@@ -917,9 +869,328 @@
           新闻交易与日内平仓
          </td>
          <td colspan="2">
-          <span class="highlight-red">
-           没有任何新闻限制。美东时间4:45点前系统自动平仓而不会触发违规
-          </span>
+          <span class="highlight-green">新闻交易允许</span>；但 LucidPro 账户必须在 <span class="highlight-red">16:45 EST</span> 前平仓（超时仓位会被系统强平）
+         </td>
+        </tr>
+        <tr>
+         <td>
+          魔法
+         </td>
+         <td colspan="2">
+          允许使用固定地区 IP（需保持登录与交易环境一致）
+         </td>
+        </tr>
+        <tr>
+         <td>
+          不活跃规则
+         </td>
+         <td>
+          连续 <span class="highlight-orange">30 天</span> 未交易将进入放弃状态并永久删除；违规状态账户若 30 天内不重置也会被删除
+         </td>
+         <td>
+          连续 <span class="highlight-orange">30 天</span> 未交易将进入放弃状态并永久删除；违规状态账户若 30 天内不重置也会被删除
+         </td>
+        </tr>
+        <tr>
+         <td>
+          推荐策略
+         </td>
+         <td>
+          允许分批进场（DCA）与正常短线；不限制翻单（flipping）；不鼓励马丁格尔（martingale）；禁止高频投机与 5 秒内利润占比过高的微型剥头皮
+         </td>
+         <td>
+          允许分批进场（DCA）与正常短线；不限制翻单（flipping）；不鼓励马丁格尔（martingale）；禁止高频投机与 5 秒内利润占比过高的微型剥头皮
+         </td>
+        </tr>
+        <tr>
+         <td>
+          LIVE 实盘说明
+         </td>
+         <td>
+          <strong>使用条件</strong><br>
+          适用于 2026-02-27（含）前购买/重置账户；第 6 次出金后或风控团队提前裁定可转实盘<br>
+          最多 5 个实盘账户；单账户转实盘上限 <span class="highlight-purple">$20,000</span>；首日入账上限 <span class="highlight-purple">$3,000</span><br>
+          满足 10 个盈利日且实盘盈利 $10,000 后进入托管资金释放；每新增实盘盈利 $10,000 释放托管资金 $5,000；账户开立满 60 天后方可提取已释放托管资金
+         </td>
+         <td>
+          <strong>使用条件</strong><br>
+          适用于 2026-02-27（含）前购买/重置账户；第 6 次出金后或风控团队提前裁定可转实盘<br>
+          最多 5 个实盘账户；单账户转实盘上限 <span class="highlight-purple">$30,000</span>；首日入账上限 <span class="highlight-purple">$5,000</span><br>
+          满足 10 个盈利日且实盘盈利 $10,000 后进入托管资金释放；每新增实盘盈利 $10,000 释放托管资金 $5,000；账户开立满 60 天后方可提取已释放托管资金
+         </td>
+        </tr>
+       </tbody>
+      </table>
+     </div>
+    </div>
+   </section>
+         <!-- Section 3: LucidFlex -->
+   <section id="lucidflex">
+    <h2>
+     LucidFlex 账号
+    </h2>
+    <div class="card">
+     <div class="promo-banner" style="background: linear-gradient(90deg, #1c1c1e, #2c2c2e);">
+      Lucid注册链接：<a href="https://lucidtrading.com/ref/peterpriceaction/" target="_blank">点击注册</a>
+     </div>
+     <div class="table-wrapper">
+      <p class="update-time">更新时间：2026-03-08</p>
+      <table>
+       <thead>
+        <tr>
+         <th>
+          账号规格
+         </th>
+         <th>
+          50K
+         </th>
+         <th>
+          150K
+         </th>
+        </tr>
+       </thead>
+       <tbody>
+        <tr>
+         <td>
+          价格 (一次性)
+         </td>
+         <td>
+          <span class="price-tag">$78</span>（6折）
+         </td>
+         <td>
+          <span class="price-tag">$207</span>（6折）
+         </td>
+        </tr>
+        <tr>
+         <td>
+          激活费
+         </td>
+         <td colspan="2">
+          无
+         </td>
+        </tr>
+        <tr>
+         <td>
+          KYC
+         </td>
+         <td colspan="2">
+          需联系客服完成身份验证 可采用身份证和护照以及其他有关证明即可
+         </td>
+        </tr>
+        <tr>
+         <td>
+          交易平台
+         </td>
+         <td colspan="2">
+          CQG: Tradovate / NinjaTrader / TradingView 或 Rithmic: Quantower / ATAS
+         </td>
+        </tr>
+        <tr>
+         <td>
+          考核号回撤
+         </td>
+         <td>
+          <strong>日终回撤</strong><br/>
+          最大亏损限制（MLL）<span class="highlight-red">$2,000</span>；日损（DLL）<span class="highlight-green">无</span><br/>
+          初始追踪余额 $52,100；锁定的最大爆仓余额 $50,100
+         </td>
+         <td>
+          <strong>日终回撤</strong><br/>
+          最大亏损限制（MLL）<span class="highlight-red">$4,500</span>；日损（DLL）<span class="highlight-green">无</span><br/>
+          初始追踪余额 $154,600；锁定的最大爆仓余额 $150,100
+         </td>
+        </tr>
+        <tr>
+         <td>
+          考试号通关利润目标
+         </td>
+         <td>
+          <span class="highlight-blue">$3,000</span>
+         </td>
+         <td>
+          <span class="highlight-blue">$9,000</span>
+         </td>
+        </tr>
+        <tr>
+         <td>
+          一致性 (ESS)
+         </td>
+         <td>
+          <strong>一致性阈值</strong><br/>
+          考核阶段需 ≤ <span class="highlight-orange">50%</span>（最大单日已实现盈利 / 账户总已实现盈利）<br/>
+          超过阈值需继续交易，直至回落至 50% 及以下
+         </td>
+         <td>
+          <strong>一致性阈值</strong><br/>
+          考核阶段需 ≤ <span class="highlight-orange">50%</span>（最大单日已实现盈利 / 账户总已实现盈利）<br/>
+          超过阈值需继续交易，直至回落至 50% 及以下
+         </td>
+        </tr>
+        <tr>
+         <td>
+          手数限制
+         </td>
+         <td>
+          <strong>考核阶段</strong><br/>
+          <span class="highlight-blue">4 Mini / 40 Micros</span><br/>
+          <strong>出金号阶段</strong><br/>
+          手数限制计划起步 2 Mini，最高 4 Mini
+         </td>
+         <td>
+          <strong>考核阶段</strong><br/>
+          <span class="highlight-blue">10 Mini / 100 Micros</span><br/>
+          <strong>出金号阶段</strong><br/>
+          手数限制计划起步 5 Mini，最高 10 Mini
+         </td>
+        </tr>
+        <tr>
+         <td>
+          最低交易天数
+         </td>
+         <td colspan="2">
+          2天 
+         </td>
+        </tr>
+        <tr>
+         <td>
+          出金号回撤
+         </td>
+         <td>
+          <strong>日终回撤</strong><br/>
+          最大亏损限制（MLL）<span class="highlight-red">$2,000</span>；日损（DLL）<span class="highlight-green">无</span><br/>
+          出金申请处理期间若余额触碰 MLL，申请会被拒绝
+         </td>
+         <td>
+          <strong>日终回撤</strong><br/>
+          最大亏损限制（MLL）<span class="highlight-red">$4,500</span>；日损（DLL）<span class="highlight-green">无</span><br/>
+          出金申请处理期间若余额触碰 MLL，申请会被拒绝
+         </td>
+        </tr>
+        <tr>
+         <td>
+          出金利润目标
+         </td>
+         <td>
+          <strong>无固定目标</strong><br/>
+          出金周期净利润需 &gt; <span class="highlight-blue">$0</span>
+         </td>
+         <td>
+          <strong>无固定目标</strong><br/>
+          出金周期净利润需 &gt; <span class="highlight-blue">$0</span>
+         </td>
+        </tr>
+        <tr>
+         <td>
+          出金要求
+         </td>
+         <td>
+          <strong>前 5 次出金</strong><br/>
+          每次需 5 个盈利日，且每个盈利日 ≥ <span class="highlight-blue">$150</span><br/>
+          第 6 次起不再要求盈利日与一致性
+         </td>
+         <td>
+          <strong>前 5 次出金</strong><br/>
+          每次需 5 个盈利日，且每个盈利日 ≥ <span class="highlight-blue">$250</span><br/>
+          第 6 次起不再要求盈利日与一致性
+         </td>
+        </tr>
+        <tr>
+         <td>
+          出金分成 / 提款额度
+         </td>
+         <td>
+          <strong>90% 分成</strong><br/>
+          最低申请 $500；单次上限 <span class="highlight-red">$2,000</span><br/>
+          可提金额 = 周期利润 50% 与上限较小值；第 6 次起取消上限
+         </td>
+         <td>
+          <strong>90% 分成</strong><br/>
+          最低申请 $500；单次上限 <span class="highlight-red">$3,000</span><br/>
+          可提金额 = 周期利润 50% 与上限较小值；第 6 次起取消上限
+         </td>
+        </tr>
+        <tr>
+         <td>
+          缓冲区 / 静态回撤要求
+         </td>
+         <td>
+          <strong>无缓冲区（No Buffer）</strong><br/>
+          账户余额不得低于 MLL；低于即违规<br/>
+          若出金处理期间跌破 MLL，申请可能被拒
+         </td>
+         <td>
+          <strong>无缓冲区（No Buffer）</strong><br/>
+          账户余额不得低于 MLL；低于即违规<br/>
+          若出金处理期间跌破 MLL，申请可能被拒
+         </td>
+        </tr>
+        <tr>
+         <td>
+          盈利日计算时间节点
+         </td>
+         <td colspan="2">
+          日终回撤在 <span class="highlight-orange">4:45 PM EST</span>（美国东部标准时间）更新，需在该结算点前平仓
+         </td>
+        </tr>
+        <tr>
+         <td>
+          新闻交易与日内平仓
+         </td>
+         <td colspan="2">
+          <span class="highlight-green">新闻交易允许</span>；但 LucidFlex 账户必须在 <span class="highlight-red">16:45 EST</span> 前平仓（超时仓位会被系统强平）
+         </td>
+        </tr>
+        <tr>
+         <td>
+          魔法
+         </td>
+         <td colspan="2">
+          允许使用固定地区 IP（需保持登录与交易环境一致）
+         </td>
+        </tr>
+        <tr>
+         <td>
+          不活跃规则
+         </td>
+         <td>
+          连续 <span class="highlight-orange">30 天</span> 未交易将进入放弃状态并永久删除；违规状态账户若 30 天内不重置也会被删除
+         </td>
+         <td>
+          连续 <span class="highlight-orange">30 天</span> 未交易将进入放弃状态并永久删除；违规状态账户若 30 天内不重置也会被删除
+         </td>
+        </tr>
+        <tr>
+         <td>
+          推荐策略
+         </td>
+         <td>
+          <strong>稳健交易优先</strong><br/>
+          避免报复性交易 / 高风险交易 / 暴击流交易（YOLO）<br/>
+          否则可能失去托管资金（Escrow）释放资格
+         </td>
+         <td>
+          <strong>稳健交易优先</strong><br/>
+          避免报复性交易 / 高风险交易 / 暴击流交易（YOLO）<br/>
+          否则可能失去托管资金（Escrow）释放资格
+         </td>
+        </tr>
+        <tr>
+         <td>
+          LIVE 实盘说明
+         </td>
+         <td>
+          <strong>旧版规则（Legacy）</strong><br/>
+          仅适用于 2026-02-27（含）前购买或重置账户<br/>
+          第 6 次出金后可转实盘；最多 5 个实盘账户<br/>
+          50K 每账户最多转入 <span class="highlight-purple">$8,000</span>；实盘首日入账 <span class="highlight-purple">$2,400</span><br/>
+          托管资金（Escrow）按“10 个盈利日 + 实盘盈利 $10,000”开始分批释放
+         </td>
+         <td>
+          <strong>旧版规则（Legacy）</strong><br/>
+          仅适用于 2026-02-27（含）前购买或重置账户<br/>
+          第 6 次出金后可转实盘；最多 5 个实盘账户<br/>
+          150K 每账户最多转入 <span class="highlight-purple">$16,000</span>；实盘首日入账 <span class="highlight-purple">$4,800</span><br/>
+          托管资金（Escrow）按“10 个盈利日 + 实盘盈利 $10,000”开始分批释放
          </td>
         </tr>
        </tbody>
@@ -1002,3 +1273,6 @@
   </script>
  </body>
 </html>
+
+
+
