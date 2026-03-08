@@ -350,6 +350,13 @@ img { display: block; max-width: 100%; height: auto; }
     }
 }
 
+/* Update Time */
+.update-time {
+    font-size: 13px;
+    color: #86868b;
+    margin: 0 0 8px 4px;
+}
+
 /* Sub Navigation (Sticky) */
 .sub-nav {
     position: sticky;
